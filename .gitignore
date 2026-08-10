@@ -1,0 +1,20 @@
+.vercel
+.env*.local
+
+# Exclude sub-projects (they have their own git repos)
+# - digitallydefined-dashboard: Dashboard app (dashboard.digitallydefined.online)
+# - DigitallyDefined-Backend: Backend API (digitallydefined-os-backend.vercel.app)
+# See ARCHITECTURE.md and DEPLOYMENT_MAP.md for details.
+digitallydefined-dashboard/
+
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Build output
+dist/
+
+# Environment files
+.env
+.env.local
+.env.*.local
