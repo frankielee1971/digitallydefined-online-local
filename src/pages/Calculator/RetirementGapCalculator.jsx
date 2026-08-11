@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './RetirementGapCalculator.css';
 
 // === Retirement Gap Calculator ===
 // Gen X Retirement Gap Solver — faceless digital real estate path
@@ -123,31 +124,33 @@ export default function RetirementGapCalculator() {
 
   return (
     <>
-      {/* Hero */}
-      <section className="page-hero">
-        <div className="container container--narrow">
-          <p className="section__eyebrow">Retirement Gap Calculator</p>
-          <h1 style={{ marginBottom: '1rem' }}>
-            How Big Is Your Retirement Gap?
-          </h1>
-          <p className="hero__tagline" style={{ fontSize: '1.15rem' }}>
-            Gen X women retire with 35% less than men. Calculate your gap and see how faceless digital assets close it — in years, not decades.
-          </p>
-          <div className="action-row"><a href="#gap-calculator" className="btn btn--primary">Calculate My Gap →</a></div>
-        </div>
-      </section>
+      <main className="gap-page">
+        {/* Hero */}
+        <section className="gap-hero">
+          <div className="gap-hero__inner">
+            <p className="section__eyebrow">Retirement Gap Calculator</p>
+            <h1>How Big Is Your Retirement Gap?</h1>
+            <p className="hero__tagline">
+              Gen X women retire with 35% less than men. Calculate your gap and see how faceless digital assets close it — in years, not decades.
+            </p>
+            <div className="action-row"><a href="#gap-calculator" className="btn btn--primary">Calculate My Gap →</a></div>
+          </div>
+        </section>
 
-      {/* Calculator */}
-      <section className="section" id="gap-calculator">
-        <div className="container" style={{ maxWidth: 900 }}>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem', alignItems: 'start' }}>
+        {/* Calculator */}
+        <section className="gap-workspace" id="gap-calculator">
+          <div className="gap-grid">
+            <div className="gap-stack">
             
             {/* Left: Inputs */}
             <div>
-              <div className="card" style={{ marginBottom: '1.5rem', padding: '1.5rem' }}>
-                <h3 style={{ fontSize: '1.1rem', marginBottom: '1.5rem' }}>Your Retirement Picture</h3>
+              <article className="gap-card">
+                <header className="gap-card__heading">
+                  <h2>Your Retirement Picture</h2>
+                  <p>Enter your current financial situation to calculate your gap.</p>
+                </header>
                 
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', marginBottom: '1rem' }}>
+                <div className="gap-form-grid">
                   <div>
                     <label className="form-label">Current Age</label>
                     <input type="number" value={formData.currentAge} onChange={e => handleChange('currentAge', e.target.value)} className="form-input" />
@@ -158,7 +161,7 @@ export default function RetirementGapCalculator() {
                   </div>
                 </div>
 
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', marginBottom: '1rem' }}>
+                <div className="gap-form-grid">
                   <div>
                     <label className="form-label">Current Savings</label>
                     <input type="number" value={formData.currentSavings} onChange={e => handleChange('currentSavings', e.target.value)} className="form-input" />
@@ -169,7 +172,7 @@ export default function RetirementGapCalculator() {
                   </div>
                 </div>
 
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', marginBottom: '1rem' }}>
+                <div className="gap-form-grid">
                   <div>
                     <label className="form-label">Expected Annual Return (%)</label>
                     <input type="number" step="0.1" value={formData.annualReturn} onChange={e => handleChange('annualReturn', e.target.value)} className="form-input" />
@@ -180,218 +183,224 @@ export default function RetirementGapCalculator() {
                   </div>
                 </div>
 
-                <div style={{ marginBottom: '1rem' }}>
+                <div className="gap-form-full">
                   <label className="form-label">Desired Annual Retirement Income</label>
                   <input type="number" value={formData.desiredIncome} onChange={e => handleChange('desiredIncome', e.target.value)} className="form-input" />
                 </div>
 
-                <p style={{ fontSize: '0.85rem', color: '#7A7A7A', marginBottom: '1.5rem' }}>
+                <p className="gap-note">
                   The 4% Safe Withdrawal Rate is standard. Adjust if needed.
                 </p>
 
-                <button onClick={calculate} className="btn btn--primary" style={{ width: '100%', fontSize: '1.1rem', padding: '1.1rem' }}>
+                <button onClick={calculate} className="btn btn--primary gap-calculate-btn">
                   Calculate My Gap →
                 </button>
-              </div>
+              </article>
 
               {/* Digital Asset Portfolio */}
-              <div className="card" style={{ padding: '1.5rem', marginBottom: '1.5rem' }}>
-                <h3 style={{ fontSize: '1.1rem', marginBottom: '1rem' }}>Your Digital Asset Portfolio</h3>
+              <article className="gap-card">
+                <header className="gap-card__heading">
+                  <h2>Your Digital Asset Portfolio</h2>
+                  <p>Adjust the number and expected yield of your faceless digital assets.</p>
+                </header>
                 
-                {ASSET_TYPES.map(asset => (
-                  <div key={asset.id} style={{ marginBottom: '1rem', paddingBottom: '1rem', borderBottom: asset.id !== 'digitalproducts' ? '1px solid rgba(0,0,0,0.08)' : 'none' }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                        <span style={{ fontSize: '1.2rem' }}>{asset.icon}</span>
-                        <span style={{ fontWeight: 700, fontSize: '0.9rem' }}>{asset.name}</span>
+                <div className="gap-assets">
+                  {ASSET_TYPES.map(asset => (
+                    <div key={asset.id} className="gap-asset">
+                      <div className="gap-asset__top">
+                        <div className="gap-asset__name">
+                          <span className="gap-asset-icon">{asset.icon}</span>
+                          <strong>{asset.name}</strong>
+                        </div>
+                        <label>
+                          Qty:
+                          <input
+                            type="number"
+                            min="0"
+                            max="10"
+                            value={assets[asset.id].qty}
+                            onChange={e => handleAssetChange(asset.id, 'qty', e.target.value)}
+                          />
+                        </label>
                       </div>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                        <span style={{ fontSize: '0.75rem', color: '#7A7A7A' }}>Qty:</span>
-                        <input
-                          type="number"
-                          min="0"
-                          max="10"
-                          value={assets[asset.id].qty}
-                          onChange={e => handleAssetChange(asset.id, 'qty', e.target.value)}
-                          style={{ width: '3rem', textAlign: 'center', padding: '0.4rem', border: '2px solid #000', borderRadius: 0, fontWeight: 700 }}
-                        />
-                      </div>
-                    </div>
-                    <div>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.75rem', marginBottom: '0.25rem' }}>
+                      <div className="gap-asset-control">
                         <span>Monthly yield per asset</span>
-                        <span style={{ fontWeight: 700, color: asset.color }}>{fmt(assets[asset.id].yield)}/mo</span>
+                        <output className={`text-${asset.id === 'newsletters' ? 'blue' : asset.id === 'youtube' ? 'slate' : 'orange'}`}>
+                          {fmt(assets[asset.id].yield)}/mo
+                        </output>
                       </div>
                       <input
                         type="range"
+                        className={`range-${asset.id === 'newsletters' ? 'blue' : asset.id === 'youtube' ? 'slate' : 'orange'}`}
                         min={asset.minYield}
                         max={asset.maxYield}
                         step={Math.ceil((asset.maxYield - asset.minYield) / 20)}
                         value={assets[asset.id].yield}
                         onChange={e => handleAssetChange(asset.id, 'yield', e.target.value)}
-                        style={{ accentColor: asset.color, width: '100%' }}
                       />
                     </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
 
-                <div className="retirement-summary" style={{ padding: '1rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <div className="gap-total">
                   <div>
-                    <div style={{ fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.7 }}>Total Monthly Income</div>
-                    <div style={{ fontFamily: "'Inter', sans-serif", fontWeight: 900, fontSize: '1.8rem' }}>
-                      {fmt(Object.values(assets).reduce((sum, a) => sum + (a.qty * a.yield), 0))}
-                    </div>
+                    <span>Total Monthly Income</span>
+                    <strong>{fmt(Object.values(assets).reduce((sum, a) => sum + (a.qty * a.yield), 0))}</strong>
                   </div>
-                  <div style={{ textAlign: 'right' }}>
-                    <div style={{ fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.1em', opacity: 0.7 }}>Exit Value</div>
-                    <div style={{ fontFamily: "'Inter', sans-serif", fontWeight: 900, fontSize: '1.2rem', color: 'var(--color-blue)' }}>
-                      {fmt(Object.values(assets).reduce((sum, a) => sum + (a.qty * a.yield), 0) * multiplier)}
-                    </div>
+                  <div>
+                    <span>Exit Value</span>
+                    <strong>{fmt(Object.values(assets).reduce((sum, a) => sum + (a.qty * a.yield), 0) * multiplier)}</strong>
                   </div>
                 </div>
-              </div>
+              </article>
 
               {/* Exit Multiplier */}
-              <div className="card" style={{ padding: '1.5rem' }}>
-                <h3 style={{ fontSize: '1.1rem', marginBottom: '1rem' }}>Exit Strategy Multiplier</h3>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem' }}>
-                  <span className="form-label" style={{ marginBottom: 0 }}>Market Multiple</span>
-                  <span style={{ fontFamily: "'Inter', sans-serif", fontWeight: 900, fontSize: '1.5rem' }}>{multiplier}x</span>
+              <article className="gap-card">
+                <header className="gap-card__heading">
+                  <h2>Exit Strategy Multiplier</h2>
+                  <p>Profitable digital assets can be valued at a multiple of monthly net profit.</p>
+                </header>
+                <div className="gap-control">
+                  <div className="gap-control__label">
+                    <label htmlFor="market-multiplier">Market Multiplier</label>
+                    <output>{multiplier}x</output>
+                  </div>
+                  <input
+                    id="market-multiplier"
+                    className="range-slate"
+                    type="range"
+                    min="30"
+                    max="40"
+                    step="1"
+                    value={multiplier}
+                    onChange={e => setMultiplier(Number(e.target.value))}
+                  />
                 </div>
-                <input
-                  type="range"
-                  min="30"
-                  max="40"
-                  step="1"
-                  value={multiplier}
-                  onChange={e => setMultiplier(Number(e.target.value))}
-                  style={{ accentColor: '#2D3748', width: '100%' }}
-                />
-                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.75rem', color: '#7A7A7A' }}>
+                <div className="freedom-range-labels">
                   <span>30x (Conservative)</span>
                   <span>40x (Premium)</span>
                 </div>
-              </div>
+              </article>
             </div>
 
             {/* Right: Results */}
-            <div>
+            <aside className="gap-results">
               {showResults && result && (
                 <>
-                  <div className="card" style={{ padding: '1.5rem', marginBottom: '1.5rem', background: result.isOnTrack ? '#F0F9FF' : '#FFF5F5' }}>
-                    <h3 style={{ fontSize: '1.1rem', marginBottom: '1rem' }}>Your Retirement Gap</h3>
+                  <article className={`gap-card gap-result-card ${result.isOnTrack ? 'gap-result-card--ontrack' : 'gap-result-card--gap'}`}>
+                    <h3 className="gap-result-title">Your Retirement Gap</h3>
                     
-                    <div style={{ textAlign: 'center', marginBottom: '1.5rem' }}>
-                      <div style={{ fontFamily: "'Inter', sans-serif", fontWeight: 900, fontSize: '3rem', color: result.isOnTrack ? '#047857' : '#C20F0A' }}>
+                    <div className="gap-result-value">
+                      <div className={`gap-value ${result.isOnTrack ? 'ontrack' : 'gap'}`}>
                         {result.isOnTrack ? '✓ ON TRACK' : fmt(result.gap)}
                       </div>
-                      <div style={{ fontSize: '0.9rem', color: '#5A5A5A' }}>
+                      <div className="gap-label">
                         {result.isOnTrack ? 'You have enough to retire!' : `Shortfall by age ${formData.retireAge}`}
                       </div>
                     </div>
 
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', fontSize: '0.9rem' }}>
-                      <div style={{ padding: '1rem', background: '#fff', border: '1px solid rgba(0,0,0,0.1)' }}>
-                        <div style={{ color: '#7A7A7A', fontSize: '0.8rem' }}>Target Nest Egg</div>
-                        <div style={{ fontWeight: 700, fontSize: '1.2rem' }}>{fmt(result.targetNestEgg)}</div>
+                    <div className="gap-result-grid">
+                      <div className="gap-result-item">
+                        <label>Target Nest Egg</label>
+                        <div className="value">{fmt(result.targetNestEgg)}</div>
                       </div>
-                      <div style={{ padding: '1rem', background: '#fff', border: '1px solid rgba(0,0,0,0.1)' }}>
-                        <div style={{ color: '#7A7A7A', fontSize: '0.8rem' }}>Projected at Retirement</div>
-                        <div style={{ fontWeight: 700, fontSize: '1.2rem' }}>{fmt(result.totalAtRetirement)}</div>
+                      <div className="gap-result-item">
+                        <label>Projected at Retirement</label>
+                        <div className="value">{fmt(result.totalAtRetirement)}</div>
                       </div>
                     </div>
 
                     {!result.isOnTrack && (
-                      <div style={{ marginTop: '1rem', padding: '1rem', background: '#fff', border: '2px solid #C20F0A' }}>
-                        <div style={{ fontWeight: 700, marginBottom: '0.5rem' }}>To Close the Gap:</div>
-                        <div style={{ fontSize: '0.95rem' }}>
+                      <div className="gap-close-message">
+                        <strong>To Close the Gap:</strong>
+                        <div className="gap-close-message-content">
                           You need <strong>{fmt(result.monthlyNeededToClose)}/mo</strong> more in contributions, OR
                           <br />
                           Build digital assets generating <strong>{fmt(result.monthlyNeededToClose * 12)}/year</strong> in passive income.
                         </div>
                       </div>
                     )}
-                  </div>
+                  </article>
 
-                  <div className="card" style={{ padding: '1.5rem', marginBottom: '1.5rem' }}>
-                    <h3 style={{ fontSize: '1.1rem', marginBottom: '1rem' }}>24-Month Comparison</h3>
+                  <article className="gap-card gap-comparison">
+                    <h3 className="gap-result-title">24-Month Comparison</h3>
                     
-                    <div style={{ marginBottom: '1rem', padding: '1rem', background: '#fff', border: '1px solid rgba(0,0,0,0.1)' }}>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
-                        <span style={{ fontSize: '0.85rem', color: '#7A7A7A' }}>Traditional Savings</span>
-                        <span style={{ fontWeight: 700, color: '#C20F0A' }}>{fmt(result.traditional24m)}</span>
+                    <div className="gap-comparison-item">
+                      <div className="gap-comparison-header">
+                        <span className="label">Traditional Savings</span>
+                        <span className="value">{fmt(result.traditional24m)}</span>
                       </div>
-                      <div style={{ fontSize: '0.8rem', color: '#9CA3AF' }}>~$1k/mo saved over 2 years</div>
+                      <div className="gap-comparison-note">~$1k/mo saved over 2 years</div>
                     </div>
 
-                    <div style={{ marginBottom: '1rem', padding: '1rem', background: 'rgba(77, 182, 209, .1)', border: '2px solid var(--color-blue)' }}>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
-                        <span style={{ fontSize: '0.85rem' }}>Digital Assets (Projected)</span>
-                        <span style={{ fontWeight: 700, color: 'var(--color-blue)' }}>{fmt(result.digital24m)}</span>
+                    <div className="gap-comparison-item highlight">
+                      <div className="gap-comparison-header">
+                        <span className="label">Digital Assets (Projected)</span>
+                        <span className="value highlight">{fmt(result.digital24m)}</span>
                       </div>
-                      <div style={{ fontSize: '0.8rem', color: '#7A7A7A' }}>With exit multiplier + cashflow</div>
+                      <div className="gap-comparison-note">With exit multiplier + cashflow</div>
                     </div>
 
                     {!result.isOnTrack && (
-                      <div style={{ padding: '1rem', background: '#FFFCF9', border: '2px solid #F18B25' }}>
-                        <div style={{ fontWeight: 700, marginBottom: '0.5rem' }}>Digital Assets Win By:</div>
-                        <div style={{ fontFamily: "'Inter', sans-serif", fontWeight: 900, fontSize: '2rem', color: '#F18B25' }}>
+                      <div className="gap-win-message">
+                        <strong>Digital Assets Win By:</strong>
+                        <div className="gap-win-amount">
                           {fmt(result.digital24m - result.traditional24m)}
                         </div>
-                        <div style={{ fontSize: '0.85rem', color: '#5A5A5A' }}>
+                        <div className="gap-win-note">
                           That's {(result.digital24m / result.traditional24m).toFixed(0)}x more in 2 years.
                         </div>
                       </div>
                     )}
-                  </div>
+                  </article>
 
                   {/* CTA */}
-                  <div className="card" style={{ padding: '1.5rem', textAlign: 'center' }}>
-                    <h3 style={{ fontSize: '1.1rem', marginBottom: '1rem' }}>What's Your Next Step?</h3>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-                      <a href="/quiz" className="btn btn--primary" style={{ width: '100%' }}>
+                  <article className="gap-card">
+                    <h3 className="gap-result-title">What's Your Next Step?</h3>
+                    <div className="gap-cta-stack">
+                      <a href="/quiz" className="btn btn--primary">
                         Take the Digital Superpower Quiz →
                       </a>
-                      <a href="/scorecard" className="btn btn--outline" style={{ width: '100%' }}>
+                      <a href="/scorecard" className="btn btn--outline">
                         Score a Niche Idea →
                       </a>
-                      <a href="/tools" className="btn btn--outline" style={{ width: '100%' }}>
+                      <a href="/tools" className="btn btn--outline">
                         Explore the Free Tools →
                       </a>
                     </div>
-                  </div>
+                  </article>
                 </>
               )}
 
               {!showResults && (
-                <div className="card" style={{ padding: '1.5rem', textAlign: 'center' }}>
-                  <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>📊</div>
-                  <h3 style={{ fontSize: '1.1rem', marginBottom: '1rem' }}>Enter Your Numbers</h3>
-                  <p style={{ fontSize: '0.95rem', color: '#5A5A5A', marginBottom: '1rem' }}>
+                <article className="gap-card gap-placeholder">
+                  <div className="gap-placeholder-icon">📊</div>
+                  <h3 className="gap-result-title">Enter Your Numbers</h3>
+                  <p className="gap-placeholder-text">
                     Fill in your retirement details on the left to see your gap and how digital assets can close it.
                   </p>
-                  <p style={{ fontSize: '0.85rem', color: '#9CA3AF' }}>
+                  <p className="gap-privacy">
                     Your calculations stay in your browser. No data is stored or shared.
                   </p>
-                </div>
+                </article>
               )}
-            </div>
+            </aside>
           </div>
-        </div>
-      </section>
+        </section>
 
       {/* CTA */}
-      <section className="section section--dark">
-        <div className="container container--narrow" style={{ textAlign: 'center' }}>
-          <h2 style={{ color: '#fff', marginBottom: '1rem' }}>Your Gap Is Real. Your Solution Is Too.</h2>
-          <p style={{ color: 'rgba(255,255,255,0.7)', maxWidth: 600, margin: '0 auto 2rem' }}>
+      <section className="section section--dark gap-final-cta">
+        <div className="container container--narrow">
+          <h2>Your Gap Is Real. Your Solution Is Too.</h2>
+          <p>
             The retirement gap affects every Gen X woman. But digital assets are the great equalizer — faceless, automated, and built on your expertise.
           </p>
-          <a href="/start-here" className="btn btn--primary" style={{ fontSize: '1.1rem', padding: '1.1rem 2.5rem' }}>
+          <a href="/start-here" className="btn btn--primary">
             Start the Build Path →
           </a>
         </div>
       </section>
+      </main>
     </>
   );
 }
