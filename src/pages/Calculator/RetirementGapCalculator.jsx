@@ -282,9 +282,10 @@ export default function RetirementGapCalculator() {
                 </div>
               </article>
             </div>
+          </div>
 
-            {/* Right: Results */}
-            <aside className="gap-results">
+          {/* Right: Results */}
+          <aside className="gap-results">
               {showResults && result && (
                 <>
                   <article className={`gap-card gap-result-card ${result.isOnTrack ? 'gap-result-card--ontrack' : 'gap-result-card--gap'}`}>
