@@ -7,7 +7,7 @@ type Candidate = { provider: string; model: string; key: string; url: string };
 const corsHeaders = (origin = "") => ({
   "Access-Control-Allow-Origin": origin || "*",
   "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
-  "Access-Control-Allow-Headers": "Content-Type, Authorization, x-api-key, x-user-id",
+  "Access-Control-Allow-Headers": "Content-Type, Authorization, x-api-key, x-user-id, apikey",
   "Vary": "Origin",
 });
 
