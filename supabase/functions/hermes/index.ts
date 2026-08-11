@@ -382,6 +382,68 @@ Keep responses concise and end with one relevant next step inside the DigitallyD
     }
   }
 
+  // =============================================
+  // DEVELOPER MODE — dedicated protected endpoint
+  // Used by the MentorWidget when dev-mode requests are detected.
+  // Returns structured guidance (filePath, codeSnippet, exactChange).
+  // Requires the DASHBOARD_API_KEY secret to match the x-api-key header.
+  // =============================================
+  if (action === "mentor.dev") {
+    const message = String(body.message || "").trim().slice(0, 2000);
+    const topic = String(body.topic || "default").trim();
+    const currentUrl = String(body.currentUrl || "").trim();
+    if (!message) return json({ error: "A message is required" }, 400, origin);
+    try {
+      const system = `You are Hermes running in DEVELOPER MODE for the DigitallyDefined website — a Vite + React 18 + React Router + Supabase project using a custom "soft brutalism" design system.
+
+Relevant project files:
+- src/styles/global.css — design tokens (--color-accent:#F18B25, --color-blue:#47B7D4, --color-border:#111111, --space-xs..2xl spacing scale, Inter/DM Sans fonts, zero border-radius) and shared component styles
+- src/components/BrandNav.jsx — sticky site header/navigation
+- src/components/BrandFooter.jsx — site footer
+- src/components/Layout/SiteLayout.jsx — layout shell that renders BrandNav, BrandFooter, and MentorWidget
+- src/components/MentorWidget.jsx — the Hermes AI chat widget
+- src/hooks/useMentor.js — mentor chat state hook (topic prompts + dev-mode detection)
+- src/lib/hermes.js — Hermes edge-function request helper
+- src/App.jsx — React Router routes
+- src/pages/*.jsx — landing pages (Home, StartHere, Tools, About, Contact, Pricing, Products, Automation, ComingSoon)
+
+Instructions:
+1. When the user describes a website problem ("fix the header spacing", "my CTA isn't showing", "button is broken", "font is too small", etc.), identify the exact file(s) most likely involved and:
+   - reply: a short, friendly one-to-two sentence explanation.
+   - filePath: the exact file path that needs the change.
+   - codeSnippet: the current relevant code or the minimal corrected snippet.
+   - exactChange: precise, plain-English change instructions (what to add/remove/edit and where).
+2. Match the project's existing patterns (CSS custom properties, className="btn btn--primary", className="container container--narrow", etc.). No rounded corners, sharp 1-2px solid #111 borders.
+3. This is GUIDANCE ONLY — an AI coding assistant (Cline) applies the actual change. Never claim you edited the code yourself.
+4. If the request is not about the website or code, reply helpfully as the DigitallyDefined planning guide and omit the dev fields.
+
+Return ONLY valid JSON with any of these keys (include only what is relevant):
+{"reply":"...", "filePath":"src/...", "codeSnippet":"...", "exactChange":"..."}`;
+      const user = `Topic context: ${topic}\nCurrent page URL: ${currentUrl || "unknown"}\nUser request: ${message}\n\nReturn only the JSON object described in your instructions.`;
+      const result = await runAI(system, user, true);
+
+      let data: JsonRecord = {};
+      try {
+        data = parseJsonReply(result.reply);
+      } catch {
+        data = { reply: result.reply };
+      }
+
+      return json({
+        success: true,
+        reply: String(data.reply || "Here is the guidance."),
+        ...(data.filePath ? { filePath: String(data.filePath) } : {}),
+        ...(data.codeSnippet ? { codeSnippet: String(data.codeSnippet) } : {}),
+        ...(data.exactChange ? { exactChange: String(data.exactChange) } : {}),
+        provider: result.provider,
+        model: result.model,
+        isDevGuidance: true,
+      }, 200, origin);
+    } catch (error) {
+      return json({ error: error instanceof Error ? error.message : String(error) }, 502, origin);
+    }
+  }
+
   if (publicAgentAction) {
     const aliases: Record<string, string> = {
       quiz: "quiz",

@@ -18,13 +18,18 @@ export function getHermesHeaders(extra = {}) {
 }
 
 export async function sendToHermes(message, context = {}) {
+  // Developer-mode requests go to the dedicated (protected) mentor.dev action,
+  // which returns structured guidance (filePath, codeSnippet, exactChange).
+  // Everyone else uses public.chat, which needs no API key.
+  const action =
+    (import.meta.env.VITE_HERMES_ACTION) ||
+    (context.devMode ? 'mentor.dev' : 'public.chat');
+
   const res = await fetch(getHermesEndpoint(), {
     method: 'POST',
     headers: getHermesHeaders(),
     body: JSON.stringify({
-      // 'public.chat' bypasses the function's DASHBOARD_API_KEY check and
-      // returns { success, reply, provider, model } — matches the mentor use case.
-      action: import.meta.env.VITE_HERMES_ACTION || 'public.chat',
+      action,
       message,
       ...context,
     }),
