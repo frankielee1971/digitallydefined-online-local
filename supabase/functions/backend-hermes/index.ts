@@ -293,6 +293,7 @@ async function handleAIChat(body: any): Promise<any> {
 
 // === Main Handler ===
 serve(async (req: Request): Promise<Response> => {
+  console.log("NARA KEY:", !!Deno.env.get("NARA_API_KEY"));
   const origin = req.headers.get('origin');
 
   // CORS preflight

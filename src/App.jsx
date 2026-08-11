@@ -33,11 +33,11 @@ function App() {
   return (
     <Routes>
       {/* Coming Soon Page - Temporary */}
-      <Route path="/" element={<ComingSoon />} />
+      <Route path="/" element={<MentorTopicWrapper topic="home"><ComingSoon /></MentorTopicWrapper>} />
       
       {/* Main Flow - Commented out for now */}
-      {/* <Route path="/" element={<Home />} /> */}
-      <Route path="/start-here" element={< MentorTopicWrapper topic="start-here"><StartHere /></MentorTopicWrapper>} />
+      {/* <Route path="/" element={<MentorTopicWrapper topic="home"><Home /></MentorTopicWrapper>} /> */}
+      <Route path="/start-here" element={<MentorTopicWrapper topic="start-here"><StartHere /></MentorTopicWrapper>} />
       <Route path="/automation" element={<MentorTopicWrapper topic="automation"><Automation /></MentorTopicWrapper>} />
 
       {/* Quiz Flow */}
@@ -66,7 +66,7 @@ function App() {
       <Route path="/dashboard" element={<ExternalRedirect to="https://dashboard.digitallydefined.online" />} />
 
       {/* Fallback */}
-      <Route path="*" element={<ComingSoon />} />
+      <Route path="*" element={<MentorTopicWrapper topic="home"><ComingSoon /></MentorTopicWrapper>} />
     </Routes>
   );
 }
