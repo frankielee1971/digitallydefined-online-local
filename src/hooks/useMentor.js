@@ -5,14 +5,24 @@ function detectDevMode(message) {
   const lower = message.toLowerCase();
   const keywords = [
     'fix the header', 'fix the footer', 'fix the nav', 'fix the spacing',
-    'my cta is', 'cta isnt', 'cta isn\'t', 'button is', 'button isnt',
-    'fix the button', 'font is', 'font size', 'color is wrong',
+    'my cta is', 'cta isnt', 'cta isn\'t', 'cta button', 'add a cta',
+    'add the cta', 'remove the cta', 'move the cta', 'cta is not',
+    'button is', 'button isnt', 'button is not', 'fix the button',
+    'add a button', 'add the button', 'remove the button',
+    'header navigation', 'the header', 'the navigation', 'nav menu',
+    'the navbar', 'the nav bar', 'right of the header',
+    'font is', 'font size', 'color is wrong', 'change the color',
+    'change the font', 'make it bigger', 'make it smaller',
     'the layout is', 'fix the layout', 'something is broken',
     'not showing', 'not appearing', 'missing', 'broken',
     'css is', 'style is', 'styling is', 'margin is', 'padding is',
     'help me fix', 'can you fix', 'fix this', 'debug',
     'the page is', 'component is', 'widget is', 'import is',
-    'router is', 'routing is', 'link is', 'route is'
+    'router is', 'routing is', 'link is', 'route is',
+    'i want to add', 'can you add', 'please add', 'add a navbar',
+    'create a component', 'edit the', 'update the', 'change the',
+    'where is the', 'move the', 'position the', 'align the',
+    'needs spacing', 'is too big', 'is too small', 'is overlapping'
   ];
   return keywords.some(k => lower.includes(k));
 }
