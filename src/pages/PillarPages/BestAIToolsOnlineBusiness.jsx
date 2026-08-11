@@ -1,5 +1,4 @@
 import React from 'react';
-import SiteLayout from '../../components/Layout/SiteLayout';
 
 const wrapStyle = {
   maxWidth: '980px',
@@ -136,7 +135,7 @@ const TOOLS = [
 
 export default function BestAIToolsOnlineBusiness() {
   return (
-    <SiteLayout mentorTopic="tools">
+    <>
       <div style={wrapStyle}>
         <div style={heroStyle}>
           <h1 style={headingStyle}>Best AI Tools for Online Business</h1>
@@ -180,6 +179,6 @@ export default function BestAIToolsOnlineBusiness() {
           </p>
         </div>
       </div>
-    </SiteLayout>
+    </>
   );
 }

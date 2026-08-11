@@ -1,5 +1,4 @@
 import React from 'react';
-import SiteLayout from '../components/Layout/SiteLayout';
 
 const path = [
   ['01', 'Face the number', 'Use the Retirement Gap Calculator to turn a vague fear into a planning number. The result is a scenario, not a verdict.', '/gap', 'Calculate the gap'],
@@ -11,7 +10,7 @@ const path = [
 
 export default function StartHere() {
   return (
-    <SiteLayout mentorTopic="start-here">
+    <>
       <section className="page-hero">
         <span className="label label--blue">Start here / not everywhere</span>
         <h1>One path from retirement anxiety to an asset you own.</h1>
@@ -34,6 +33,6 @@ export default function StartHere() {
         <div><strong>What this is not</strong><p>A guarantee, a get-rich-quick plan, or a demand that you become a public personality.</p></div>
         <div><strong>What comes first</strong><p>Clarity, validation, one small build, and a documented process you can repeat.</p></div>
       </section>
-    </SiteLayout>
+    </>
   );
 }

@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import SiteLayout from '../components/Layout/SiteLayout';
 import { callSupabaseEdge } from '../lib/supabase-edge';
 
 export default function Contact() {
@@ -24,7 +23,7 @@ export default function Contact() {
   }
 
   return (
-    <SiteLayout mentorTopic="contact">
+    <>
       <section className="page-hero">
         <div style={{ maxWidth: 720, margin: '0 auto', textAlign: 'center' }}>
           <p className="section__eyebrow">Contact</p>
@@ -84,6 +83,6 @@ export default function Contact() {
           </div>
         </div>
       </section>
-    </SiteLayout>
+    </>
   );
 }

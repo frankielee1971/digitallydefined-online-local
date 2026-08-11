@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { scoreNiche, tierCopy, CRITERIA } from './ScorecardLogic';
-import SiteLayout from '../../components/Layout/SiteLayout';
 import { callAgent } from '../../lib/buzz-agents';
 
 export default function NicheProfitabilityScorecard() {
@@ -44,7 +43,7 @@ export default function NicheProfitabilityScorecard() {
   if (result) {
     const copy = tierCopy(result.tier);
     return (
-      <SiteLayout mentorTopic="scorecard">
+      <>
         <section className="page-hero">
           <div className="container container--narrow">
             <p className="section__eyebrow">Results</p>
@@ -117,12 +116,12 @@ export default function NicheProfitabilityScorecard() {
             </div>
           </div>
         </section>
-      </SiteLayout>
+      </>
     );
   }
 
   return (
-    <SiteLayout mentorTopic="scorecard">
+    <>
       <section className="page-hero">
         <div className="container container--narrow">
           <p className="section__eyebrow">Validation Tool</p>
@@ -162,6 +161,6 @@ export default function NicheProfitabilityScorecard() {
           </form>
         </div>
       </section>
-    </SiteLayout>
+    </>
   );
 }

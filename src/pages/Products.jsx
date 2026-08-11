@@ -1,9 +1,8 @@
 import React from 'react';
-import SiteLayout from '../components/Layout/SiteLayout';
 
 export default function Products() {
   return (
-    <SiteLayout mentorTopic="products">
+    <>
       <section className="page-hero">
         <div style={{ maxWidth: 720, margin: '0 auto', textAlign: 'center' }}>
           <p className="section__eyebrow">Digital Products</p>
@@ -33,6 +32,6 @@ export default function Products() {
           </div>
         </div>
       </section>
-    </SiteLayout>
+    </>
   );
 }

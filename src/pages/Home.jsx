@@ -1,5 +1,4 @@
 import React from 'react';
-import SiteLayout from '../components/Layout/SiteLayout';
 import EmailSignup from '../components/EmailSignup';
 
 const pressures = [
@@ -25,7 +24,7 @@ const assets = [
 
 export default function Home() {
   return (
-    <SiteLayout mentorTopic="home">
+    <>
       <section className="story-hero">
         <div className="story-hero__grid">
           <div className="reveal">
@@ -158,6 +157,6 @@ export default function Home() {
       </section>
 
       <EmailSignup source="homepage-story" />
-    </SiteLayout>
+    </>
   );
 }

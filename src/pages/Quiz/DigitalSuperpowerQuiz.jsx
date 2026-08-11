@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import SiteLayout from '../../components/Layout/SiteLayout';
 import { callAgent } from '../../lib/buzz-agents';
 import { callSupabaseEdge } from '../../lib/supabase-edge';
 import { getRoadmap } from '../../lib/roadmaps';
@@ -172,7 +171,7 @@ export default function DigitalSuperpowerQuiz() {
   };
 
   return (
-    <SiteLayout mentorTopic="quiz">
+    <>
       {stage === 'intro' && (
         <>
           <section className="page-hero">
@@ -272,6 +271,6 @@ export default function DigitalSuperpowerQuiz() {
           </section>
         </>
       )}
-    </SiteLayout>
+    </>
   );
 }

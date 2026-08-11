@@ -1,5 +1,4 @@
 import React from 'react';
-import SiteLayout from '../components/Layout/SiteLayout';
 
 export default function Automation() {
   const steps = [
@@ -10,7 +9,7 @@ export default function Automation() {
   ];
 
   return (
-    <SiteLayout mentorTopic="automation">
+    <>
       <section className="hero hero--dark">
         <div style={{ maxWidth: 720, margin: '0 auto', textAlign: 'center' }}>
           <p className="section__eyebrow">Automation</p>
@@ -44,6 +43,6 @@ export default function Automation() {
           <p style={{ color: 'rgba(255,255,255,0.7)', maxWidth: 600, margin: '1rem auto 2rem' }}>Social posting, email funnels, content generation, lead capture, CRM tracking, and revenue analytics — all automated through DigitallyDefined's backend.</p>
         </div>
       </section>
-    </SiteLayout>
+    </>
   );
 }

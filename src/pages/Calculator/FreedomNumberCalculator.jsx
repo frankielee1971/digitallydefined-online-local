@@ -3,7 +3,6 @@ import {
   CheckSquare, Crown, Lightbulb, Mail,
   ShieldAlert, TrendingDown, Video,
 } from 'lucide-react';
-import SiteLayout from '../../components/Layout/SiteLayout';
 import './FreedomNumberCalculator.css';
 
 const money = (value) => new Intl.NumberFormat('en-US', {
@@ -45,7 +44,7 @@ export default function FreedomNumberCalculator() {
   const barHeight = (value) => `${Math.max(4, (value / chartMax) * 100)}%`;
 
   return (
-    <SiteLayout mentorTopic="freedom">
+    <>
       <main className="freedom-page">
         <section className="freedom-hero">
           <div className="freedom-hero__inner">
@@ -212,6 +211,6 @@ export default function FreedomNumberCalculator() {
           </div>
         </section>
       </main>
-    </SiteLayout>
+    </>
   );
 }

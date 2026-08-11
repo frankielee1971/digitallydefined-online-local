@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import SiteLayout from '../../components/Layout/SiteLayout';
 import { callAgent } from '../../lib/buzz-agents';
 
 export default function NicheDiscovery() {
@@ -28,7 +27,7 @@ export default function NicheDiscovery() {
   };
 
   return (
-    <SiteLayout mentorTopic="tools">
+    <>
       <section className="page-hero">
         <div className="container container--narrow" style={{ textAlign: 'center' }}>
           <p className="section__eyebrow">AI-Assisted Niche Discovery</p>
@@ -112,6 +111,6 @@ export default function NicheDiscovery() {
           )}
         </div>
       </section>
-    </SiteLayout>
+    </>
   );
 }

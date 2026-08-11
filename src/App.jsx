@@ -25,47 +25,49 @@ function ExternalRedirect({ to }) {
   return null;
 }
 
+function MentorTopicWrapper({ topic, children }) {
+  return <SiteLayout mentorTopic={topic}>{children}</SiteLayout>;
+}
+
 function App() {
   return (
-    <SiteLayout>
-      <Routes>
-        {/* Coming Soon Page - Temporary */}
-        <Route path="/" element={<ComingSoon />} />
-        
-        {/* Main Flow - Commented out for now */}
-        {/* <Route path="/" element={<Home />} /> */}
-        <Route path="/start-here" element={<StartHere />} />
-        <Route path="/automation" element={<Automation />} />
+    <Routes>
+      {/* Coming Soon Page - Temporary */}
+      <Route path="/" element={<ComingSoon />} />
+      
+      {/* Main Flow - Commented out for now */}
+      {/* <Route path="/" element={<Home />} /> */}
+      <Route path="/start-here" element={< MentorTopicWrapper topic="start-here"><StartHere /></MentorTopicWrapper>} />
+      <Route path="/automation" element={<MentorTopicWrapper topic="automation"><Automation /></MentorTopicWrapper>} />
 
-        {/* Quiz Flow */}
-        <Route path="/quiz" element={<Quiz />} />
+      {/* Quiz Flow */}
+      <Route path="/quiz" element={<MentorTopicWrapper topic="quiz"><Quiz /></MentorTopicWrapper>} />
 
-        {/* Tools Flow */}
-        <Route path="/tools" element={<Tools />} />
-        <Route path="/tools/niche" element={<NicheDiscovery />} />
-        <Route path="/tools/roadmap" element={<RoadmapGenerator />} />
-        <Route path="/tools/scorecard" element={<Scorecard />} />
-        <Route path="/tools/calculator" element={<WealthCalculator />} />
+      {/* Tools Flow */}
+      <Route path="/tools" element={<MentorTopicWrapper topic="tools"><Tools /></MentorTopicWrapper>} />
+      <Route path="/tools/niche" element={<MentorTopicWrapper topic="tools"><NicheDiscovery /></MentorTopicWrapper>} />
+      <Route path="/tools/roadmap" element={<MentorTopicWrapper topic="quiz"><RoadmapGenerator /></MentorTopicWrapper>} />
+      <Route path="/tools/scorecard" element={<MentorTopicWrapper topic="scorecard"><Scorecard /></MentorTopicWrapper>} />
+      <Route path="/tools/calculator" element={<MentorTopicWrapper topic="roi"><WealthCalculator /></MentorTopicWrapper>} />
 
-        {/* Calculators */}
-        <Route path="/scorecard" element={<Scorecard />} />
-        <Route path="/roi" element={<WealthCalculator />} />
-        <Route path="/freedom" element={<FreedomCalculator />} />
-        <Route path="/gap" element={<RetirementGapCalculator />} />
+      {/* Calculators */}
+      <Route path="/scorecard" element={<MentorTopicWrapper topic="scorecard"><Scorecard /></MentorTopicWrapper>} />
+      <Route path="/roi" element={<MentorTopicWrapper topic="roi"><WealthCalculator /></MentorTopicWrapper>} />
+      <Route path="/freedom" element={<MentorTopicWrapper topic="freedom"><FreedomCalculator /></MentorTopicWrapper>} />
+      <Route path="/gap" element={<MentorTopicWrapper topic="retirement-gap"><RetirementGapCalculator /></MentorTopicWrapper>} />
 
-        {/* Info Pages */}
-        <Route path="/products" element={<Products />} />
-        <Route path="/pricing" element={<Pricing />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/contact" element={<Contact />} />
+      {/* Info Pages */}
+      <Route path="/products" element={<MentorTopicWrapper topic="products"><Products /></MentorTopicWrapper>} />
+      <Route path="/pricing" element={<MentorTopicWrapper topic="pricing"><Pricing /></MentorTopicWrapper>} />
+      <Route path="/about" element={<MentorTopicWrapper topic="about"><About /></MentorTopicWrapper>} />
+      <Route path="/contact" element={<MentorTopicWrapper topic="contact"><Contact /></MentorTopicWrapper>} />
 
-        {/* Dashboard */}
-        <Route path="/dashboard" element={<ExternalRedirect to="https://dashboard.digitallydefined.online" />} />
+      {/* Dashboard */}
+      <Route path="/dashboard" element={<ExternalRedirect to="https://dashboard.digitallydefined.online" />} />
 
-        {/* Fallback */}
-        <Route path="*" element={<ComingSoon />} />
-      </Routes>
-    </SiteLayout>
+      {/* Fallback */}
+      <Route path="*" element={<ComingSoon />} />
+    </Routes>
   );
 }
 

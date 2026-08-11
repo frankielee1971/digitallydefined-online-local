@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import SiteLayout from '../components/Layout/SiteLayout';
 
 export default function Pricing() {
   const [billing, setBilling] = useState('monthly');
@@ -11,7 +10,7 @@ export default function Pricing() {
   ];
 
   return (
-    <SiteLayout mentorTopic="pricing">
+    <>
       <section className="page-hero">
         <div style={{ maxWidth: 720, margin: '0 auto', textAlign: 'center' }}>
           <p className="section__eyebrow">Pricing</p>
@@ -51,6 +50,6 @@ export default function Pricing() {
           </div>
         </div>
       </section>
-    </SiteLayout>
+    </>
   );
 }

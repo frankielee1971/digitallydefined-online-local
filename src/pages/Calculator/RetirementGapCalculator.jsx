@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import SiteLayout from '../../components/Layout/SiteLayout';
 
 // === Retirement Gap Calculator ===
 // Gen X Retirement Gap Solver — faceless digital real estate path
@@ -123,7 +122,7 @@ export default function RetirementGapCalculator() {
   };
 
   return (
-    <SiteLayout mentorTopic="retirement-gap">
+    <>
       {/* Hero */}
       <section className="page-hero">
         <div className="container container--narrow">
@@ -393,6 +392,6 @@ export default function RetirementGapCalculator() {
           </a>
         </div>
       </section>
-    </SiteLayout>
+    </>
   );
 }

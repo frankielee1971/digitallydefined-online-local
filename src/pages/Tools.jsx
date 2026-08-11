@@ -1,6 +1,5 @@
 import React from 'react';
 import { BarChart3, CircleDollarSign, Home, Target } from 'lucide-react';
-import SiteLayout from '../components/Layout/SiteLayout';
 
 const tools = [
   {
@@ -39,7 +38,7 @@ const tools = [
 
 export default function Tools() {
   return (
-    <SiteLayout mentorTopic="tools">
+    <>
       <section className="page-hero">
         <span className="label label--blue">Free Planning Tools</span>
         <h1>Make the next decision with clearer numbers.</h1>
@@ -76,6 +75,6 @@ export default function Tools() {
         <p>Two minutes gives you a personalized digital asset starting point.</p>
         <div className="action-row"><a href="/quiz" className="btn btn--primary">Take the Quiz →</a></div>
       </section>
-    </SiteLayout>
+    </>
   );
 }

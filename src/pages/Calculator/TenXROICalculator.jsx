@@ -3,7 +3,6 @@ import {
   BarChart3, Building2, CircleDollarSign,
   Home, Lightbulb, PhoneCall, ShieldCheck, TrendingUp,
 } from 'lucide-react';
-import SiteLayout from '../../components/Layout/SiteLayout';
 import { CalculatorCard, LabeledSlider } from '../../components/ui/CalculatorCard';
 import SectionHeader from '../../components/ui/SectionHeader';
 import './TenXROICalculator.css';
@@ -76,7 +75,7 @@ export default function TenXROICalculator() {
   ];
 
   return (
-    <SiteLayout mentorTopic="roi">
+    <>
       <main className="tenx-page">
         <section className="tenx-hero">
           <div className="tenx-hero__inner">
@@ -242,6 +241,6 @@ export default function TenXROICalculator() {
           </CalculatorCard>
         </section>
       </main>
-    </SiteLayout>
+    </>
   );
 }

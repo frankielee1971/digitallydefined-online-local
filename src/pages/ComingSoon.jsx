@@ -1,9 +1,8 @@
 import React from 'react';
-import SiteLayout from '../components/Layout/SiteLayout';
 
 export default function ComingSoon() {
   return (
-    <SiteLayout mentorTopic="home">
+    <>
       <section className="page-hero" style={{ textAlign: 'center' }}>
         <span className="label label--blue">Coming Soon</span>
         <h1>This page is under construction.</h1>
@@ -12,6 +11,6 @@ export default function ComingSoon() {
           <a href="/start-here" className="btn btn--primary">Start Here →</a>
         </div>
       </section>
-    </SiteLayout>
+    </>
   );
 }
