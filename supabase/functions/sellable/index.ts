@@ -1,65 +1,50 @@
-// supabase/functions/sellable/index.ts
-// Sellable products cron endpoint — ported from api/cron/sellable.js
-// Kept for backward compatibility and manual invocation
+import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
-import { serve } from "https://deno.land/std@0.224.0/http/server.ts";
-import { corsHeaders } from "../_shared/cors-utils.ts";
-import { buildEnvelope, dryRunEnabled } from "../_shared/sellable-auth.ts";
-
-interface Ctx {
-  env: Record<string, string>;
-}
-
-serve(async (req: Request, ctx: Ctx) => {
-  if (req.method === "OPTIONS") {
-    return new Response("ok", { status: 200, headers: corsHeaders(req.headers.get("origin") || "") });
-  }
-
-  const origin = req.headers.get("origin");
-  const headers: Record<string, string> = {
-    "Content-Type": "application/json",
-    "Access-Control-Allow-Origin": origin || "https://digitallydefined.online",
-    "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
-    "Access-Control-Allow-Headers": "Content-Type, Authorization, x-api-key",
-    "Vary": "Origin",
-  };
-
-  // === Body parsing ===
-  let body: Record<string, unknown> = {};
+serve(async (req) => {
   try {
-    const raw = await req.text();
-    body = raw ? JSON.parse(raw) : {};
-  } catch { /* empty body is fine */ }
+    const supabase = createClient(
+      Deno.env.get("SUPABASE_URL"),
+      Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")
+    );
 
-  const action = String(body.action || "dry-run").trim().toLowerCase();
-  if (!["dry-run", "run"].includes(action)) {
-    return new Response(JSON.stringify(buildEnvelope({ ok: false, action: "cron", status: "error", error: `Unsupported action: ${action}` })), { status: 400, headers });
-  }
+    // Fetch all digital properties that are marked as sellable
+    const { data: properties, error: fetchError } = await supabase
+      .from("digital_properties")
+      .select("*")
+      .eq("is_sellable", true);
 
-  const job = String(body.job || "daily-sellable-report").trim().toLowerCase();
-  const allowedJobs = new Set(["daily-sellable-report", "revenue-automation", "seo-automation", "monthly-revenue-review", "sellable-health"]);
-  if (!allowedJobs.has(job)) {
-    return new Response(JSON.stringify(buildEnvelope({ ok: false, action: "cron", status: "error", error: `Unknown cron job: ${job}` })), { status: 400, headers });
-  }
-
-  // === Auth check (only for non-cron manual calls) ===
-  const isCron = req.headers.get("x-supabase-intention") === "supabase.cron.sellable";
-  if (!isCron) {
-    const expected = (ctx.env.DASHBOARD_API_KEY || "").trim();
-    const provided = (req.headers.get("x-api-key") || req.headers.get("authorization") || "").trim();
-    if (expected && provided !== expected) {
-      return new Response(JSON.stringify(buildEnvelope({ ok: false, action: "cron", status: "unauthorized", error: "Unauthorized" })), { status: 401, headers });
+    if (fetchError) {
+      return new Response(JSON.stringify({ error: fetchError.message }), {
+        status: 500,
+      });
     }
+
+    // If no sellable properties exist
+    if (!properties || properties.length === 0) {
+      return new Response(JSON.stringify({ message: "No sellable properties found." }), {
+        status: 200,
+      });
+    }
+
+    // Example processing — you can customize this logic
+    const processed = properties.map((p) => ({
+      id: p.id,
+      name: p.property_name,
+      traffic: p.monthly_lead_traffic,
+      avg_job_value: p.avg_job_value,
+      tenant_close_rate: p.tenant_close_rate,
+      market_ppc_cost: p.market_ppc_cost,
+    }));
+
+    return new Response(JSON.stringify({ sellable: processed }), {
+      headers: { "Content-Type": "application/json" },
+      status: 200,
+    });
+
+  } catch (err) {
+    return new Response(JSON.stringify({ error: err.message }), {
+      status: 500,
+    });
   }
-
-  const result = {
-    job, action, executedAt: new Date().toISOString(),
-    triggeredBy: action === "dry-run" ? "manual_dry_run" : "supabase_cron",
-  };
-
-  const envelope = action === "dry-run"
-    ? buildEnvelope({ ok: true, action: "cron", status: "drilled", data: result, meta: { dryRun: true } })
-    : buildEnvelope({ ok: true, action: "cron", status: "completed", data: result });
-
-  return new Response(JSON.stringify(envelope), { status: 200, headers });
 });
