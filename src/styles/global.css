@@ -1276,7 +1276,10 @@ body {
   background: #fff;
   text-align: center;
 }
-.mission-belief-card .label,
+.mission-belief-card > .label {
+  display: inline-block;
+  margin: 0 auto;
+}
 .mission-belief-card h2,
 .mission-belief-card > p {
   text-align: center;
