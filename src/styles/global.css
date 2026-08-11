@@ -628,6 +628,7 @@ p {
   border-bottom: 1px solid #000;
 }
 .legacy-section__copy { max-width: 650px; justify-self: end; }
+.legacy-section__copy--centered { justify-self: center; margin: 0 auto; }
 .legacy-stack { max-width: 650px; }
 .legacy-stack > div {
   display: grid;

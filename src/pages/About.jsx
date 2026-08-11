@@ -11,11 +11,9 @@ export default function About() {
       </section>
       <section className="story-section story-section--cream">
         <div className="mission-belief-card">
-          <div className="story-heading story-heading--left">
-            <span className="label label--blue">The belief</span>
-            <h2>Faceless is a strategy, not a limitation.</h2>
-            <p>Ownership should not require constant visibility.</p>
-          </div>
+          <span className="label label--blue">The belief</span>
+          <h2>Faceless is a strategy, not a limitation.</h2>
+          <p>Ownership should not require constant visibility.</p>
           <div className="prose-block">
             <p>The visible internet rewards constant performance. Many capable women looked at that bargain and reasonably decided it was not for them. But opting out of exposure should not mean opting out of ownership.</p>
             <p>AI changes the cost of building. It can help research, structure, draft, repurpose, route, and maintain. Your judgment still matters most. The technology simply lets your knowledge travel farther without requiring more of your identity.</p>
@@ -34,7 +32,7 @@ export default function About() {
         </div>
       </section>
       <section className="legacy-section">
-        <div className="legacy-section__copy">
+        <div className="legacy-section__copy legacy-section__copy--centered">
           <span className="label label--orange">The larger mission</span>
           <h2>Close more than a retirement gap.</h2>
           <p>We are building toward a future where families inherit more than bills, passwords, and unfinished plans. They inherit documented assets, operating knowledge, and proof that financial patterns can change.</p>
