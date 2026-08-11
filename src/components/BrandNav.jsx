@@ -10,6 +10,8 @@ const navLinks = [
   { href: '/about', label: 'Our Mission' },
 ];
 
+const navCtas = [{ href: '/gap', label: 'Calculate My Gap →' }];
+
 const externalLinks = [];
 
 export default function BrandNav() {
@@ -28,6 +30,12 @@ export default function BrandNav() {
             <Link key={link.href} to={link.href}>{link.label}</Link>
           ))}
         </nav>
+
+        {navCtas.map((link) => (
+          <Link key={link.href} to={link.href} className="nav-cta">
+            {link.label}
+          </Link>
+        ))}
 
         {externalLinks.map((link) => (
           <a key={link.href} href={link.href} className="nav-cta" target="_blank" rel="noreferrer">
