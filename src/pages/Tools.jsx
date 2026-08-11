@@ -39,7 +39,7 @@ const tools = [
 
 export default function Tools() {
   return (
-    <SiteLayout>
+    <SiteLayout mentorTopic="tools">
       <section className="page-hero">
         <span className="label label--blue">Free Planning Tools</span>
         <h1>Make the next decision with clearer numbers.</h1>

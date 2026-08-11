@@ -123,7 +123,7 @@ export default function RetirementGapCalculator() {
   };
 
   return (
-    <SiteLayout>
+    <SiteLayout mentorTopic="retirement-gap">
       {/* Hero */}
       <section className="page-hero">
         <div className="container container--narrow">

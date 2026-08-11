@@ -136,7 +136,7 @@ const TOOLS = [
 
 export default function BestAIToolsOnlineBusiness() {
   return (
-    <SiteLayout>
+    <SiteLayout mentorTopic="tools">
       <div style={wrapStyle}>
         <div style={heroStyle}>
           <h1 style={headingStyle}>Best AI Tools for Online Business</h1>

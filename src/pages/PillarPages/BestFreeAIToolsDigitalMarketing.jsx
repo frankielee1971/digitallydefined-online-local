@@ -136,7 +136,7 @@ const TOOLS = [
 
 export default function BestFreeAIToolsDigitalMarketing() {
   return (
-    <SiteLayout>
+    <SiteLayout mentorTopic="tools">
       <div style={wrapStyle}>
         <div style={heroStyle}>
           <h1 style={headingStyle}>Best Free AI Tools for Digital Marketing</h1>

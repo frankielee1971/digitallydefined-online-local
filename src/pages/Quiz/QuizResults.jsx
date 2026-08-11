@@ -4,7 +4,7 @@ import SiteLayout from '../../components/Layout/SiteLayout';
 
 export default function QuizResults() {
   return (
-    <SiteLayout>
+    <SiteLayout mentorTopic="quiz">
       <section className="hero" style={{ paddingBlock: '2.5rem' }}>
         <div className="container container--narrow">
           <p className="section__eyebrow">Quick Reference</p>

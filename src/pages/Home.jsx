@@ -25,7 +25,7 @@ const assets = [
 
 export default function Home() {
   return (
-    <SiteLayout>
+    <SiteLayout mentorTopic="home">
       <section className="story-hero">
         <div className="story-hero__grid">
           <div className="reveal">

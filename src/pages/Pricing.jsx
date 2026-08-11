@@ -11,7 +11,7 @@ export default function Pricing() {
   ];
 
   return (
-    <SiteLayout>
+    <SiteLayout mentorTopic="pricing">
       <section className="page-hero">
         <div style={{ maxWidth: 720, margin: '0 auto', textAlign: 'center' }}>
           <p className="section__eyebrow">Pricing</p>

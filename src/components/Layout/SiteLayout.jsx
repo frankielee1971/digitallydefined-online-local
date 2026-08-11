@@ -1,16 +1,15 @@
 import React from 'react';
 import BrandNav from '../BrandNav';
 import BrandFooter from '../BrandFooter';
-import ChatWidget from '../ChatWidget';
+import MentorWidget from '../MentorWidget';
 
-export default function Layout({ children }) {
+export default function Layout({ children, mentorTopic }) {
   return (
     <div className="site-shell">
       <BrandNav />
       <main className="site-main">{children}</main>
       <BrandFooter />
-      {/* Temporarily remove ChatWidget to fix blank page */}
-      {/* <ChatWidget position="bottom-right" /> */}
+      <MentorWidget topic={mentorTopic} />
     </div>
   );
 }

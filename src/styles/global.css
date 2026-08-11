@@ -31,6 +31,7 @@
   
   /* Typography */
   --font-family: 'Inter', system-ui, sans-serif;
+  --font-heading: 'Inter', system-ui, sans-serif;
   --font-size-xs: 0.75rem;
   --font-size-sm: 0.875rem;
   --font-size-base: 1rem;
@@ -1975,3 +1976,273 @@ input[type='range']::-moz-range-thumb {
   .calculator-card,
   .freedom-card { padding: 1.25rem; }
 }
+
+/* MentorWidget - Hermes AI Mentor */
+.mentor-toggle-btn {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 1000;
+  display: grid;
+  width: 56px;
+  height: 56px;
+  padding: 0;
+  place-items: center;
+  border: 2px solid var(--color-border);
+  border-radius: 0;
+  background: var(--color-accent);
+  color: #171717;
+  cursor: pointer;
+  box-shadow: none;
+  font-family: var(--font-heading);
+  font-weight: 900;
+  font-size: 0.7rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.mentor-toggle-btn:hover {
+  background: var(--color-text);
+  color: var(--color-surface);
+}
+
+.mentor-widget {
+  position: fixed;
+  right: 24px;
+  bottom: 92px;
+  z-index: 999;
+  display: flex;
+  width: min(400px, calc(100vw - 32px));
+  max-height: 560px;
+  flex-direction: column;
+  border: 2px solid var(--color-border);
+  background: var(--color-surface);
+  box-shadow: none;
+  font-family: 'DM Sans', system-ui, sans-serif;
+}
+
+.mentor-widget__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  border-bottom: 2px solid var(--color-border);
+  background: var(--color-accent);
+  color: #171717;
+}
+
+.mentor-widget__title {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-weight: 900;
+  font-size: 1.1rem;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+
+.mentor-widget__subtitle {
+  font-size: 0.75rem;
+  color: #3d3d3d;
+  margin-top: 0.15rem;
+  letter-spacing: 0.02em;
+}
+
+.mentor-widget__header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.mentor-widget__dev-badge {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  border: 1px solid var(--color-border);
+  background: var(--color-text);
+  color: var(--color-surface);
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.mentor-widget__icon-button {
+  display: grid;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  place-items: center;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  color: #171717;
+  cursor: pointer;
+}
+
+.mentor-widget__icon-button:hover {
+  background: var(--color-text);
+  color: var(--color-surface);
+}
+
+.mentor-widget__messages {
+  display: flex;
+  max-height: 360px;
+  flex: 1;
+  flex-direction: column;
+  gap: 0.75rem;
+  overflow-y: auto;
+  padding: 1rem;
+  background: var(--color-bg);
+}
+
+.mentor-widget__message {
+  max-width: 92%;
+  padding: 0.75rem;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  color: #171717;
+  font-size: 0.9rem;
+  line-height: 1.55;
+}
+
+.mentor-widget__message--user {
+  align-self: flex-end;
+  background: var(--color-accent);
+}
+
+.mentor-widget__message--assistant {
+  align-self: flex-start;
+}
+
+.mentor-widget__message-content {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.mentor-widget__dev-notice {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-bottom: 0.5rem;
+  padding: 0.35rem 0.5rem;
+  border: 1px solid var(--color-border);
+  background: #fff8e1;
+  color: #5d4037;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.mentor-widget__dev-block {
+  margin-top: 0.75rem;
+  padding: 0.75rem;
+  border: 1px solid var(--color-border);
+  background: #fafafa;
+}
+
+.mentor-widget__dev-label {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-bottom: 0.5rem;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--dd-blue);
+  letter-spacing: 0.02em;
+}
+
+.mentor-widget__code {
+  padding: 0.75rem;
+  border: 1px solid var(--color-border);
+  background: #1e1e1e;
+  color: #d4d4d4;
+  font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+  font-size: 0.78rem;
+  line-height: 1.6;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.mentor-widget__change {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.4rem;
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+  color: #2e7d32;
+  line-height: 1.5;
+}
+
+.mentor-widget__error {
+  padding: 0.6rem 1rem;
+  border-top: 1px solid #b91c1c;
+  background: #fff;
+  color: #b91c1c;
+  font-size: 0.78rem;
+}
+
+.mentor-widget__composer {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  border-top: 2px solid var(--color-border);
+  background: var(--color-surface);
+}
+
+.mentor-widget__composer textarea {
+  min-width: 0;
+  flex: 1;
+  padding: 0.65rem;
+  border: 1px solid var(--color-border);
+  border-radius: 0;
+  font: inherit;
+  font-size: 0.85rem;
+  resize: none;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: 'DM Sans', system-ui, sans-serif;
+}
+
+.mentor-widget__composer textarea:focus {
+  outline: 2px solid var(--color-blue);
+  outline-offset: 2px;
+}
+
+.mentor-widget__send {
+  display: grid;
+  width: 44px;
+  place-items: center;
+  border: 1px solid var(--color-border);
+  background: var(--color-accent);
+  color: #171717;
+  cursor: pointer;
+}
+
+.mentor-widget__send:hover:not(:disabled) {
+  background: var(--color-text);
+  color: var(--color-surface);
+}
+
+.mentor-widget__send:disabled {
+  background: #d4d4d4;
+  cursor: not-allowed;
+}
+
+@media (max-width: 600px) {
+  .mentor-toggle-btn {
+    right: 16px;
+    bottom: 16px;
+    width: 48px;
+    height: 48px;
+  }
+
+  .mentor-widget {
+    right: 16px;
+    bottom: 72px;
+    width: calc(100vw - 32px);
+    max-height: calc(100vh - 120px);
+  }
+}
+

@@ -44,7 +44,7 @@ export default function NicheProfitabilityScorecard() {
   if (result) {
     const copy = tierCopy(result.tier);
     return (
-      <SiteLayout>
+      <SiteLayout mentorTopic="scorecard">
         <section className="page-hero">
           <div className="container container--narrow">
             <p className="section__eyebrow">Results</p>
@@ -122,7 +122,7 @@ export default function NicheProfitabilityScorecard() {
   }
 
   return (
-    <SiteLayout>
+    <SiteLayout mentorTopic="scorecard">
       <section className="page-hero">
         <div className="container container--narrow">
           <p className="section__eyebrow">Validation Tool</p>

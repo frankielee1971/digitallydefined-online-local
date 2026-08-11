@@ -10,7 +10,7 @@ export default function Automation() {
   ];
 
   return (
-    <SiteLayout>
+    <SiteLayout mentorTopic="automation">
       <section className="hero hero--dark">
         <div style={{ maxWidth: 720, margin: '0 auto', textAlign: 'center' }}>
           <p className="section__eyebrow">Automation</p>

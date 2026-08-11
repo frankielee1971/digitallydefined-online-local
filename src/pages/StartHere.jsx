@@ -11,7 +11,7 @@ const path = [
 
 export default function StartHere() {
   return (
-    <SiteLayout>
+    <SiteLayout mentorTopic="start-here">
       <section className="page-hero">
         <span className="label label--blue">Start here / not everywhere</span>
         <h1>One path from retirement anxiety to an asset you own.</h1>

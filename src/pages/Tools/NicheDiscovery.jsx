@@ -28,7 +28,7 @@ export default function NicheDiscovery() {
   };
 
   return (
-    <SiteLayout>
+    <SiteLayout mentorTopic="tools">
       <section className="page-hero">
         <div className="container container--narrow" style={{ textAlign: 'center' }}>
           <p className="section__eyebrow">AI-Assisted Niche Discovery</p>

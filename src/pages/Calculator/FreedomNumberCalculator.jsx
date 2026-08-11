@@ -45,7 +45,7 @@ export default function FreedomNumberCalculator() {
   const barHeight = (value) => `${Math.max(4, (value / chartMax) * 100)}%`;
 
   return (
-    <SiteLayout>
+    <SiteLayout mentorTopic="freedom">
       <main className="freedom-page">
         <section className="freedom-hero">
           <div className="freedom-hero__inner">

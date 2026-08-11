@@ -172,7 +172,7 @@ export default function DigitalSuperpowerQuiz() {
   };
 
   return (
-    <SiteLayout>
+    <SiteLayout mentorTopic="quiz">
       {stage === 'intro' && (
         <>
           <section className="page-hero">

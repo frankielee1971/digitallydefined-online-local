@@ -76,7 +76,7 @@ export default function TenXROICalculator() {
   ];
 
   return (
-    <SiteLayout>
+    <SiteLayout mentorTopic="roi">
       <main className="tenx-page">
         <section className="tenx-hero">
           <div className="tenx-hero__inner">

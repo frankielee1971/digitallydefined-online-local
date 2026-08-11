@@ -3,7 +3,7 @@ import SiteLayout from '../components/Layout/SiteLayout';
 
 export default function About() {
   return (
-    <SiteLayout>
+    <SiteLayout mentorTopic="about">
       <section className="page-hero page-hero--ink">
         <span className="label label--orange">Why DigitallyDefined exists</span>
         <h1>Women do not need to be loud to build something valuable.</h1>
