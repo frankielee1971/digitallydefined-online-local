@@ -1,43 +1,34 @@
 import React from 'react';
-import { BarChart3, CircleDollarSign, Home, Target } from 'lucide-react';
 
 const tools = [
   {
-    step: 'Step 01',
+    step: '01',
     title: 'Digital Superpower Quiz',
     description: 'Answer seven questions to discover how you naturally create value. Your result determines which asset type fits your personality and schedule.',
     href: '/quiz?start=true',
-    cta: 'Start the Quiz →',
-    icon: Target,
-    priority: 'primary',
+    cta: 'Start the Quiz',
     note: 'Start here if you are not sure where to begin.'
   },
   {
-    step: 'Step 02',
+    step: '02',
     title: 'Retirement Gap Calculator',
     description: 'Enter your current savings and retirement goals. See exactly how much income you need from digital assets to close your gap.',
     href: '/gap',
-    cta: 'Calculate My Gap →',
-    icon: CircleDollarSign,
-    priority: 'secondary'
+    cta: 'Calculate My Gap'
   },
   {
-    step: 'Step 03',
+    step: '03',
     title: 'Freedom Number Calculator',
     description: 'Set your monthly target. Model how many assets at what yield covers your gap. See the path from anxiety to plan.',
     href: '/freedom',
-    cta: 'Model My Freedom Number →',
-    icon: Target,
-    priority: 'secondary'
+    cta: 'Model My Freedom Number'
   },
   {
-    step: 'Step 04',
+    step: '04',
     title: 'Niche & ROI Tools',
     description: 'Score a niche idea for viability, then model the revenue potential with the 10X ROI Calculator for rank-and-rent properties.',
     href: '/tools/scorecard',
-    cta: 'Validate My Idea →',
-    icon: BarChart3,
-    priority: 'secondary',
+    cta: 'Validate My Idea',
     subLinks: [
       { href: '/tools/scorecard', label: 'Niche Scorecard' },
       { href: '/roi', label: 'ROI Calculator' }
@@ -55,43 +46,30 @@ export default function Tools() {
         <div className="action-row"><a href="#tool-library" className="btn btn--primary">See the Tools →</a></div>
       </section>
 
-      <section className="story-section" id="tool-library">
+      <section className="story-section story-section--white" id="tool-library">
         <div className="story-heading">
           <span className="label label--orange">Know before you build</span>
           <h2>Follow the sequence. Or jump to what you need.</h2>
           <p>No account is required. Step 01 is recommended for first-time visitors. The others assume you have already identified your gap or superpower.</p>
         </div>
 
-        <div className="tool-sequence">
-          {tools.map(({ step, title, description, href, cta, icon: Icon, priority, note, subLinks }, index) => (
-            <article key={step} className={`tool-sequence-item tool-sequence-item--${priority}`}>
-              <div className="tool-sequence-header">
-                <div className="tool-sequence-number">{step.replace('Step ', '')}</div>
-                <div className="tool-sequence-icon">
-                  <Icon size={24} aria-hidden="true" />
-                </div>
-                <div className="tool-sequence-title">{title}</div>
-              </div>
-              
-              <p className="tool-sequence-desc">{description}</p>
-              
-              {note && <p className="tool-sequence-note">{note}</p>}
-              
-              <div className="tool-sequence-actions">
-                <a href={href} className={`btn ${priority === 'primary' ? 'btn--primary btn--large' : 'btn--outline'}`}>
-                  {cta}
-                </a>
-                
+        <div className="tools-grid">
+          {tools.map(({ step, title, description, href, cta, note, subLinks }) => (
+            <article className="path-step" key={step}>
+              <span className="path-step__number">{step}</span>
+              <div>
+                <h2>{title}</h2>
+                <p>{description}</p>
+                {note && <p className="tools-step-note">{note}</p>}
                 {subLinks && subLinks.length > 0 && (
-                  <div className="tool-sub-links">
+                  <div className="tools-sub-links">
                     {subLinks.map((link, idx) => (
-                      <a key={idx} href={link.href} className="tool-sub-link">{link.label}</a>
+                      <a key={idx} href={link.href} className="tools-sub-link">{link.label}</a>
                     ))}
                   </div>
                 )}
               </div>
-              
-              {index < tools.length - 1 && <div className="tool-sequence-connector">↓</div>}
+              <a href={href} className="btn btn--primary">{cta} →</a>
             </article>
           ))}
         </div>
