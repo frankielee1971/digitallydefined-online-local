@@ -1,0 +1,11 @@
+# robots.txt — DigitallyDefined.online
+# SPA marketing site (Vercel, Vite/React). Serve the sitemap to search engines.
+
+User-agent: *
+Allow: /
+
+# The /dashboard route is a client-side redirect to the separate
+# authenticated app at https://dashboard.digitallydefined.online.
+Disallow: /dashboard
+
+Sitemap: https://digitallydefined.online/sitemap.xml
