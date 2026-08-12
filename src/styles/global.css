@@ -2263,12 +2263,12 @@ input[type='range']::-moz-range-thumb {
 
 /* ============================================================
    Tools page — align the "list of tools" section with the
-   Start Here card system (.path-step cards in a responsive grid).
+   Start Here card system (.path-step cards stacked in ONE column).
    The hero is intentionally not touched.
    ============================================================ */
 .tools-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: 1fr;
   gap: 1rem;
   max-width: 1050px;
   margin: 0 auto;
@@ -2276,7 +2276,7 @@ input[type='range']::-moz-range-thumb {
 
 /* Cards reuse the site .path-step frame (white, bordered, padded).
    Base .path-step is grid: 4rem | 1fr | auto → the CTA sits on the
-   right side, stretched to a consistent width per row. */
+   right side of each full-width card, stretched to a consistent width. */
 .tools-grid .path-step .btn {
   background: #F97316 !important;
   border-color: #F97316 !important;
@@ -2315,7 +2315,4 @@ input[type='range']::-moz-range-thumb {
   text-align: center;
 }
 
-@media (max-width: 768px) {
-  .tools-grid { grid-template-columns: 1fr; }
-}
 
