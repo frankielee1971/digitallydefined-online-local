@@ -2276,18 +2276,9 @@ input[type='range']::-moz-range-thumb {
 
 /* Cards reuse the site .path-step frame (white, bordered, padded).
    Base .path-step is grid: 4rem | 1fr | auto → the CTA sits on the
-   right side of each full-width card, stretched to a consistent width. */
-.tools-grid .path-step .btn {
-  background: #F97316 !important;
-  border-color: #F97316 !important;
-  color: #ffffff !important;
-}
-
-.tools-grid .path-step .btn:hover {
-  background: #ffffff !important;
-  border-color: #111111 !important;
-  color: #111111 !important;
-}
+   right side of each full-width card, stretched to a consistent width.
+   The CTA uses the standard .btn--primary style: 1px black frame and
+   black text, matching the rest of the site. */
 
 .tools-step-note {
   margin-top: .5rem;
