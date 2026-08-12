@@ -20,10 +20,10 @@ export function getHermesHeaders(extra = {}) {
 export async function sendToHermes(message, context = {}) {
   // Developer-mode requests go to the dedicated (protected) mentor.dev action,
   // which returns structured guidance (filePath, codeSnippet, exactChange).
-  // Everyone else uses public.chat, which needs no API key.
+  // Everyone else uses hermes.agent, which activates the full Hermes brain.
   const action =
     (import.meta.env.VITE_HERMES_ACTION) ||
-    (context.devMode ? 'mentor.dev' : 'public.chat');
+    (context.devMode ? 'mentor.dev' : 'hermes.agent');
 
   const res = await fetch(getHermesEndpoint(), {
     method: 'POST',
@@ -31,6 +31,9 @@ export async function sendToHermes(message, context = {}) {
     body: JSON.stringify({
       action,
       message,
+      system: context.system || null,
+      toolState: context.toolState || null,
+      page: context.page || null,
       ...context,
     }),
   });

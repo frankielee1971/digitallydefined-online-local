@@ -34,14 +34,14 @@ export default function Home() {
               DigitallyDefined helps Gen X women turn lived experience into faceless digital real estate using practical AI and automated systems, so retirement does not depend on one paycheck, one platform, or being visible every day.
             </p>
             <div className="action-row">
-              <a href="/start-here" className="btn btn--primary">Start Here →</a>
+              <a href="/start-here" className="btn btn--primary btn--large">Start Your Build Path →</a>
             </div>
             <p className="microcopy">No camera. No invented urgency. No promise of overnight income.</p>
           </div>
 
           <aside className="manifesto-card reveal reveal--delay">
             <span className="manifesto-card__index">THE NEW PLAN / 01</span>
-            <p className="manifesto-card__quote">“We are not trying to become influencers. We are building useful property on the internet.”</p>
+            <p className="manifesto-card__quote">"We are not trying to become influencers. We are building useful property on the internet."</p>
             <div className="manifesto-card__ledger">
               <span>Own the asset</span>
               <span>Automate the repetition</span>
@@ -83,7 +83,7 @@ export default function Home() {
             <span className="label label--blue">Your unfair advantage</span>
             <h2>Gen X is not late to the internet. We are built for this version of it.</h2>
             <p>You do not need to compete with twenty-year-old creators at being twenty. Your advantage is context: knowing how businesses work, what people actually need, and how to keep going when the novelty wears off.</p>
-            <a href="/quiz" className="text-link">Find your digital superpower →</a>
+            <a href="/quiz?start=true" className="text-link">Find your digital superpower →</a>
           </div>
           <div className="advantage-list">
             {advantages.map(([title, copy], index) => (
@@ -120,7 +120,6 @@ export default function Home() {
             <span className="label label--blue">The quiet operating system</span>
             <h2>You bring the judgment. Simple AI systems carry the repetition.</h2>
             <p>DigitallyDefined helps you move from an idea to a repeatable asset workflow: research the problem, validate demand, create useful content, capture interest, follow up, and measure what is working without manually rebuilding every step.</p>
-            <a href="/tools" className="btn btn--primary">Explore the Free Tools →</a>
           </div>
           <div className="system-diagram" aria-label="Faceless digital asset workflow">
             <div className="system-node system-node--orange"><small>YOU</small><strong>Direction + lived expertise</strong></div>
@@ -152,8 +151,10 @@ export default function Home() {
         <span className="label label--blue">Your next chapter can own property</span>
         <h2>Start with the truth of your numbers. Then build one useful asset.</h2>
         <div className="action-row">
-          <a href="/gap" className="btn btn--primary">Calculate My Retirement Gap →</a>
+          <a href="/gap" className="btn btn--outline">Calculate My Retirement Gap →</a>
+          <a href="/quiz?start=true" className="btn btn--primary btn--large">Find Your Superpower First →</a>
         </div>
+        <p className="microcopy">Not sure where to start? Take the 2-minute quiz to find your digital asset superpower.</p>
       </section>
 
       <EmailSignup source="homepage-story" />

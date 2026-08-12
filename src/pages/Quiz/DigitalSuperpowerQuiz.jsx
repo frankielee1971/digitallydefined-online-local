@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { callAgent } from '../../lib/buzz-agents';
 import { callSupabaseEdge } from '../../lib/supabase-edge';
 import { getRoadmap } from '../../lib/roadmaps';
@@ -65,6 +66,7 @@ async function saveQuizResult(payload) {
 }
 
 export default function DigitalSuperpowerQuiz() {
+  const [searchParams] = useSearchParams();
   const [stage, setStage] = useState('intro');
   const [contact, setContact] = useState({ name: '', email: '' });
   const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -73,6 +75,24 @@ export default function DigitalSuperpowerQuiz() {
   const [personalized, setPersonalized] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [emailMode, setEmailMode] = useState<'dev' | 'test' | 'blackhole' | 'live' | null>(null);
+
+  // Auto-start quiz if ?start=true
+  useEffect(() => {
+    if (searchParams.get('start') === 'true' && stage === 'intro') {
+      setStage('form');
+      // Scroll to form after state update
+      setTimeout(() => {
+        const form = document.getElementById('quiz-signup');
+        if (form) form.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }, 100);
+    }
+  }, [searchParams]);
+
+  // Detect dev mode from URL params
+  const isDevMode = searchParams.get('dev') === 'true' || searchParams.get('devMode') === 'true';
+  const isBrevoTest = searchParams.get('brevoTest') === 'true';
+  const isTestEmail = searchParams.get('testEmail') === 'true';
 
   const roadmap = resultKey ? getRoadmap(resultKey) : null;
   const question = QUESTIONS[currentQuestion];
@@ -82,6 +102,16 @@ export default function DigitalSuperpowerQuiz() {
     event.preventDefault();
     if (!contact.name.trim() || !contact.email.trim()) return;
     setStage('quiz');
+  };
+
+  const chooseAnswer = (value) => {
+    const nextAnswers = { ...answers, [question[0]]: value };
+    setAnswers(nextAnswers);
+    if (currentQuestion < QUESTIONS.length - 1) {
+      setCurrentQuestion((current) => current + 1);
+    } else {
+      finishQuiz(nextAnswers);
+    }
   };
 
   const finishQuiz = async (finalAnswers) => {
@@ -132,14 +162,23 @@ export default function DigitalSuperpowerQuiz() {
     }
 
     try {
-      await saveQuizResult({
+      const saveResult = await saveQuizResult({
         name: contact.name.trim(),
         email: contact.email.trim(),
         superpower: key,
         answers: finalAnswers,
         roadmap: aiRoadmap || fallback,
         source: 'digital-superpower-quiz',
+        // Email routing flags
+        devMode: isDevMode,
+        brevoTest: isBrevoTest,
+        testEmail: isTestEmail,
       });
+
+      // Capture email mode from backend response
+      if (saveResult?.emailMode) {
+        setEmailMode(saveResult.emailMode);
+      }
     } catch (saveError) {
       setError((current) => current || 'Your roadmap is ready, but we could not save it to your profile. You can still use everything shown below.');
     } finally {
@@ -147,16 +186,6 @@ export default function DigitalSuperpowerQuiz() {
       if (intelligenceSuccess) {
         window.location.href = 'https://dashboard.digitallydefined.online/intelligence';
       }
-    }
-  };
-
-  const chooseAnswer = (value) => {
-    const nextAnswers = { ...answers, [question[0]]: value };
-    setAnswers(nextAnswers);
-    if (currentQuestion < QUESTIONS.length - 1) {
-      setCurrentQuestion((current) => current + 1);
-    } else {
-      finishQuiz(nextAnswers);
     }
   };
 
@@ -180,7 +209,7 @@ export default function DigitalSuperpowerQuiz() {
             <p>Enter your name and email, answer seven practical questions, and receive a personalized superpower roadmap for building digital real estate without becoming the face of the brand.</p>
             <div className="action-row"><a href="#quiz-signup" className="btn btn--primary">Take the Quiz →</a></div>
           </section>
-          <section className="story-section story-section--white" id="quiz-signup">
+          <section className="story-section story-section--white">
             <div className="quiz-entry">
               <div>
                 <span className="label label--orange">What you will receive</span>
@@ -192,7 +221,7 @@ export default function DigitalSuperpowerQuiz() {
                   <p><strong>04</strong> A roadmap connected to your email and result.</p>
                 </div>
               </div>
-              <form className="quiz-signup" onSubmit={beginQuiz}>
+              <form className="quiz-signup" onSubmit={beginQuiz} id="quiz-signup">
                 <span className="quiz-step-label">STEP 01 / IDENTIFY YOURSELF</span>
                 <label className="form-label">First Name</label>
                 <input className="form-input" required value={contact.name} onChange={(e) => setContact({ ...contact, name: e.target.value })} placeholder="What should your roadmap call you?" />
@@ -204,6 +233,32 @@ export default function DigitalSuperpowerQuiz() {
             </div>
           </section>
         </>
+      )}
+
+      {stage === 'form' && (
+        <section className="story-section story-section--white">
+          <div className="quiz-entry">
+            <div>
+              <span className="label label--orange">What you will receive</span>
+              <h2>A useful result, not just a label.</h2>
+              <div className="quiz-benefits">
+                <p><strong>01</strong> Your strongest digital superpower.</p>
+                <p><strong>02</strong> Faceless asset models that fit it.</p>
+                <p><strong>03</strong> Your first build sequence and tools.</p>
+                <p><strong>04</strong> A roadmap connected to your email and result.</p>
+              </div>
+            </div>
+            <form className="quiz-signup" onSubmit={beginQuiz} id="quiz-signup">
+              <span className="quiz-step-label">STEP 01 / IDENTIFY YOURSELF</span>
+              <label className="form-label">First Name</label>
+              <input className="form-input" required value={contact.name} onChange={(e) => setContact({ ...contact, name: e.target.value })} placeholder="What should your roadmap call you?" />
+              <label className="form-label">Email Address</label>
+              <input className="form-input" type="email" required value={contact.email} onChange={(e) => setContact({ ...contact, email: e.target.value })} placeholder="Email for your roadmap and guidance" />
+              <button className="btn btn--primary" type="submit">Start My Assessment →</button>
+              <small>By continuing, you agree to receive your result and related DigitallyDefined guidance. Unsubscribe anytime.</small>
+            </form>
+          </div>
+        </section>
       )}
 
       {stage === 'quiz' && (
@@ -268,6 +323,27 @@ export default function DigitalSuperpowerQuiz() {
                 <button type="button" onClick={reset} className="btn btn--outline">Retake Quiz</button>
               </div>
             </div>
+
+            {/* Email Mode Indicator - shows which mode is active for testing */}
+            {emailMode && (
+              <div className="quiz-status quiz-status--info" style={{ marginTop: '20px', textAlign: 'center' }}>
+                <strong>Email Mode:</strong> {emailMode === 'dev' && '⚠️ DEV MODE — Email skipped (no Brevo quota used)'}
+                {emailMode === 'test' && '🧪 TEST MODE — Sent with X-Brevo-Test header (sandbox, no delivery)'}
+                {emailMode === 'blackhole' && '🕳️ BLACKHOLE MODE — Sent to blackhole@brevo.com (accepts, no delivery)'}
+                {emailMode === 'live' && '✅ LIVE MODE — Real email sent via Brevo'}
+                <br />
+                <small style={{ opacity: 0.8 }}>
+                  {emailMode !== 'live' && 'Check your inbox (or Brevo logs) for the roadmap email.'}
+                  {emailMode === 'live' && 'Your roadmap email has been sent.'}
+                </small>
+              </div>
+            )}
+
+            {!isDevMode && !isBrevoTest && !isTestEmail && (
+              <div className="quiz-status quiz-status--notice" style={{ marginTop: '20px', textAlign: 'center' }}>
+                ✓ Check your inbox for the personalized roadmap email
+              </div>
+            )}
           </section>
         </>
       )}

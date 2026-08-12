@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './RetirementGapCalculator.css';
 
 // === Retirement Gap Calculator ===
@@ -30,6 +30,15 @@ const ASSET_TYPES = [
 ];
 
 export default function RetirementGapCalculator() {
+  const calculatorRef = useRef(null);
+
+  // Auto-scroll to calculator on mount
+  useEffect(() => {
+    if (calculatorRef.current) {
+      calculatorRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }, []);
+
   const [formData, setFormData] = useState({
     currentAge: 52,
     retireAge: 67,
@@ -138,7 +147,7 @@ export default function RetirementGapCalculator() {
         </section>
 
         {/* Calculator */}
-        <section className="gap-workspace" id="gap-calculator">
+        <section className="gap-workspace" id="gap-calculator" ref={calculatorRef}>
           <div className="gap-grid">
             <div className="gap-stack">
             

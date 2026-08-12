@@ -17,6 +17,18 @@ import Tools from './pages/Tools';
 import Automation from './pages/Automation';
 import ComingSoon from './pages/ComingSoon';
 import SiteLayout from './components/Layout/SiteLayout';
+import {
+  buildGapPrompt,
+  buildFreedomPrompt,
+  buildQuizPrompt,
+  buildScorecardPrompt,
+  buildROIPrompt,
+  buildToolsPrompt,
+  buildStartHerePrompt,
+  buildPricingPrompt,
+  buildAutomationPrompt,
+  buildContactPrompt
+} from './lib/buildHermesPrompt';
 
 function ExternalRedirect({ to }) {
   useEffect(() => {
@@ -25,16 +37,32 @@ function ExternalRedirect({ to }) {
   return null;
 }
 
-function MentorTopicWrapper({ topic, children }) {
-  return <SiteLayout mentorTopic={topic}>{children}</SiteLayout>;
+function MentorTopicWrapper({ topic, children, toolState = {} }) {
+  const promptBuilders = {
+    'retirement-gap': () => buildGapPrompt(toolState),
+    'freedom': () => buildFreedomPrompt(toolState),
+    'quiz': () => buildQuizPrompt(toolState),
+    'scorecard': () => buildScorecardPrompt(toolState),
+    'roi': () => buildROIPrompt(toolState),
+    'tools': () => buildToolsPrompt(),
+    'start-here': () => buildStartHerePrompt(),
+    'pricing': () => buildPricingPrompt(),
+    'automation': () => buildAutomationPrompt(),
+    'contact': () => buildContactPrompt(),
+  };
+
+  const systemPrompt = promptBuilders[topic] ? promptBuilders[topic]() : null;
+
+  return (
+    <SiteLayout mentorTopic={topic} systemPrompt={systemPrompt} toolState={toolState}>
+      {children}
+    </SiteLayout>
+  );
 }
 
 function App() {
   return (
     <Routes>
-      {/* Coming Soon Page - Temporary */}
-      {/* <Route path="/" element={<MentorTopicWrapper topic="home"><ComingSoon /></MentorTopicWrapper>} /> */}
-      
       {/* Main Flow */}
       <Route path="/" element={<MentorTopicWrapper topic="home"><Home /></MentorTopicWrapper>} />
       <Route path="/start-here" element={<MentorTopicWrapper topic="start-here"><StartHere /></MentorTopicWrapper>} />
@@ -45,7 +73,7 @@ function App() {
 
       {/* Tools Flow */}
       <Route path="/tools" element={<MentorTopicWrapper topic="tools"><Tools /></MentorTopicWrapper>} />
-      <Route path="/tools/niche" element={<MentorTopicWrapper topic="tools"><NicheDiscovery /></MentorTopicWrapper>} />
+      <Route path="/tools/niche" element={<MentorTopicWrapper topic="scorecard"><NicheDiscovery /></MentorTopicWrapper>} />
       <Route path="/tools/roadmap" element={<MentorTopicWrapper topic="quiz"><RoadmapGenerator /></MentorTopicWrapper>} />
       <Route path="/tools/scorecard" element={<MentorTopicWrapper topic="scorecard"><Scorecard /></MentorTopicWrapper>} />
       <Route path="/tools/calculator" element={<MentorTopicWrapper topic="roi"><WealthCalculator /></MentorTopicWrapper>} />

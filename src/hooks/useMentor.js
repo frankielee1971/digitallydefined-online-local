@@ -47,7 +47,8 @@ function getTopicPrompt(topic) {
   return prompts[topic] || prompts['default'];
 }
 
-export function useMentor(topic = 'default') {
+export function useMentor(topic = 'default', options = {}) {
+  const { systemPrompt, toolState } = options;
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -56,7 +57,7 @@ export function useMentor(topic = 'default') {
   const messagesEndRef = useRef(null);
   const isInitialized = useRef(false);
 
-  const openingMessage = getTopicPrompt(topic);
+  const openingMessage = systemPrompt || getTopicPrompt(topic);
 
   useEffect(() => {
     if (!isInitialized.current) {
@@ -88,6 +89,9 @@ export function useMentor(topic = 'default') {
       const { sendToHermes } = await import('../lib/hermes');
       const response = await sendToHermes(message, {
         topic,
+        system: systemPrompt,
+        toolState,
+        page: topic,
         devMode: detectedDevMode,
         currentUrl: typeof window !== 'undefined' ? window.location.href : ''
       });

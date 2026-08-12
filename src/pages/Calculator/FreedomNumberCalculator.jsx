@@ -55,7 +55,10 @@ export default function FreedomNumberCalculator() {
               predictable income, close the retirement gap, and create assets their
               families can inherit.
             </p>
-            <a className="freedom-button freedom-button--orange" href="#calculator-section">Calculate My Freedom Number →</a>
+            <a className="freedom-button freedom-button--orange" href="#calculator-section" onClick={(e) => {
+              e.preventDefault();
+              document.getElementById('calculator-section')?.scrollIntoView({ behavior: 'smooth' });
+            }}>Calculate My Freedom Number →</a>
           </div>
         </section>
 

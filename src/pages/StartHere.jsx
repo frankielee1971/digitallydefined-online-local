@@ -15,7 +15,7 @@ export default function StartHere() {
         <span className="label label--blue">Start here / not everywhere</span>
         <h1>One path from retirement anxiety to an asset you own.</h1>
         <p>You do not need another pile of ideas. You need a sequence that respects your time, privacy, experience, and actual financial goal.</p>
-        <div className="action-row"><a href="/quiz" className="btn btn--primary">Take the Quiz →</a></div>
+        <div className="action-row"><a href="/quiz?start=true" className="btn btn--primary">Find Your Superpower →</a></div>
       </section>
       <section className="story-section story-section--white">
         <div className="path-list">

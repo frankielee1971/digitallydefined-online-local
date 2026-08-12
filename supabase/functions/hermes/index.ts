@@ -54,8 +54,19 @@ const normalizeGroqModel = (model: string) =>
 const getCandidates = (): Candidate[] => {
   const openRouterKey = Deno.env.get("OPENROUTER_API_KEY") || "";
   const groqKey = Deno.env.get("GROQ_API_KEY") || "";
+  const naraKey = Deno.env.get("NARAROUTER_API_KEY") || "";
   const preferred = Deno.env.get("AI_MODEL") || Deno.env.get("OMNIROUTE_MODEL") || "";
   const candidates: Candidate[] = [];
+
+  // Add Nararouter if available (primary for free tier)
+  if (naraKey && !candidates.some((c) => c.provider === "nara")) {
+    candidates.push({
+      provider: "nara",
+      model: "nararouter/agnes-2.5-flash",
+      key: naraKey,
+      url: "https://api.nararouter.com/v1/chat/completions",
+    });
+  }
 
   if (preferred && preferred !== "free") {
     if (preferred.startsWith("groq/") && groqKey) {
@@ -343,7 +354,12 @@ serve(async (req) => {
     const email = String(body.email || "").trim().toLowerCase();
     const superpower = String(body.superpower || "").trim().toLowerCase();
     if (!name || !email || !superpower) return json({ error: "Name, email, and superpower are required" }, 400, origin);
+
+    // Import Brevo email service
+    const { detectEmailMode, sendQuizEmail, getBrevoConfig } = await import("../_shared/brevo-email.ts");
+
     try {
+      // Store quiz result in Supabase
       await insertRow("website_leads", {
         email,
         name,
@@ -359,8 +375,35 @@ serve(async (req) => {
         roadmap: body.roadmap || {},
         source: String(body.source || "digital-superpower-quiz"),
       });
-      return json({ success: true, id: saved?.[0]?.id || null, superpower }, 200, origin);
+
+      // Route email sending based on mode
+      const brevoConfig = getBrevoConfig();
+      const mode = detectEmailMode(body, brevoConfig);
+      const emailResult = await sendQuizEmail(
+        {
+          toEmail: email,
+          toName: name,
+          superpower,
+          roadmap: body.roadmap as Record<string, unknown> | undefined,
+          answers: body.answers as Record<string, string> | undefined,
+        },
+        mode,
+        brevoConfig
+      );
+
+      console.log(`[quiz.complete] email_mode=${mode} sent=${emailResult.emailSent} skipped=${emailResult.emailSkipped}`);
+
+      return json({
+        success: true,
+        id: saved?.[0]?.id || null,
+        superpower,
+        emailMode: mode,
+        emailSent: emailResult.emailSent,
+        emailSkipped: emailResult.emailSkipped,
+        brevoUsed: emailResult.brevoUsed,
+      }, 200, origin);
     } catch (error) {
+      console.error("[quiz.complete] Error:", error);
       return json({ error: error instanceof Error ? error.message : String(error) }, 500, origin);
     }
   }
@@ -573,11 +616,31 @@ Return ONLY valid JSON with these keys (include only relevant ones):
   if (action === "dashboard") return json(dashboardData, 200, origin);
   if (action === "automation.list") return json({ automations: dashboardData.automations }, 200, origin);
   if (action === "status" || action === "routes") {
+    const routes: string[] = [
+      "subscribe",
+      "contact",
+      "quiz.complete",
+      "public.chat",
+      "dashboard",
+      "automation.list",
+      "agent.quiz",
+      "agent.niche",
+      "agent.roadmap",
+      "agent.scorecard",
+      "agent.retirement-guide",
+      "agent.asset-plan",
+      "agent.offer-architect",
+      "agent.wealth",
+      "agent.reputation",
+      "intelligence",
+      "chat",
+      "mentor.dev",
+    ];
     return json({
       ok: true,
       status: "running",
       timestamp: Date.now(),
-      routes: ["subscribe", "contact", "quiz.complete", "public.chat", "dashboard", "automation.list", "agent.quiz", "agent.niche", "agent.roadmap", "agent.scorecard", "agent.retirement-guide", "agent.asset-plan", "agent.offer-architect", "agent.wealth", "agent.reputation", "intelligence", "chat"],
+      routes,
     }, 200, origin);
   }
 

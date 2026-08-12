@@ -44,7 +44,7 @@ export default function Pricing() {
                     <li key={f} style={{ padding: '0.5rem 0', fontSize: '0.95rem', lineHeight: 1.6, borderBottom: '1px solid rgba(0,0,0,0.08)' }}>✓ {f}</li>
                   ))}
                 </ul>
-                <a href="/start-here" className={`btn ${plan.ctaClass}`} style={{ width: '100%' }}>{plan.cta}</a>
+                <a href="/quiz?start=true" className={`btn ${plan.ctaClass}`} style={{ width: '100%' }}>{plan.cta}</a>
               </div>
             ))}
           </div>

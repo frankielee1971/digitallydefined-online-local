@@ -85,7 +85,10 @@ export default function TenXROICalculator() {
               Model tenant revenue, a sustainable lease price, and the cost advantage
               your digital property creates.
             </p>
-            <a className="tenx-button tenx-button--primary" href="#roi-calculator">Calculate My ROI →</a>
+            <a className="tenx-button tenx-button--primary" href="#roi-calculator" onClick={(e) => {
+              e.preventDefault();
+              document.getElementById('roi-calculator')?.scrollIntoView({ behavior: 'smooth' });
+            }}>Calculate My ROI →</a>
           </div>
         </section>
 

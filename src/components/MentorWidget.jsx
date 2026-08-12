@@ -2,8 +2,8 @@ import React, { useState, useRef, useEffect } from 'react';
 import { MessageCircle, Send, Trash2, X, Code, FileText, AlertTriangle } from 'lucide-react';
 import useMentor from '../hooks/useMentor';
 
-export default function MentorWidget({ topic = 'default' }) {
-  const { messages, loading, error, isOpen, devMode, messagesEndRef, sendMessage, clearChat, toggleOpen, setIsOpen } = useMentor(topic);
+export default function MentorWidget({ topic = 'default', systemPrompt, toolState }) {
+  const { messages, loading, error, isOpen, devMode, messagesEndRef, sendMessage, clearChat, toggleOpen, setIsOpen } = useMentor(topic, { systemPrompt, toolState });
   const [inputValue, setInputValue] = useState('');
   const inputRef = useRef(null);
 
