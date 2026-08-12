@@ -75,7 +75,7 @@ export default function DigitalSuperpowerQuiz() {
   const [personalized, setPersonalized] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const [emailMode, setEmailMode] = useState<'dev' | 'test' | 'blackhole' | 'live' | null>(null);
+  const [emailMode, setEmailMode] = useState(null);
 
   // Auto-start quiz if ?start=true
   useEffect(() => {
