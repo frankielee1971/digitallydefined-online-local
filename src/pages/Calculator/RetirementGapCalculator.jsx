@@ -47,6 +47,7 @@ export default function RetirementGapCalculator() {
     return () => updateToolState({ hasCalculated: false });
   }, []);
 
+  const [activeTab, setActiveTab] = useState('retirement');
   const [formData, setFormData] = useState({
     currentAge: 52,
     retireAge: 67,
@@ -152,6 +153,9 @@ export default function RetirementGapCalculator() {
     });
   };
 
+  const totalMonthlyIncome = Object.values(assets).reduce((sum, a) => sum + (a.qty * a.yield), 0);
+  const liquidationValue = totalMonthlyIncome * multiplier;
+
   return (
     <>
       <main className="gap-page">
@@ -174,17 +178,36 @@ export default function RetirementGapCalculator() {
             <h2 className="gap-calc-header__title">📊 Enter Your Numbers</h2>
             <p className="gap-calc-header__sub">Fill in your details below to calculate your retirement gap and see how digital assets close it.</p>
           </div>
+
           <div className="gap-grid">
-            {/* Left column: input cards */}
+            {/* Left column: tabbed inputs */}
             <div className="gap-inputs">
-              {/* Two-column sub-grid for Retirement Picture + Digital Asset Portfolio */}
-              <div className="gap-inputs-grid">
-                <article className="gap-card">
+              {/* Tab bar */}
+              <div className="gap-tabs">
+                <button
+                  className={`gap-tab ${activeTab === 'retirement' ? 'gap-tab--active' : ''}`}
+                  onClick={() => setActiveTab('retirement')}
+                >
+                  <span className="gap-tab-icon">💰</span>
+                  <span className="gap-tab-label">Retirement</span>
+                </button>
+                <button
+                  className={`gap-tab ${activeTab === 'assets' ? 'gap-tab--active' : ''}`}
+                  onClick={() => setActiveTab('assets')}
+                >
+                  <span className="gap-tab-icon">📈</span>
+                  <span className="gap-tab-label">Digital Assets</span>
+                </button>
+              </div>
+
+              {/* Tab panels */}
+              {activeTab === 'retirement' && (
+                <article className="gap-card gap-tab-panel">
                   <header className="gap-card__heading">
                     <h2>Your Retirement Picture</h2>
                     <p>Enter your current financial situation to calculate your gap.</p>
                   </header>
-                  
+
                   <div className="gap-form-grid">
                     <div>
                       <label className="form-label">Current Age</label>
@@ -231,13 +254,15 @@ export default function RetirementGapCalculator() {
                     Calculate My Gap →
                   </button>
                 </article>
+              )}
 
-                <article className="gap-card">
+              {activeTab === 'assets' && (
+                <article className="gap-card gap-tab-panel">
                   <header className="gap-card__heading">
                     <h2 className="gap-section-title">Your Digital Asset Portfolio</h2>
                     <p>Adjust the number and expected yield of your faceless digital assets.</p>
                   </header>
-                  
+
                   <div className="gap-assets">
                     {ASSET_TYPES.map(asset => (
                       <div key={asset.id} className="gap-asset">
@@ -279,18 +304,18 @@ export default function RetirementGapCalculator() {
                   <div className="gap-total">
                     <div>
                       <span>Total Monthly Income</span>
-                      <strong>{fmt(Object.values(assets).reduce((sum, a) => sum + (a.qty * a.yield), 0))}</strong>
+                      <strong>{fmt(totalMonthlyIncome)}</strong>
                     </div>
                     <div>
                       <span>Exit Value</span>
-                      <strong>{fmt(Object.values(assets).reduce((sum, a) => sum + (a.qty * a.yield), 0) * multiplier)}</strong>
+                      <strong>{fmt(liquidationValue)}</strong>
                     </div>
                   </div>
                 </article>
-              </div>
+              )}
 
-              {/* Exit Multiplier - full width */}
-              <article className="gap-card">
+              {/* Exit Multiplier - always visible below tabs */}
+              <article className="gap-card gap-exit-card">
                 <header className="gap-card__heading">
                   <h2>Exit Strategy Multiplier</h2>
                   <p>Profitable digital assets can be valued at a multiple of monthly net profit.</p>
@@ -324,7 +349,7 @@ export default function RetirementGapCalculator() {
                 <>
                   <article className={`gap-card gap-result-card ${result.isOnTrack ? 'gap-result-card--ontrack' : 'gap-result-card--gap'}`}>
                     <h3 className="gap-result-title">Your Retirement Gap</h3>
-                    
+
                     <div className="gap-result-value">
                       <div className={`gap-value ${result.isOnTrack ? 'ontrack' : 'gap'}`}>
                         {result.isOnTrack ? '✓ ON TRACK' : fmt(result.gap)}
@@ -359,7 +384,7 @@ export default function RetirementGapCalculator() {
 
                   <article className="gap-card gap-comparison">
                     <h3 className="gap-result-title">24-Month Comparison</h3>
-                    
+
                     <div className="gap-comparison-item">
                       <div className="gap-comparison-header">
                         <span className="label">Traditional Savings</span>
@@ -412,7 +437,7 @@ export default function RetirementGapCalculator() {
                   <div className="gap-placeholder-icon">📊</div>
                   <h3 className="gap-result-title">Results Will Appear Here</h3>
                   <p className="gap-placeholder-text">
-                    Fill in your retirement details on the left and click Calculate to see your gap.
+                    Fill in your details above and click Calculate to see your gap.
                   </p>
                   <p className="gap-privacy">
                     Your calculations stay in your browser. No data is stored or shared.
