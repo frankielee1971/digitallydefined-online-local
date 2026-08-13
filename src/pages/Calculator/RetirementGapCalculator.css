@@ -101,6 +101,12 @@
   gap: 1.5rem;
 }
 
+.gap-inputs-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
 /* === Section title consistency === */
 .gap-section-title {
   font-size: 1.02rem;
@@ -116,9 +122,12 @@
   padding: 2.5rem 1.25rem 4rem;
 }
 
-/* Single-column calculator layout: inputs stack full width, results below */
-.gap-results {
-  margin-top: 2rem;
+/* Two-column grid layout - inputs left, results right */
+.gap-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(330px, 5fr);
+  gap: 2rem;
+  align-items: start;
 }
 
 /* Card styling - consistent with freedom-card */
@@ -581,8 +590,14 @@
 
 /* Responsive design */
 @media (max-width: 900px) {
+  .gap-grid {
+    grid-template-columns: 1fr;
+  }
   .gap-results {
     position: static;
+  }
+  .gap-inputs-grid {
+    grid-template-columns: 1fr;
   }
 }
 

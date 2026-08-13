@@ -175,10 +175,10 @@ export default function RetirementGapCalculator() {
             <p className="gap-calc-header__sub">Fill in your details below to calculate your retirement gap and see how digital assets close it.</p>
           </div>
           <div className="gap-grid">
-            {/* Left column: inputs */}
+            {/* Left column: input cards */}
             <div className="gap-inputs">
+              {/* Two-column sub-grid for Retirement Picture + Digital Asset Portfolio */}
               <div className="gap-inputs-grid">
-                {/* Retirement Picture */}
                 <article className="gap-card">
                   <header className="gap-card__heading">
                     <h2>Your Retirement Picture</h2>
@@ -232,7 +232,6 @@ export default function RetirementGapCalculator() {
                   </button>
                 </article>
 
-                {/* Digital Asset Portfolio */}
                 <article className="gap-card">
                   <header className="gap-card__heading">
                     <h2 className="gap-section-title">Your Digital Asset Portfolio</h2>
@@ -289,7 +288,8 @@ export default function RetirementGapCalculator() {
                   </div>
                 </article>
               </div>
-              {/* Exit Multiplier - full width below the two-column grid */}
+
+              {/* Exit Multiplier - full width */}
               <article className="gap-card">
                 <header className="gap-card__heading">
                   <h2>Exit Strategy Multiplier</h2>
@@ -318,7 +318,7 @@ export default function RetirementGapCalculator() {
               </article>
             </div>
 
-            {/* Right: Results */}
+            {/* Right column: Results */}
             <aside className="gap-results">
               {showResults && result && (
                 <>
