@@ -172,8 +172,8 @@
 /* Two-column grid layout - inputs left, results right */
 .gap-grid {
   display: grid;
-  grid-template-columns: minmax(0, 7fr) minmax(330px, 5fr);
-  gap: 2rem;
+  grid-template-columns: 2fr minmax(280px, 380px);
+  gap: 1.5rem;
   align-items: start;
 }
 
@@ -641,7 +641,7 @@
     grid-template-columns: 1fr;
   }
   .gap-results {
-    position: static;
+    max-width: 100%;
   }
 }
 
