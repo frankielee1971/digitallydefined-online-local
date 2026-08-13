@@ -101,12 +101,6 @@
   gap: 1.5rem;
 }
 
-.gap-inputs-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.5rem;
-}
-
 /* === Section title consistency === */
 .gap-section-title {
   font-size: 1.02rem;
@@ -122,18 +116,9 @@
   padding: 2.5rem 1.25rem 4rem;
 }
 
-/* Two-column grid layout - matches freedom-grid */
-.gap-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 7fr) minmax(330px, 5fr);
-  gap: 2rem;
-  align-items: stretch;
-}
-
-/* Right column - results panel (sits even with the input column, not sticky) */
+/* Single-column calculator layout: inputs stack full width, results below */
 .gap-results {
-  display: flex;
-  flex-direction: column;
+  margin-top: 2rem;
 }
 
 /* Card styling - consistent with freedom-card */
@@ -596,14 +581,8 @@
 
 /* Responsive design */
 @media (max-width: 900px) {
-  .gap-grid {
-    grid-template-columns: 1fr;
-  }
   .gap-results {
     position: static;
-  }
-  .gap-inputs-grid {
-    grid-template-columns: 1fr;
   }
 }
 
@@ -648,12 +627,8 @@
   }
 }
 
-/* Placeholder/intro state - fills the column so both sides sit evenly */
+/* Placeholder/intro state */
 .gap-placeholder {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
   text-align: center;
 }
 
