@@ -1,13 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { scoreNiche, tierCopy, CRITERIA } from './ScorecardLogic';
 import { callAgent } from '../../lib/buzz-agents';
+import { useToolState } from '../../context/ToolStateContext.jsx';
 
 export default function NicheProfitabilityScorecard() {
+  const { updateToolState } = useToolState();
   const [scores, setScores] = useState({});
   const [result, setResult] = useState(null);
   const [nicheName, setNicheName] = useState('');
   const [insight, setInsight] = useState(null);
   const [insightLoading, setInsightLoading] = useState(false);
+
+  // Reset toolState when component mounts/unmounts
+  useEffect(() => {
+    updateToolState({ analyzed: false });
+    return () => updateToolState({ analyzed: false });
+  }, []);
 
   const handleScoreChange = (key, value) => {
     const num = Math.min(10, Math.max(0, Number(value || '')));
@@ -22,6 +30,14 @@ export default function NicheProfitabilityScorecard() {
     setResult(scored);
     setInsight(null);
     setInsightLoading(true);
+
+    // Publish results to Hermes
+    updateToolState({
+      analyzed: true,
+      nicheScore: Math.round(scored.pct * 100),
+      nicheCategory: scored.tier,
+      nicheInputs: scores,
+    });
     try {
       const response = await callAgent('scorecard', {
         nicheName: nicheName || 'Unnamed niche',

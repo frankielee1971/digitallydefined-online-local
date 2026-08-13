@@ -39,8 +39,8 @@ export default function Automation() {
       </section>
       <section className="section section--dark">
         <div className="container container--narrow" style={{ textAlign: 'center' }}>
-          <h2 style={{ color: '#fff' }}>What Runs on Autopilot?</h2>
-          <p style={{ color: 'rgba(255,255,255,0.7)', maxWidth: 600, margin: '1rem auto 2rem' }}>Social posting, email funnels, content generation, lead capture, CRM tracking, and revenue analytics — all automated through DigitallyDefined's backend.</p>
+          <h2 style={{ color: '#fff' }}>What We're Building</h2>
+          <p style={{ color: 'rgba(255,255,255,0.7)', maxWidth: 600, margin: '1rem auto 2rem' }}>We're automating the pieces that free you up: lead capture, email sequences, content scheduling, and revenue tracking. Some of these run today; the full system is shipping in stages through our backend.</p>
         </div>
       </section>
     </>

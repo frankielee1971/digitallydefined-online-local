@@ -1,10 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { MessageCircle, Send, Trash2, X, Code, FileText, AlertTriangle } from 'lucide-react';
 import useMentor from '../hooks/useMentor';
+import { onHermesTyping } from '../lib/hermes.js';
 
-export default function MentorWidget({ topic = 'default', systemPrompt, toolState }) {
+export default function MentorWidget({ topic = 'default', systemPrompt, toolState, autoOpenCount = 0 }) {
   const { messages, loading, error, isOpen, devMode, messagesEndRef, sendMessage, clearChat, toggleOpen, setIsOpen } = useMentor(topic, { systemPrompt, toolState });
   const [inputValue, setInputValue] = useState('');
+  const [isHermesTyping, setIsHermesTyping] = useState(false);
   const inputRef = useRef(null);
 
   useEffect(() => {
@@ -12,6 +14,16 @@ export default function MentorWidget({ topic = 'default', systemPrompt, toolStat
       inputRef.current.focus();
     }
   }, [isOpen]);
+
+  useEffect(() => {
+    if (autoOpenCount > 0) {
+      setIsOpen(true);
+    }
+  }, [autoOpenCount, setIsOpen]);
+
+  useEffect(() => {
+    onHermesTyping((state) => setIsHermesTyping(state));
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -80,9 +92,12 @@ export default function MentorWidget({ topic = 'default', systemPrompt, toolStat
                 )}
               </div>
             ))}
-            {loading && (
-              <div className="mentor-widget__message mentor-widget__message--assistant">
-                Thinking...
+            {(isHermesTyping || loading) && (
+              <div className="hermes-typing">
+                <span className="dot"></span>
+                <span className="dot"></span>
+                <span className="dot"></span>
+                Hermes is thinking…
               </div>
             )}
             <div ref={messagesEndRef} />

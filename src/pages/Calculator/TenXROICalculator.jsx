@@ -1,4 +1,5 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
+import { useToolState } from '../../context/ToolStateContext.jsx';
 import {
   BarChart3, Building2, CircleDollarSign,
   Home, Lightbulb, PhoneCall, ShieldCheck, TrendingUp,
@@ -14,6 +15,7 @@ const fmtUSD = (n) => new Intl.NumberFormat('en-US', {
 }).format(n);
 
 export default function TenXROICalculator() {
+  const { updateToolState } = useToolState();
   const [inputs, setInputs] = useState({
     propertyName: 'Main Street Plumbing',
     leadTraffic: 45,
@@ -31,6 +33,19 @@ export default function TenXROICalculator() {
     const savings = Math.max(ppcSpend - monthlyRent, 0);
     return { closedLeads, grossRevenue, monthlyRent, equityCap, ppcSpend, savings };
   }, [inputs]);
+
+  // Sync ROI results to Hermes
+  useEffect(() => {
+    updateToolState({
+      hasCalculated: true,
+      roiClosedLeads: result.closedLeads,
+      roiGrossRevenue: result.grossRevenue,
+      roiMonthlyRent: result.monthlyRent,
+      roiEquityCap: result.equityCap,
+      roiPpcSpend: result.ppcSpend,
+      roiSavings: result.savings,
+    });
+  }, [result]);
 
   const update = (key, value) => setInputs((previous) => ({ ...previous, [key]: value }));
   const comparisonMax = Math.max(result.ppcSpend, result.monthlyRent, 1);

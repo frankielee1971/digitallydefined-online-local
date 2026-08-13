@@ -71,9 +71,9 @@ export default function Contact() {
               <a href="/quiz" className="btn btn--secondary" style={{ width: 'fit-content', fontSize: '0.75rem', padding: '0.5rem 1rem' }}>Start Now →</a>
             </div>
             <div className="card" style={{ textAlign: 'center', padding: '1.5rem' }}>
-              <div className="card__heading">2. Grab a Free Tool</div>
-              <p className="card__text" style={{ fontSize: '0.9rem' }}>ROI Calculator or Niche Profitability Scorecard. Get clarity before investing.</p>
-              <a href="/tools" className="btn btn--secondary" style={{ width: 'fit-content', fontSize: '0.75rem', padding: '0.5rem 1rem' }}>Try Tools →</a>
+              <div className="card__heading">2. Score a Niche Idea</div>
+              <p className="card__text" style={{ fontSize: '0.9rem' }}>Rate your niche against 6 criteria and get an instant profitability assessment.</p>
+              <a href="/tools/scorecard" className="btn btn--secondary" style={{ width: 'fit-content', fontSize: '0.75rem', padding: '0.5rem 1rem' }}>Score My Niche →</a>
             </div>
             <div className="card" style={{ textAlign: 'center', padding: '1.5rem' }}>
               <div className="card__heading">3. Use the Free Tools</div>

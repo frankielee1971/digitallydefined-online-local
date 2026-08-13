@@ -36,7 +36,7 @@ export default function EmailSignup({ source = 'homepage' }) {
         </h2>
         <p>
           {status === 'success'
-            ? "Check your inbox for your personalized faceless empire roadmap."
+            ? "You're in. We'll send you tools, strategy, and your first step toward building a faceless digital asset."
             : 'Enter your email to receive your personalized roadmap based on your digital superpower profile.'}
         </p>
 

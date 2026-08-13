@@ -4,6 +4,7 @@ import { callAgent } from '../../lib/buzz-agents';
 import { callSupabaseEdge } from '../../lib/supabase-edge';
 import { getRoadmap } from '../../lib/roadmaps';
 import { scoreQuiz } from './QuizLogic';
+import { useToolState } from '../../context/ToolStateContext.jsx';
 
 const QUESTIONS = [
   ['q1', 'When you learn a new tool, what do you do first?', [
@@ -66,6 +67,7 @@ async function saveQuizResult(payload) {
 }
 
 export default function DigitalSuperpowerQuiz() {
+  const { updateToolState } = useToolState();
   const [searchParams] = useSearchParams();
   const [stage, setStage] = useState('intro');
   const [contact, setContact] = useState({ name: '', email: '' });
@@ -76,6 +78,13 @@ export default function DigitalSuperpowerQuiz() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [emailMode, setEmailMode] = useState(null);
+  const [intelligenceReady, setIntelligenceReady] = useState(false);
+
+  // Reset toolState when component mounts/unmounts
+  useEffect(() => {
+    updateToolState({ quizComplete: false });
+    return () => updateToolState({ quizComplete: false });
+  }, []);
 
   // Auto-start quiz if ?start=true
   useEffect(() => {
@@ -142,6 +151,13 @@ export default function DigitalSuperpowerQuiz() {
     setLoading(true);
     setError('');
 
+    // Publish results to Hermes
+    updateToolState({
+      quizComplete: true,
+      quizSuperpower: key,
+      quizAnswers: finalAnswers,
+    });
+
     if (intelligenceError) {
       setError((current) => current || intelligenceError);
     }
@@ -183,9 +199,7 @@ export default function DigitalSuperpowerQuiz() {
       setError((current) => current || 'Your roadmap is ready, but we could not save it to your profile. You can still use everything shown below.');
     } finally {
       setLoading(false);
-      if (intelligenceSuccess) {
-        window.location.href = 'https://dashboard.digitallydefined.online/intelligence';
-      }
+      setIntelligenceReady(intelligenceSuccess);
     }
   };
 
@@ -197,6 +211,7 @@ export default function DigitalSuperpowerQuiz() {
     setResultKey(null);
     setPersonalized(null);
     setError('');
+    setIntelligenceReady(false);
   };
 
   return (
@@ -342,6 +357,14 @@ export default function DigitalSuperpowerQuiz() {
             {!isDevMode && !isBrevoTest && !isTestEmail && (
               <div className="quiz-status quiz-status--notice" style={{ marginTop: '20px', textAlign: 'center' }}>
                 ✓ Check your inbox for the personalized roadmap email
+              </div>
+            )}
+
+            {intelligenceReady && (
+              <div style={{ textAlign: 'center', marginTop: '24px' }}>
+                <a href="https://dashboard.digitallydefined.online/intelligence" target="_blank" rel="noopener noreferrer" className="btn btn--outline">
+                  Open My Intelligence Dashboard →
+                </a>
               </div>
             )}
           </section>

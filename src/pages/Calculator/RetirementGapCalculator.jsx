@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useToolState } from '../../context/ToolStateContext.jsx';
 import './RetirementGapCalculator.css';
 
 // === Retirement Gap Calculator ===
@@ -31,12 +32,19 @@ const ASSET_TYPES = [
 
 export default function RetirementGapCalculator() {
   const calculatorRef = useRef(null);
+  const { updateToolState } = useToolState();
 
   // Auto-scroll to calculator on mount
   useEffect(() => {
     if (calculatorRef.current) {
       calculatorRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
+  }, []);
+
+  // Reset toolState when component mounts/unmounts
+  useEffect(() => {
+    updateToolState({ hasCalculated: false });
+    return () => updateToolState({ hasCalculated: false });
   }, []);
 
   const [formData, setFormData] = useState({
@@ -129,6 +137,19 @@ export default function RetirementGapCalculator() {
       liquidationValue,
     });
     setShowResults(true);
+
+    // Publish results to Hermes
+    updateToolState({
+      hasCalculated: true,
+      gapAmount: Math.round(
+        (gap / ((formData.retireAge - formData.currentAge) * 12)) || 0
+      ),
+      desiredIncome: Math.round(formData.desiredIncome / 12),
+      currentSavings: formData.currentSavings,
+      yearsToRetirement: formData.retireAge - formData.currentAge,
+      totalMonthlyIncome: totalMonthlyIncome,
+      monthlyNeededToClose: Math.round(monthlyNeededToClose),
+    });
   };
 
   return (

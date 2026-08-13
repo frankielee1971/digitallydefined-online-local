@@ -1,6 +1,30 @@
 import React, { useState } from 'react';
 import { callAgent } from '../../lib/buzz-agents';
 
+const SAMPLE_NICHES = [
+  {
+    niche: 'Retirement Planning for Gen X Women',
+    demand: 'High',
+    competition: 'Medium',
+    keywords: ['Gen X retirement planning', 'faceless digital real estate', 'women retirement gap', 'passive income after 50'],
+    recommendation: 'Strong fit for a faceless information product: clear demand, a specific audience, and room to rank with niche-focused content.',
+  },
+  {
+    niche: 'Local Service Websites (Rank & Rent)',
+    demand: 'High',
+    competition: 'Medium',
+    keywords: ['emergency plumber near me', 'roofing contractor', 'HVAC repair quotes'],
+    recommendation: 'Solid rank-and-rent play. Local service markets stay competitive but reward sites that outrank thin directories.',
+  },
+  {
+    niche: 'Paid Newsletters for Busy Professionals',
+    demand: 'Medium',
+    competition: 'Low',
+    keywords: ['newsletter for working moms', 'finance digest for women', 'weekly business briefing'],
+    recommendation: 'Low competition and recurring revenue make this a smart starter asset, especially if you already write or curate well.',
+  },
+];
+
 export default function NicheDiscovery() {
   const [query, setQuery] = useState('');
   const [result, setResult] = useState(null);
@@ -13,11 +37,14 @@ export default function NicheDiscovery() {
     
     setLoading(true);
     setError(null);
+    setResult(null);
     
     try {
       const response = await callAgent('niche', { query });
       if (response.success) {
         setResult(response.data);
+      } else {
+        setResult(null);
       }
     } catch (err) {
       setError('Failed to analyze niche. Please try again.');
@@ -59,9 +86,32 @@ export default function NicheDiscovery() {
           </form>
 
           {error && (
-            <div style={{ padding: '1rem', background: '#fee', color: '#c00', marginBottom: '1rem' }}>
-              {error}
-            </div>
+            <>
+              <div style={{ padding: '1rem', background: '#fee', color: '#c00', marginBottom: '1.5rem' }}>
+                {error}
+              </div>
+              <div className="card" style={{ padding: '2rem', marginBottom: '2rem' }}>
+                <h2 style={{ fontSize: '1.3rem', marginBottom: '0.5rem' }}>Try One of These Instead</h2>
+                <p style={{ color: '#5A5A5A', marginBottom: '1.5rem' }}>
+                  The AI analyzer is temporarily unavailable. These proven niche starting points work for faceless digital assets.
+                </p>
+                {SAMPLE_NICHES.map((sample) => (
+                  <div key={sample.niche} style={{ padding: '1.25rem 0', borderBottom: '1px solid rgba(0,0,0,0.08)' }}>
+                    <div style={{ fontWeight: 700, fontSize: '1.05rem', marginBottom: '0.5rem' }}>{sample.niche}</div>
+                    <div style={{ display: 'flex', gap: '1rem', marginBottom: '0.5rem', fontSize: '0.9rem' }}>
+                      <span>Demand: <strong style={{ color: sample.demand === 'High' ? '#047857' : '#D4A056' }}>{sample.demand}</strong></span>
+                      <span>Competition: <strong style={{ color: sample.competition === 'Low' ? '#047857' : '#D4A056' }}>{sample.competition}</strong></span>
+                    </div>
+                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', marginBottom: '0.5rem' }}>
+                      {sample.keywords.map((kw, idx) => (
+                        <span key={idx} style={{ padding: '0.25rem 0.75rem', background: '#FFFCF9', border: '1px solid #e5e5e5', fontSize: '0.85rem' }}>{kw}</span>
+                      ))}
+                    </div>
+                    <p style={{ margin: 0, color: '#2D3748', lineHeight: 1.6 }}>{sample.recommendation}</p>
+                  </div>
+                ))}
+              </div>
+            </>
           )}
 
           {result && (

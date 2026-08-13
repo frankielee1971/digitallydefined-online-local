@@ -2117,6 +2117,36 @@ input[type='range']::-moz-range-thumb {
   line-height: 1.55;
 }
 
+.hermes-typing {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  opacity: 0.8;
+  font-style: italic;
+}
+
+.hermes-typing .dot {
+  width: 6px;
+  height: 6px;
+  background: #aaa;
+  border-radius: 50%;
+  animation: blink 1.4s infinite both;
+}
+
+.hermes-typing .dot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.hermes-typing .dot:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes blink {
+  0% { opacity: 0.2; }
+  20% { opacity: 1; }
+  100% { opacity: 0.2; }
+}
+
 .mentor-widget__message--user {
   align-self: flex-end;
   background: var(--color-accent);

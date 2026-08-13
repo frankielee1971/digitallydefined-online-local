@@ -7,11 +7,19 @@ export const getSupabaseEdgeUrl = () => {
   return `${baseUrl}/functions/v1/hermes`;
 };
 
-export const getSupabaseEdgeHeaders = (extra = {}) => ({
-  'Content-Type': 'application/json',
-  'x-api-key': import.meta.env.VITE_DASHBOARD_API_KEY || 'DigitallyDefined-OS-2026',
-  ...extra,
-});
+export const getSupabaseEdgeHeaders = (extra = {}) => {
+  const anonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+  const headers = {
+    'Content-Type': 'application/json',
+    'x-api-key': import.meta.env.VITE_DASHBOARD_API_KEY || 'DigitallyDefined-OS-2026',
+    ...extra,
+  };
+  if (anonKey) {
+    headers['apikey'] = anonKey;
+    headers['Authorization'] = `Bearer ${anonKey}`;
+  }
+  return headers;
+};
 
 export async function callSupabaseEdge(action, payload = {}, extraHeaders = {}) {
   const res = await fetch(getSupabaseEdgeUrl(), {

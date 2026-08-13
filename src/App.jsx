@@ -16,48 +16,13 @@ import Contact from './pages/Contact';
 import Tools from './pages/Tools';
 import Automation from './pages/Automation';
 import ComingSoon from './pages/ComingSoon';
-import SiteLayout from './components/Layout/SiteLayout';
-import {
-  buildGapPrompt,
-  buildFreedomPrompt,
-  buildQuizPrompt,
-  buildScorecardPrompt,
-  buildROIPrompt,
-  buildToolsPrompt,
-  buildStartHerePrompt,
-  buildPricingPrompt,
-  buildAutomationPrompt,
-  buildContactPrompt
-} from './lib/buildHermesPrompt';
+import MentorTopicWrapper from './components/Mentor/MentorTopicWrapper.jsx';
 
 function ExternalRedirect({ to }) {
   useEffect(() => {
     window.location.href = to;
   }, [to]);
   return null;
-}
-
-function MentorTopicWrapper({ topic, children, toolState = {} }) {
-  const promptBuilders = {
-    'retirement-gap': () => buildGapPrompt(toolState),
-    'freedom': () => buildFreedomPrompt(toolState),
-    'quiz': () => buildQuizPrompt(toolState),
-    'scorecard': () => buildScorecardPrompt(toolState),
-    'roi': () => buildROIPrompt(toolState),
-    'tools': () => buildToolsPrompt(),
-    'start-here': () => buildStartHerePrompt(),
-    'pricing': () => buildPricingPrompt(),
-    'automation': () => buildAutomationPrompt(),
-    'contact': () => buildContactPrompt(),
-  };
-
-  const systemPrompt = promptBuilders[topic] ? promptBuilders[topic]() : null;
-
-  return (
-    <SiteLayout mentorTopic={topic} systemPrompt={systemPrompt} toolState={toolState}>
-      {children}
-    </SiteLayout>
-  );
 }
 
 function App() {
@@ -74,7 +39,7 @@ function App() {
       {/* Tools Flow */}
       <Route path="/tools" element={<MentorTopicWrapper topic="tools"><Tools /></MentorTopicWrapper>} />
       <Route path="/tools/niche" element={<MentorTopicWrapper topic="scorecard"><NicheDiscovery /></MentorTopicWrapper>} />
-      <Route path="/tools/roadmap" element={<MentorTopicWrapper topic="quiz"><RoadmapGenerator /></MentorTopicWrapper>} />
+      <Route path="/tools/roadmap" element={<MentorTopicWrapper topic="roadmap"><RoadmapGenerator /></MentorTopicWrapper>} />
       <Route path="/tools/scorecard" element={<MentorTopicWrapper topic="scorecard"><Scorecard /></MentorTopicWrapper>} />
       <Route path="/tools/calculator" element={<MentorTopicWrapper topic="roi"><WealthCalculator /></MentorTopicWrapper>} />
 

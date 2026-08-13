@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useToolState } from '../../context/ToolStateContext.jsx';
 import {
   CheckSquare, Crown, Lightbulb, Mail,
   ShieldAlert, TrendingDown, Video,
@@ -18,6 +19,7 @@ const ASSETS = [
 ];
 
 export default function FreedomNumberCalculator() {
+  const { updateToolState } = useToolState();
   const [freedomGoal, setFreedomGoal] = useState(5000);
   const [multiplier, setMultiplier] = useState(35);
   const [assets, setAssets] = useState({
@@ -42,6 +44,21 @@ export default function FreedomNumberCalculator() {
   const digital24m = totalMonthlyIncome * 24 * 0.8 + liquidationValue;
   const chartMax = Math.max(24000, digital12m, digital24m);
   const barHeight = (value) => `${Math.max(4, (value / chartMax) * 100)}%`;
+
+  useEffect(() => {
+    const assetCount = Object.values(assets).reduce((n, a) => n + a.qty, 0);
+
+    updateToolState({
+      monthlyGoal: freedomGoal,
+      totalMonthlyIncome,
+      assetCount,
+      yieldPerAsset:
+        assetCount > 0 ? Math.round(totalMonthlyIncome / assetCount) : 0,
+      hasCalculated: totalMonthlyIncome > 0,
+      goalMet,
+      gap,
+    });
+  }, [totalMonthlyIncome, freedomGoal, gap, goalMet, assets]);
 
   return (
     <>
