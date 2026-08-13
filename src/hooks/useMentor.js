@@ -30,7 +30,6 @@ function detectDevMode(message) {
 function getTopicPrompt(topic) {
   const prompts = {
     'home': "Hi, I'm Hermes, your DigitallyDefined guide. I help Gen X women build faceless digital real estate for retirement. Ask me about digital assets, retirement planning, or how AI can help you build income without being visible online.",
-    'start-here': "Welcome to your starting point. I'm Hermes. Tell me where you are in your journey.",
     'retirement-gap': "I'm Hermes. I help you understand the gap between where you are and where you want to be financially. Ask me about the Retirement Gap Calculator.",
     'quiz': "I'm Hermes. I can help explain the Digital Superpower Quiz and what your results mean.",
     'tools': "I'm Hermes. These free tools help you plan before you build. Ask me which tool is right for your current question.",

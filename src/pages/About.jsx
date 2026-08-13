@@ -7,7 +7,7 @@ export default function About() {
         <span className="label label--orange">Why DigitallyDefined exists</span>
         <h1>Women do not need to be loud to build something valuable.</h1>
         <p>DigitallyDefined is a privacy-first platform for Gen X women turning experience into faceless digital real estate, automated income systems, and transferable family assets.</p>
-        <div className="action-row"><a href="/start-here" className="btn btn--primary">Start the Build Path →</a></div>
+        <div className="action-row"><a href="/gap" className="btn btn--primary">Start the Build Path →</a></div>
       </section>
       <section className="story-section story-section--cream">
         <div className="mission-belief-card">
@@ -36,7 +36,7 @@ export default function About() {
           <span className="label label--orange">The larger mission</span>
           <h2>Close more than a retirement gap.</h2>
           <p>We are building toward a future where families inherit more than bills, passwords, and unfinished plans. They inherit documented assets, operating knowledge, and proof that financial patterns can change.</p>
-          <a href="/start-here" className="btn btn--primary">Start the Build Path →</a>
+          <a href="/gap" className="btn btn--primary">Start the Build Path →</a>
         </div>
       </section>
     </>

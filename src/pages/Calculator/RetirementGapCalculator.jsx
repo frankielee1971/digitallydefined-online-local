@@ -426,7 +426,7 @@ export default function RetirementGapCalculator() {
           <p>
             The retirement gap affects every Gen X woman. But digital assets are the great equalizer — faceless, automated, and built on your expertise.
           </p>
-          <a href="/start-here" className="btn btn--primary">
+          <a href="/gap" className="btn btn--primary">
             Start the Build Path →
           </a>
         </div>

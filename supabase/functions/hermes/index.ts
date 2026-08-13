@@ -427,7 +427,7 @@ KNOWLEDGE OF THE TOOLS (use them as concrete next steps):
 - /scorecard — Niche Profitability Scorecard: test demand, competition, monetization, and privacy fit of an idea.
 - /freedom — Freedom Number Calculator: model a portfolio of assets to hit a monthly income target.
 - /roi — 10X ROI Calculator: model lead flow/revenue for a rank-and-rent property.
-- /tools — all free planning tools; /start-here — the step-by-step path.
+- /tools — all free planning tools; the homepage (/) hosts the step-by-step onboarding path.
 
 COMMON ASSET TYPES: template hubs & printables, paid newsletters, YouTube automation, rank & rent sites, digital products.
 
@@ -472,9 +472,9 @@ PROJECT FILE MAP (use these exact paths):
 - src/components/MentorWidget.jsx — Hermes chat widget (floating button bottom-right + chat panel).
 - src/hooks/useMentor.js — mentor state hook; topic prompts + dev-mode keyword detection.
 - src/lib/hermes.js — edge-function request helper (public.chat / mentor.dev actions).
-- src/App.jsx — React Router routes. "/" = Home page, "/gap" = RetirementGapCalculator, "/tools" = Tools, "/scorecard", "/quiz", "/freedom", "/roi", "/about", "/contact", "/pricing", "/products", "/start-here", "/automation".
+- src/App.jsx — React Router routes. "/" = Home page, "/gap" = RetirementGapCalculator, "/tools" = Tools, "/scorecard", "/quiz", "/freedom", "/roi", "/about", "/contact", "/pricing", "/products", "/automation".
 - src/pages/Home.jsx — homepage (hero, manifesto card, asset cards, final CTA section with a "Calculate My Retirement Gap →" button linking to "/gap").
-- src/pages/StartHere.jsx, Tools.jsx, About.jsx, Contact.jsx, Pricing.jsx, Products.jsx, Automation.jsx, ComingSoon.jsx — other landing pages.
+- src/pages/Tools.jsx, About.jsx, Contact.jsx, Pricing.jsx, Products.jsx, Automation.jsx, ComingSoon.jsx — other landing pages.
 - src/pages/Calculator/RetirementGapCalculator.jsx, FreedomNumberCalculator.jsx, TenXROICalculator.jsx — calculator pages.
 - src/pages/Quiz/DigitalSuperpowerQuiz.jsx, src/pages/Scorecard/NicheProfitabilityScorecard.jsx — interactive tools.
 

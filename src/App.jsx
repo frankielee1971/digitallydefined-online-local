@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
-import StartHere from './pages/StartHere';
 import Quiz from './pages/Quiz/DigitalSuperpowerQuiz';
 import NicheDiscovery from './pages/Tools/NicheDiscovery';
 import RoadmapGenerator from './pages/Tools/RoadmapGenerator';
@@ -30,7 +29,6 @@ function App() {
     <Routes>
       {/* Main Flow */}
       <Route path="/" element={<MentorTopicWrapper topic="home"><Home /></MentorTopicWrapper>} />
-      <Route path="/start-here" element={<MentorTopicWrapper topic="start-here"><StartHere /></MentorTopicWrapper>} />
       <Route path="/automation" element={<MentorTopicWrapper topic="automation"><Automation /></MentorTopicWrapper>} />
 
       {/* Quiz Flow */}

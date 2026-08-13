@@ -8,7 +8,7 @@ export default function ComingSoon() {
         <h1>This page is under construction.</h1>
         <p className="hero__tagline">We are building something useful. Check back soon.</p>
         <div className="action-row">
-          <a href="/start-here" className="btn btn--primary">Start Here →</a>
+          <a href="/" className="btn btn--primary">Start Here →</a>
         </div>
       </section>
     </>

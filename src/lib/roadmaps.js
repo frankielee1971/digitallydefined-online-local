@@ -33,7 +33,7 @@ const ROADMAPS = {
       community: 'Join the community to share your content-roadmap privately.',
       scorecard: 'Open the Niche Profitability Scorecard.',
       calculator: 'Model your first asset with the 10x ROI Calculator.',
-      startHere: 'Return to Start Here if you want to retake the quiz.',
+      startHere: 'Return to the homepage if you want to retake the quiz.',
     },
   },
   builder: {
@@ -70,7 +70,7 @@ const ROADMAPS = {
       community: 'Join the community to find builder accountability.',
       scorecard: 'Open the Niche Profitability Scorecard.',
       calculator: 'Model your asset with the 10x ROI Calculator.',
-      startHere: 'Return to Start Here to review your quiz result.',
+      startHere: 'Return to the homepage to review your quiz result.',
     },
   },
   educator: {
@@ -107,7 +107,7 @@ const ROADMAPS = {
       community: 'Join the community to find other educators building in private.',
       scorecard: 'Open the Niche Profitability Scorecard.',
       calculator: 'Model your first educational asset with the 10x ROI Calculator.',
-      startHere: 'Return to Start Here to retake the quiz if needed.',
+      startHere: 'Return to the homepage to retake the quiz if needed.',
     },
   },
   connector: {
@@ -144,7 +144,7 @@ const ROADMAPS = {
       community: 'Join the community to connect with other connectors.',
       scorecard: 'Open the Niche Profitability Scorecard.',
       calculator: 'Model a referral or lease value with the 10x ROI Calculator.',
-      startHere: 'Return to Start Here to review your roadmap options.',
+      startHere: 'Return to the homepage to review your roadmap options.',
     },
   },
   strategist: {
@@ -181,7 +181,7 @@ const ROADMAPS = {
       community: 'Join the community to find other strategists building quietly.',
       scorecard: 'Open the Niche Profitability Scorecard.',
       calculator: 'Model your first asset with the 10x ROI Calculator.',
-      startHere: 'Return to Start Here to retake the quiz or review your result.',
+      startHere: 'Return to the homepage to retake the quiz or review your result.',
     },
   },
 };
