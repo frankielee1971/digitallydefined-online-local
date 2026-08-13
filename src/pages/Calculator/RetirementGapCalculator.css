@@ -147,7 +147,7 @@
   border-top-left-radius: 0;
 }
 
-/* === Two-column inputs grid === */
+/* === Input section (tabs + panels) === */
 .gap-inputs {
   display: flex;
   flex-direction: column;
@@ -164,17 +164,9 @@
 
 /* Main calculator workspace */
 .gap-workspace {
-  max-width: 1180px;
+  max-width: 880px;
   margin: auto;
   padding: 2.5rem 1.25rem 4rem;
-}
-
-/* Two-column grid layout - inputs left, results right */
-.gap-grid {
-  display: grid;
-  grid-template-columns: 2fr minmax(280px, 380px);
-  gap: 1.5rem;
-  align-items: start;
 }
 
 /* Card styling - consistent with freedom-card */
@@ -428,7 +420,11 @@
   letter-spacing: -0.04em;
 }
 
-/* Results section styling */
+/* Results section - below the fold, full width */
+.gap-results {
+  margin-top: 2rem;
+}
+
 .gap-result-card {
   margin-bottom: 1.5rem;
 }
@@ -637,9 +633,6 @@
 
 /* Responsive design */
 @media (max-width: 900px) {
-  .gap-grid {
-    grid-template-columns: 1fr;
-  }
   .gap-results {
     max-width: 100%;
   }

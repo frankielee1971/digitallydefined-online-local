@@ -179,273 +179,271 @@ export default function RetirementGapCalculator() {
             <p className="gap-calc-header__sub">Fill in your details below to calculate your retirement gap and see how digital assets close it.</p>
           </div>
 
-          <div className="gap-grid">
-            {/* Left column: tabbed inputs */}
-            <div className="gap-inputs">
-              {/* Tab bar */}
-              <div className="gap-tabs">
-                <button
-                  className={`gap-tab ${activeTab === 'retirement' ? 'gap-tab--active' : ''}`}
-                  onClick={() => setActiveTab('retirement')}
-                >
-                  <span className="gap-tab-icon">💰</span>
-                  <span className="gap-tab-label">Retirement</span>
-                </button>
-                <button
-                  className={`gap-tab ${activeTab === 'assets' ? 'gap-tab--active' : ''}`}
-                  onClick={() => setActiveTab('assets')}
-                >
-                  <span className="gap-tab-icon">📈</span>
-                  <span className="gap-tab-label">Digital Assets</span>
-                </button>
-              </div>
-
-              {/* Tab panels */}
-              {activeTab === 'retirement' && (
-                <article className="gap-card gap-tab-panel">
-                  <header className="gap-card__heading">
-                    <h2>Your Retirement Picture</h2>
-                    <p>Enter your current financial situation to calculate your gap.</p>
-                  </header>
-
-                  <div className="gap-form-grid">
-                    <div>
-                      <label className="form-label">Current Age</label>
-                      <input type="number" value={formData.currentAge} onChange={e => handleChange('currentAge', e.target.value)} className="form-input" />
-                    </div>
-                    <div>
-                      <label className="form-label">Retirement Age</label>
-                      <input type="number" value={formData.retireAge} onChange={e => handleChange('retireAge', e.target.value)} className="form-input" />
-                    </div>
-                  </div>
-
-                  <div className="gap-form-grid">
-                    <div>
-                      <label className="form-label">Current Savings</label>
-                      <input type="number" value={formData.currentSavings} onChange={e => handleChange('currentSavings', e.target.value)} className="form-input" />
-                    </div>
-                    <div>
-                      <label className="form-label">Monthly Contribution</label>
-                      <input type="number" value={formData.monthlyContribution} onChange={e => handleChange('monthlyContribution', e.target.value)} className="form-input" />
-                    </div>
-                  </div>
-
-                  <div className="gap-form-grid">
-                    <div>
-                      <label className="form-label">Expected Annual Return (%)</label>
-                      <input type="number" step="0.1" value={formData.annualReturn} onChange={e => handleChange('annualReturn', e.target.value)} className="form-input" />
-                    </div>
-                    <div>
-                      <label className="form-label">Social Security/Other Yearly</label>
-                      <input type="number" value={formData.socialSecurity} onChange={e => handleChange('socialSecurity', e.target.value)} className="form-input" />
-                    </div>
-                  </div>
-
-                  <div className="gap-form-full">
-                    <label className="form-label">Desired Annual Retirement Income</label>
-                    <input type="number" value={formData.desiredIncome} onChange={e => handleChange('desiredIncome', e.target.value)} className="form-input" />
-                  </div>
-
-                  <p className="gap-note">
-                    The 4% Safe Withdrawal Rate is standard. Adjust if needed.
-                  </p>
-
-                  <button onClick={calculate} className="btn btn--primary gap-calculate-btn">
-                    Calculate My Gap →
-                  </button>
-                </article>
-              )}
-
-              {activeTab === 'assets' && (
-                <article className="gap-card gap-tab-panel">
-                  <header className="gap-card__heading">
-                    <h2 className="gap-section-title">Your Digital Asset Portfolio</h2>
-                    <p>Adjust the number and expected yield of your faceless digital assets.</p>
-                  </header>
-
-                  <div className="gap-assets">
-                    {ASSET_TYPES.map(asset => (
-                      <div key={asset.id} className="gap-asset">
-                        <div className="gap-asset__top">
-                          <div className="gap-asset__name">
-                            <span className="gap-asset-icon">{asset.icon}</span>
-                            <strong>{asset.name}</strong>
-                          </div>
-                          <label>
-                            Qty:
-                            <input
-                              type="number"
-                              min="0"
-                              max="10"
-                              value={assets[asset.id].qty}
-                              onChange={e => handleAssetChange(asset.id, 'qty', e.target.value)}
-                            />
-                          </label>
-                        </div>
-                        <div className="gap-asset-control">
-                          <span>Monthly yield per asset</span>
-                          <output className={`text-${asset.id === 'newsletters' ? 'blue' : asset.id === 'youtube' ? 'slate' : 'orange'}`}>
-                            {fmt(assets[asset.id].yield)}/mo
-                          </output>
-                        </div>
-                        <input
-                          type="range"
-                          className={`range-${asset.id === 'newsletters' ? 'blue' : asset.id === 'youtube' ? 'slate' : 'orange'}`}
-                          min={asset.minYield}
-                          max={asset.maxYield}
-                          step={Math.ceil((asset.maxYield - asset.minYield) / 20)}
-                          value={assets[asset.id].yield}
-                          onChange={e => handleAssetChange(asset.id, 'yield', e.target.value)}
-                        />
-                      </div>
-                    ))}
-                  </div>
-
-                  <div className="gap-total">
-                    <div>
-                      <span>Total Monthly Income</span>
-                      <strong>{fmt(totalMonthlyIncome)}</strong>
-                    </div>
-                    <div>
-                      <span>Exit Value</span>
-                      <strong>{fmt(liquidationValue)}</strong>
-                    </div>
-                  </div>
-                </article>
-              )}
-
-              {/* Exit Multiplier - always visible below tabs */}
-              <article className="gap-card gap-exit-card">
-                <header className="gap-card__heading">
-                  <h2>Exit Strategy Multiplier</h2>
-                  <p>Profitable digital assets can be valued at a multiple of monthly net profit.</p>
-                </header>
-                <div className="gap-control">
-                  <div className="gap-control__label">
-                    <label htmlFor="market-multiplier">Market Multiplier</label>
-                    <output>{multiplier}x</output>
-                  </div>
-                  <input
-                    id="market-multiplier"
-                    className="range-slate"
-                    type="range"
-                    min="30"
-                    max="40"
-                    step="1"
-                    value={multiplier}
-                    onChange={e => setMultiplier(Number(e.target.value))}
-                  />
-                </div>
-                <div className="freedom-range-labels">
-                  <span>30x (Conservative)</span>
-                  <span>40x (Premium)</span>
-                </div>
-              </article>
+          {/* Input section */}
+          <div className="gap-inputs">
+            {/* Tab bar */}
+            <div className="gap-tabs">
+              <button
+                className={`gap-tab ${activeTab === 'retirement' ? 'gap-tab--active' : ''}`}
+                onClick={() => setActiveTab('retirement')}
+              >
+                <span className="gap-tab-icon">💰</span>
+                <span className="gap-tab-label">Retirement</span>
+              </button>
+              <button
+                className={`gap-tab ${activeTab === 'assets' ? 'gap-tab--active' : ''}`}
+                onClick={() => setActiveTab('assets')}
+              >
+                <span className="gap-tab-icon">📈</span>
+                <span className="gap-tab-label">Digital Assets</span>
+              </button>
             </div>
 
-            {/* Right column: Results */}
-            <aside className="gap-results">
-              {showResults && result && (
-                <>
-                  <article className={`gap-card gap-result-card ${result.isOnTrack ? 'gap-result-card--ontrack' : 'gap-result-card--gap'}`}>
-                    <h3 className="gap-result-title">Your Retirement Gap</h3>
+            {/* Tab panels */}
+            {activeTab === 'retirement' && (
+              <article className="gap-card gap-tab-panel">
+                <header className="gap-card__heading">
+                  <h2>Your Retirement Picture</h2>
+                  <p>Enter your current financial situation to calculate your gap.</p>
+                </header>
 
-                    <div className="gap-result-value">
-                      <div className={`gap-value ${result.isOnTrack ? 'ontrack' : 'gap'}`}>
-                        {result.isOnTrack ? '✓ ON TRACK' : fmt(result.gap)}
-                      </div>
-                      <div className="gap-label">
-                        {result.isOnTrack ? 'You have enough to retire!' : `Shortfall by age ${formData.retireAge}`}
-                      </div>
-                    </div>
+                <div className="gap-form-grid">
+                  <div>
+                    <label className="form-label">Current Age</label>
+                    <input type="number" value={formData.currentAge} onChange={e => handleChange('currentAge', e.target.value)} className="form-input" />
+                  </div>
+                  <div>
+                    <label className="form-label">Retirement Age</label>
+                    <input type="number" value={formData.retireAge} onChange={e => handleChange('retireAge', e.target.value)} className="form-input" />
+                  </div>
+                </div>
 
-                    <div className="gap-result-grid">
-                      <div className="gap-result-item">
-                        <label>Target Nest Egg</label>
-                        <div className="value">{fmt(result.targetNestEgg)}</div>
-                      </div>
-                      <div className="gap-result-item">
-                        <label>Projected at Retirement</label>
-                        <div className="value">{fmt(result.totalAtRetirement)}</div>
-                      </div>
-                    </div>
+                <div className="gap-form-grid">
+                  <div>
+                    <label className="form-label">Current Savings</label>
+                    <input type="number" value={formData.currentSavings} onChange={e => handleChange('currentSavings', e.target.value)} className="form-input" />
+                  </div>
+                  <div>
+                    <label className="form-label">Monthly Contribution</label>
+                    <input type="number" value={formData.monthlyContribution} onChange={e => handleChange('monthlyContribution', e.target.value)} className="form-input" />
+                  </div>
+                </div>
 
-                    {!result.isOnTrack && (
-                      <div className="gap-close-message">
-                        <strong>To Close the Gap:</strong>
-                        <div className="gap-close-message-content">
-                          You need <strong>{fmt(result.monthlyNeededToClose)}/mo</strong> more in contributions, OR
-                          <br />
-                          Build digital assets generating <strong>{fmt(result.monthlyNeededToClose * 12)}/year</strong> in passive income.
+                <div className="gap-form-grid">
+                  <div>
+                    <label className="form-label">Expected Annual Return (%)</label>
+                    <input type="number" step="0.1" value={formData.annualReturn} onChange={e => handleChange('annualReturn', e.target.value)} className="form-input" />
+                  </div>
+                  <div>
+                    <label className="form-label">Social Security/Other Yearly</label>
+                    <input type="number" value={formData.socialSecurity} onChange={e => handleChange('socialSecurity', e.target.value)} className="form-input" />
+                  </div>
+                </div>
+
+                <div className="gap-form-full">
+                  <label className="form-label">Desired Annual Retirement Income</label>
+                  <input type="number" value={formData.desiredIncome} onChange={e => handleChange('desiredIncome', e.target.value)} className="form-input" />
+                </div>
+
+                <p className="gap-note">
+                  The 4% Safe Withdrawal Rate is standard. Adjust if needed.
+                </p>
+
+                <button onClick={calculate} className="btn btn--primary gap-calculate-btn">
+                  Calculate My Gap →
+                </button>
+              </article>
+            )}
+
+            {activeTab === 'assets' && (
+              <article className="gap-card gap-tab-panel">
+                <header className="gap-card__heading">
+                  <h2 className="gap-section-title">Your Digital Asset Portfolio</h2>
+                  <p>Adjust the number and expected yield of your faceless digital assets.</p>
+                </header>
+
+                <div className="gap-assets">
+                  {ASSET_TYPES.map(asset => (
+                    <div key={asset.id} className="gap-asset">
+                      <div className="gap-asset__top">
+                        <div className="gap-asset__name">
+                          <span className="gap-asset-icon">{asset.icon}</span>
+                          <strong>{asset.name}</strong>
                         </div>
+                        <label>
+                          Qty:
+                          <input
+                            type="number"
+                            min="0"
+                            max="10"
+                            value={assets[asset.id].qty}
+                            onChange={e => handleAssetChange(asset.id, 'qty', e.target.value)}
+                          />
+                        </label>
                       </div>
-                    )}
-                  </article>
-
-                  <article className="gap-card gap-comparison">
-                    <h3 className="gap-result-title">24-Month Comparison</h3>
-
-                    <div className="gap-comparison-item">
-                      <div className="gap-comparison-header">
-                        <span className="label">Traditional Savings</span>
-                        <span className="value">{fmt(result.traditional24m)}</span>
+                      <div className="gap-asset-control">
+                        <span>Monthly yield per asset</span>
+                        <output className={`text-${asset.id === 'newsletters' ? 'blue' : asset.id === 'youtube' ? 'slate' : 'orange'}`}>
+                          {fmt(assets[asset.id].yield)}/mo
+                        </output>
                       </div>
-                      <div className="gap-comparison-note">~$1k/mo saved over 2 years</div>
+                      <input
+                        type="range"
+                        className={`range-${asset.id === 'newsletters' ? 'blue' : asset.id === 'youtube' ? 'slate' : 'orange'}`}
+                        min={asset.minYield}
+                        max={asset.maxYield}
+                        step={Math.ceil((asset.maxYield - asset.minYield) / 20)}
+                        value={assets[asset.id].yield}
+                        onChange={e => handleAssetChange(asset.id, 'yield', e.target.value)}
+                      />
                     </div>
+                  ))}
+                </div>
 
-                    <div className="gap-comparison-item highlight">
-                      <div className="gap-comparison-header">
-                        <span className="label">Digital Assets (Projected)</span>
-                        <span className="value highlight">{fmt(result.digital24m)}</span>
-                      </div>
-                      <div className="gap-comparison-note">With exit multiplier + cashflow</div>
-                    </div>
+                <div className="gap-total">
+                  <div>
+                    <span>Total Monthly Income</span>
+                    <strong>{fmt(totalMonthlyIncome)}</strong>
+                  </div>
+                  <div>
+                    <span>Exit Value</span>
+                    <strong>{fmt(liquidationValue)}</strong>
+                  </div>
+                </div>
+              </article>
+            )}
 
-                    {!result.isOnTrack && (
-                      <div className="gap-win-message">
-                        <strong>Digital Assets Win By:</strong>
-                        <div className="gap-win-amount">
-                          {fmt(result.digital24m - result.traditional24m)}
-                        </div>
-                        <div className="gap-win-note">
-                          That's {(result.digital24m / result.traditional24m).toFixed(0)}x more in 2 years.
-                        </div>
-                      </div>
-                    )}
-                  </article>
-
-                  {/* CTA */}
-                  <article className="gap-card">
-                    <h3 className="gap-result-title">What's Your Next Step?</h3>
-                    <div className="gap-cta-stack">
-                      <a href="/quiz" className="btn btn--primary">
-                        Take the Digital Superpower Quiz →
-                      </a>
-                      <a href="/scorecard" className="btn btn--outline">
-                        Score a Niche Idea →
-                      </a>
-                      <a href="/tools" className="btn btn--outline">
-                        Explore the Free Tools →
-                      </a>
-                    </div>
-                  </article>
-                </>
-              )}
-
-              {!showResults && (
-                <article className="gap-card gap-placeholder">
-                  <div className="gap-placeholder-icon">📊</div>
-                  <h3 className="gap-result-title">Results Will Appear Here</h3>
-                  <p className="gap-placeholder-text">
-                    Fill in your details above and click Calculate to see your gap.
-                  </p>
-                  <p className="gap-privacy">
-                    Your calculations stay in your browser. No data is stored or shared.
-                  </p>
-                </article>
-              )}
-            </aside>
+            {/* Exit Multiplier - always visible below tabs */}
+            <article className="gap-card gap-exit-card">
+              <header className="gap-card__heading">
+                <h2>Exit Strategy Multiplier</h2>
+                <p>Profitable digital assets can be valued at a multiple of monthly net profit.</p>
+              </header>
+              <div className="gap-control">
+                <div className="gap-control__label">
+                  <label htmlFor="market-multiplier">Market Multiplier</label>
+                  <output>{multiplier}x</output>
+                </div>
+                <input
+                  id="market-multiplier"
+                  className="range-slate"
+                  type="range"
+                  min="30"
+                  max="40"
+                  step="1"
+                  value={multiplier}
+                  onChange={e => setMultiplier(Number(e.target.value))}
+                />
+              </div>
+              <div className="freedom-range-labels">
+                <span>30x (Conservative)</span>
+                <span>40x (Premium)</span>
+              </div>
+            </article>
           </div>
+
+          {/* Results section - below the fold */}
+          <aside className="gap-results">
+            {showResults && result && (
+              <>
+                <article className={`gap-card gap-result-card ${result.isOnTrack ? 'gap-result-card--ontrack' : 'gap-result-card--gap'}`}>
+                  <h3 className="gap-result-title">Your Retirement Gap</h3>
+
+                  <div className="gap-result-value">
+                    <div className={`gap-value ${result.isOnTrack ? 'ontrack' : 'gap'}`}>
+                      {result.isOnTrack ? '✓ ON TRACK' : fmt(result.gap)}
+                    </div>
+                    <div className="gap-label">
+                      {result.isOnTrack ? 'You have enough to retire!' : `Shortfall by age ${formData.retireAge}`}
+                    </div>
+                  </div>
+
+                  <div className="gap-result-grid">
+                    <div className="gap-result-item">
+                      <label>Target Nest Egg</label>
+                      <div className="value">{fmt(result.targetNestEgg)}</div>
+                    </div>
+                    <div className="gap-result-item">
+                      <label>Projected at Retirement</label>
+                      <div className="value">{fmt(result.totalAtRetirement)}</div>
+                    </div>
+                  </div>
+
+                  {!result.isOnTrack && (
+                    <div className="gap-close-message">
+                      <strong>To Close the Gap:</strong>
+                      <div className="gap-close-message-content">
+                        You need <strong>{fmt(result.monthlyNeededToClose)}/mo</strong> more in contributions, OR
+                        <br />
+                        Build digital assets generating <strong>{fmt(result.monthlyNeededToClose * 12)}/year</strong> in passive income.
+                      </div>
+                    </div>
+                  )}
+                </article>
+
+                <article className="gap-card gap-comparison">
+                  <h3 className="gap-result-title">24-Month Comparison</h3>
+
+                  <div className="gap-comparison-item">
+                    <div className="gap-comparison-header">
+                      <span className="label">Traditional Savings</span>
+                      <span className="value">{fmt(result.traditional24m)}</span>
+                    </div>
+                    <div className="gap-comparison-note">~$1k/mo saved over 2 years</div>
+                  </div>
+
+                  <div className="gap-comparison-item highlight">
+                    <div className="gap-comparison-header">
+                      <span className="label">Digital Assets (Projected)</span>
+                      <span className="value highlight">{fmt(result.digital24m)}</span>
+                    </div>
+                    <div className="gap-comparison-note">With exit multiplier + cashflow</div>
+                  </div>
+
+                  {!result.isOnTrack && (
+                    <div className="gap-win-message">
+                      <strong>Digital Assets Win By:</strong>
+                      <div className="gap-win-amount">
+                        {fmt(result.digital24m - result.traditional24m)}
+                      </div>
+                      <div className="gap-win-note">
+                        That's {(result.digital24m / result.traditional24m).toFixed(0)}x more in 2 years.
+                      </div>
+                    </div>
+                  )}
+                </article>
+
+                {/* CTA */}
+                <article className="gap-card">
+                  <h3 className="gap-result-title">What's Your Next Step?</h3>
+                  <div className="gap-cta-stack">
+                    <a href="/quiz" className="btn btn--primary">
+                      Take the Digital Superpower Quiz →
+                    </a>
+                    <a href="/scorecard" className="btn btn--outline">
+                      Score a Niche Idea →
+                    </a>
+                    <a href="/tools" className="btn btn--outline">
+                      Explore the Free Tools →
+                    </a>
+                  </div>
+                </article>
+              </>
+            )}
+
+            {!showResults && (
+              <article className="gap-card gap-placeholder">
+                <div className="gap-placeholder-icon">📊</div>
+                <h3 className="gap-result-title">Results Will Appear Here</h3>
+                <p className="gap-placeholder-text">
+                  Fill in your details above and click Calculate to see your gap.
+                </p>
+                <p className="gap-privacy">
+                  Your calculations stay in your browser. No data is stored or shared.
+                </p>
+              </article>
+            )}
+          </aside>
         </section>
 
         {/* CTA */}
