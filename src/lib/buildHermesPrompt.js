@@ -44,3 +44,40 @@ Your mission:
 Make every page feel interactive, supportive, and valuable — like a private mentor guiding a Gen X woman toward financial clarity and digital independence.
 `;
 }
+export function buildHermesPrompt(page, toolState = {}, pageContext = {}) {
+  switch (page) {
+    case 'gap':
+      return buildGapPrompt(toolState);
+
+    case 'freedom':
+      return buildFreedomPrompt(toolState);
+
+    case 'quiz':
+      return buildQuizPrompt(toolState);
+
+    case 'scorecard':
+      return buildScorecardPrompt(toolState);
+
+    case 'roi':
+      return buildROIPrompt(toolState);
+
+    case 'tools':
+      return buildToolsPrompt();
+
+    case 'pricing':
+      return buildPricingPrompt();
+
+    case 'automation':
+      return buildAutomationPrompt();
+
+    case 'contact':
+      return buildContactPrompt();
+
+    case 'roadmap':
+      return buildRoadmapPrompt(toolState);
+
+    // ⭐ DEFAULT: global marketing-site mentor
+    default:
+      return buildMarketingPrompt(pageContext);
+  }
+}
