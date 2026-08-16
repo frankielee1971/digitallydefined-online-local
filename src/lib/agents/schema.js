@@ -1,4 +1,4 @@
-{
+export const agentSchema = {
   "superpower_summary": "string",
 
   "persona_alignment": {
@@ -55,4 +55,4 @@
     "expected_outcome": "string",
     "time_required": "string"
   }
-}
+};

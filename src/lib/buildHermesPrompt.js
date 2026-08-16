@@ -16,7 +16,23 @@ import {
   buildContactPrompt,
   buildRoadmapPrompt,
   buildMarketingPrompt
-} from './buildHermesPromptParts'; // ← You will create this file next
+} from './buildHermesPromptParts';
+
+// Re-export the page-specific prompt builders so consumers
+// (e.g. MentorTopicWrapper) can import them directly from this module.
+export {
+  buildGapPrompt,
+  buildFreedomPrompt,
+  buildQuizPrompt,
+  buildScorecardPrompt,
+  buildROIPrompt,
+  buildToolsPrompt,
+  buildPricingPrompt,
+  buildAutomationPrompt,
+  buildContactPrompt,
+  buildRoadmapPrompt,
+  buildMarketingPrompt,
+} from './buildHermesPromptParts';
 
 /**
  * Main Hermes Prompt Builder

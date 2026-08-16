@@ -47,7 +47,6 @@ export default function RetirementGapCalculator() {
     return () => updateToolState({ hasCalculated: false });
   }, []);
 
-  const [activeTab, setActiveTab] = useState('retirement');
   const [formData, setFormData] = useState({
     currentAge: 52,
     retireAge: 67,
@@ -173,39 +172,54 @@ export default function RetirementGapCalculator() {
 
         {/* Calculator */}
         <section className="gap-workspace" id="gap-calculator" ref={calculatorRef}>
+          {/* Instructional copy above the calculator */}
+          <div className="gap-instructional">
+            <h2>Your Retirement Gap Isn&rsquo;t a Judgment &mdash; It&rsquo;s a Starting Point.</h2>
+            <p>
+              Most Gen X women discover a gap between what they want in retirement and what traditional savings will actually provide.
+              This calculator turns that fear into a number you can work with.
+            </p>
+
+            <div className="gap-instructional__cols">
+              <div>
+                <h3>What to do here:</h3>
+                <ol>
+                  <li>Enter the income you want in retirement</li>
+                  <li>Add your current savings</li>
+                  <li>Add how many years you have left to work</li>
+                  <li>The calculator shows your monthly gap</li>
+                </ol>
+              </div>
+              <div>
+                <h3>What happens next:</h3>
+                <p>Hermes will turn that gap into:</p>
+                <ul>
+                  <li>A realistic digital asset plan</li>
+                  <li>A first step you can take today</li>
+                  <li>A path that fits your time, strengths, and confidence</li>
+                </ul>
+              </div>
+            </div>
+
+            <p className="gap-instructional__closing">
+              This page is not about judgment.
+              It&rsquo;s about clarity &mdash; and clarity is power.
+            </p>
+          </div>
+
           <div className="gap-calc-header">
             <span className="gap-calc-header__eyebrow">Retirement Gap Calculator</span>
             <h2 className="gap-calc-header__title">📊 Enter Your Numbers</h2>
             <p className="gap-calc-header__sub">Fill in your details below to calculate your retirement gap and see how digital assets close it.</p>
           </div>
 
-          {/* Input section */}
-          <div className="gap-inputs">
-            {/* Tab bar */}
-            <div className="gap-tabs">
-              <button
-                className={`gap-tab ${activeTab === 'retirement' ? 'gap-tab--active' : ''}`}
-                onClick={() => setActiveTab('retirement')}
-              >
-                <span className="gap-tab-icon">💰</span>
-                <span className="gap-tab-label">Retirement</span>
-              </button>
-              <button
-                className={`gap-tab ${activeTab === 'assets' ? 'gap-tab--active' : ''}`}
-                onClick={() => setActiveTab('assets')}
-              >
-                <span className="gap-tab-icon">📈</span>
-                <span className="gap-tab-label">Digital Assets</span>
-              </button>
-            </div>
-
-            {/* Tab panels */}
-            {activeTab === 'retirement' && (
-              <article className="gap-card gap-tab-panel">
-                <header className="gap-card__heading">
-                  <h2>Your Retirement Picture</h2>
-                  <p>Enter your current financial situation to calculate your gap.</p>
-                </header>
+          {/* Input section - two even columns (matches Freedom Number layout) */}
+          <div className="gap-columns">
+            <article className="gap-card">
+              <header className="gap-card__heading">
+                <h2>Your Retirement Picture</h2>
+                <p>Enter your current financial situation to calculate your gap.</p>
+              </header>
 
                 <div className="gap-form-grid">
                   <div>
@@ -248,19 +262,13 @@ export default function RetirementGapCalculator() {
                 <p className="gap-note">
                   The 4% Safe Withdrawal Rate is standard. Adjust if needed.
                 </p>
-
-                <button onClick={calculate} className="btn btn--primary gap-calculate-btn">
-                  Calculate My Gap →
-                </button>
               </article>
-            )}
 
-            {activeTab === 'assets' && (
-              <article className="gap-card gap-tab-panel">
-                <header className="gap-card__heading">
-                  <h2 className="gap-section-title">Your Digital Asset Portfolio</h2>
-                  <p>Adjust the number and expected yield of your faceless digital assets.</p>
-                </header>
+            <article className="gap-card">
+              <header className="gap-card__heading">
+                <h2 className="gap-section-title">Your Digital Asset Portfolio</h2>
+                <p>Adjust the number and expected yield of your faceless digital assets.</p>
+              </header>
 
                 <div className="gap-assets">
                   {ASSET_TYPES.map(asset => (
@@ -310,36 +318,42 @@ export default function RetirementGapCalculator() {
                     <strong>{fmt(liquidationValue)}</strong>
                   </div>
                 </div>
-              </article>
-            )}
 
-            {/* Exit Multiplier - always visible below tabs */}
-            <article className="gap-card gap-exit-card">
-              <header className="gap-card__heading">
-                <h2>Exit Strategy Multiplier</h2>
-                <p>Profitable digital assets can be valued at a multiple of monthly net profit.</p>
-              </header>
-              <div className="gap-control">
-                <div className="gap-control__label">
-                  <label htmlFor="market-multiplier">Market Multiplier</label>
-                  <output>{multiplier}x</output>
+                {/* Exit Multiplier - inside the Digital Asset Portfolio column */}
+                <div className="gap-exit-block">
+                  <header className="gap-card__heading">
+                    <h2>Exit Strategy Multiplier</h2>
+                    <p>Profitable digital assets can be valued at a multiple of monthly net profit.</p>
+                  </header>
+                  <div className="gap-control">
+                    <div className="gap-control__label">
+                      <label htmlFor="market-multiplier">Market Multiplier</label>
+                      <output>{multiplier}x</output>
+                    </div>
+                    <input
+                      id="market-multiplier"
+                      className="range-slate"
+                      type="range"
+                      min="30"
+                      max="40"
+                      step="1"
+                      value={multiplier}
+                      onChange={e => setMultiplier(Number(e.target.value))}
+                    />
+                  </div>
+                  <div className="freedom-range-labels">
+                    <span>30x (Conservative)</span>
+                    <span>40x (Premium)</span>
+                  </div>
                 </div>
-                <input
-                  id="market-multiplier"
-                  className="range-slate"
-                  type="range"
-                  min="30"
-                  max="40"
-                  step="1"
-                  value={multiplier}
-                  onChange={e => setMultiplier(Number(e.target.value))}
-                />
-              </div>
-              <div className="freedom-range-labels">
-                <span>30x (Conservative)</span>
-                <span>40x (Premium)</span>
-              </div>
-            </article>
+              </article>
+          </div>
+
+          {/* Calculate action */}
+          <div className="gap-submit-row">
+            <button onClick={calculate} className="btn btn--primary gap-calculate-btn">
+              Calculate My Gap →
+            </button>
           </div>
 
           {/* Results section - below the fold */}
