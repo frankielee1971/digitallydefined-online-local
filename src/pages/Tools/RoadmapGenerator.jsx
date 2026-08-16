@@ -72,9 +72,8 @@ export default function DigitalSuperpowerQuiz() {
   const [answers, setAnswers] = useState({});
   const [resultKey, setResultKey] = useState(null);
   const [personalized, setPersonalized] = useState(null);
-  const [personalized, setPersonalized] = useState(null);
   const [personalization, setPersonalization] = useState(null);
-  
+
   // Fetch personalization after quiz result
   useEffect(() => {
     if (resultKey) {
@@ -267,7 +266,7 @@ export default function DigitalSuperpowerQuiz() {
     <strong>Personalized adjustments:</strong>
     {personalization.roadmapAdjustments.map((a, i) => (
       <p key={i}>{a}</p>
-    ))
+    ))}
   </div>
 )}
               <h2>From superpower to owned digital property.</h2>
