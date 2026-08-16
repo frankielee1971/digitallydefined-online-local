@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { callAgent } from '../../lib/buzz-agents';
+import { fetchPersonalization } from '../../lib/personalization';
 
 const SAMPLE_NICHES = [
   {
@@ -28,6 +29,14 @@ const SAMPLE_NICHES = [
 export default function NicheDiscovery() {
   const [query, setQuery] = useState('');
   const [result, setResult] = useState(null);
+  const [personalization, setPersonalization] = useState(null);
+  
+  // Fetch personalization after result
+  useEffect(() => {
+    if (result?.key) {
+      fetchPersonalization(result.key).then(p => setPersonalization(p));
+    }
+  }, [result?.key]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 

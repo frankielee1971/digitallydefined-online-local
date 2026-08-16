@@ -3,6 +3,7 @@ import { callAgent } from '../../lib/buzz-agents';
 import { callSupabaseEdge } from '../../lib/supabase-edge';
 import { getRoadmap } from '../../lib/roadmaps';
 import { scoreQuiz } from '../Quiz/QuizLogic';
+import { fetchPersonalization } from '../../lib/personalization';
 
 const QUESTIONS = [
   ['q1', 'When you learn a new tool, what do you do first?', [
@@ -71,6 +72,15 @@ export default function DigitalSuperpowerQuiz() {
   const [answers, setAnswers] = useState({});
   const [resultKey, setResultKey] = useState(null);
   const [personalized, setPersonalized] = useState(null);
+  const [personalized, setPersonalized] = useState(null);
+  const [personalization, setPersonalization] = useState(null);
+  
+  // Fetch personalization after quiz result
+  useEffect(() => {
+    if (resultKey) {
+      fetchPersonalization(resultKey).then(p => setPersonalization(p));
+    }
+  }, [resultKey]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
@@ -252,6 +262,14 @@ export default function DigitalSuperpowerQuiz() {
             </div>
             <div className="roadmap-plan">
               <span className="label label--orange">Your personalized build sequence</span>
+{personalization && personalization.roadmapAdjustments && personalization.roadmapAdjustments.length > 0 && (
+  <div className="roadmap-adjustments">
+    <strong>Personalized adjustments:</strong>
+    {personalization.roadmapAdjustments.map((a, i) => (
+      <p key={i}>{a}</p>
+    ))
+  </div>
+)}
               <h2>From superpower to owned digital property.</h2>
               {(personalized?.steps || roadmap.firstSteps).map((step, index) => (
                 <div className="roadmap-step" key={step}>

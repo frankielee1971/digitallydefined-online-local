@@ -1,4 +1,7 @@
 import React from 'react';
+import EmailSignup from '../components/EmailSignup';
+import { fetchPersonalization } from '../lib/personalization';
+
 
 const tools = [
   {
@@ -75,6 +78,16 @@ export default function Tools() {
         </div>
 
         <div className="tools-footer">
+{personalization && (
+  <section className="story-section" style={{ marginTop: '2rem', borderTop: '1px solid #e2e8f0', paddingTop: '1.5rem' }}>
+    <h3 className="section__eyebrow">Recommended for you</h3>
+    <p>{personalization.nicheSuggestion}
+      {personalization.assetSuggestions.length > 0 ?
+        `: ${personalization.assetSuggestions[0]}` : ''
+    }</p>
+    <p>{personalization.homepageRecommendations[0]}</p>
+  </section>
+)}
           <p>Not sure which tool to use? <a href="/quiz?start=true">Take the quiz first</a> — it tells you exactly where to start based on how you think.</p>
         </div>
       </section>

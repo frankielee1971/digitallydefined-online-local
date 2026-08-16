@@ -56,7 +56,10 @@ export function useMentor(topic = 'default', options = {}) {
   const messagesEndRef = useRef(null);
   const isInitialized = useRef(false);
 
-  const openingMessage = systemPrompt || getTopicPrompt(topic);
+  // The system prompt is instructions for Hermes (sent to the backend as the)
+  // "system" role) — it must NOT be displayed as a chat message. The opening
+  // chat message is a friendly greeting instead.
+  const openingMessage = getTopicPrompt(topic);
 
   useEffect(() => {
     if (!isInitialized.current) {
@@ -88,7 +91,7 @@ export function useMentor(topic = 'default', options = {}) {
       const { sendToHermes } = await import('../lib/hermes');
       const response = await sendToHermes(message, {
         topic,
-        system: systemPrompt,
+        systemPrompt: systemPrompt,
         toolState,
         page: topic,
         devMode: detectedDevMode,
@@ -116,7 +119,7 @@ export function useMentor(topic = 'default', options = {}) {
     } finally {
       setLoading(false);
     }
-  }, [loading, topic]);
+  }, [loading, topic, systemPrompt, toolState]);
 
   const clearChat = useCallback(() => {
     setMessages([{ role: 'assistant', content: openingMessage }]);

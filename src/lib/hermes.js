@@ -140,7 +140,7 @@ export async function sendToHermes(message, context = {}) {
       body: JSON.stringify({
         action,
         message,
-        system: context.system || null,
+        systemPrompt: context.systemPrompt || context.system || null,
         toolState: context.toolState || null,
         page: context.page || null,
         ...context,

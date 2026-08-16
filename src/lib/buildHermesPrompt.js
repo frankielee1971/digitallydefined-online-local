@@ -159,7 +159,9 @@ export function buildScorecardPrompt(toolState) {
   const niche = toolState?.niche || '';
   const score = toolState?.score || 0;
   const recommendation = toolState?.recommendation || '';
-  const analyzed = toolState?.analyzed || false;
+  const analysisComplete = toolState?.analysisComplete || toolState?.analyzed || false;
+  const strength = toolState?.strength || '';
+  const weakness = toolState?.weakness || '';
 
   return `You are Hermes on the Niche Profitability Scorecard page.
 
@@ -167,7 +169,9 @@ CONTEXT:
 - Niche analyzed: "${niche || 'None'}"
 - Score: ${score || 'N/A'}/100
 - Recommendation: ${recommendation || 'N/A'}
-- Analysis complete: ${analyzed}
+- Analysis complete: ${analysisComplete}
+- Strength: ${strength || 'N/A'}
+- Weakness: ${weakness || 'N/A'}
 
 YOUR JOB:
 Make niche validation feel like a filter, not a rejection.
@@ -187,12 +191,12 @@ IF analysis returned HIGH score (70+):
    then model the revenue with the Freedom Number."
 
 IF analysis returned MID score (40-69):
-→ "This niche has promise but needs one thing validated: [specific criterion].
+→ "This niche has promise but needs one thing validated: ${weakness || 'a key criterion'}.
    Before you invest time building, run the full Scorecard again with more specificity. 
    It will tell you exactly where the risk lives."
 
 IF analysis returned LOW score (<40):
-→ "This niche fails on [criterion]. That's not a dead end — 
+→ "This niche fails on ${weakness || 'a key criterion'}. That's not a dead end — 
    it's a direction: either go narrower, shift the monetization model, 
    or try a related niche. What's a more specific version of this problem?"
 

@@ -41,12 +41,28 @@ export default function NicheProfitabilityScorecard() {
     setInsight(null);
     setInsightLoading(true);
 
+    // Derive the strongest and weakest scoring criteria so Hermes can point at
+    // concrete leverage / risk areas.
+    const criterionScores = CRITERIA.map((c) => ({
+      key: c.key,
+      label: c.label,
+      value: Number(scores[c.key] || 0),
+    }));
+    const strength = [...criterionScores].sort((a, b) => b.value - a.value)[0]?.label || null;
+    const weakness = [...criterionScores].sort((a, b) => a.value - b.value)[0]?.label || null;
+
     // Publish results to Hermes
     updateToolState({
       analyzed: true,
+      analysisComplete: true,
+      niche: nicheName || 'Unnamed niche',
+      score: Math.round(scored.pct * 100),
+      recommendation: tierCopy(scored.tier).title,
       nicheScore: Math.round(scored.pct * 100),
       nicheCategory: scored.tier,
       nicheInputs: scores,
+      strength,
+      weakness,
     });
     try {
       const response = await callAgent('scorecard', {

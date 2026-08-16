@@ -1,5 +1,6 @@
 import React from 'react';
 import EmailSignup from '../components/EmailSignup';
+import { fetchPersonalization } from '../lib/personalization';
 
 const pressures = [
   ['01', 'The caregiving squeeze', 'You may be helping children launch, supporting aging parents, and trying to protect your own future at the same time.'],
