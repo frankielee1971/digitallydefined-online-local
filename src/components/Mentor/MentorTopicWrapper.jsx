@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import SiteLayout from '../Layout/SiteLayout';
-import { sendToHermes, buildHermesMessage } from '../../lib/hermes';
+import { sendToHermes } from '../../lib/hermes';
 import { useToolState } from '../../context/ToolStateContext.jsx';
 import {
   buildGapPrompt,
@@ -19,29 +19,47 @@ import {
 const CALCULATOR_ROUTES = ['/roi', '/freedom', '/gap', '/scorecard', '/tools/calculator'];
 
 function MentorTopicWrapper({ topic, children }) {
-  const { toolState } = useToolState();
+  const { toolState, updateToolState } = useToolState();
   const location = useLocation();
-  const isCalculatorRoute = CALCULATOR_ROUTES.some((route) =>
+  const isCalculatorRoute = CALCULATOR_ROUTES.some(route =>
     location.pathname.startsWith(route)
   );
   const wasCalculated = useRef(false);
 
-  const promptBuilders = {
-    'retirement-gap': () => buildGapPrompt(toolState),
-    'freedom': () => buildFreedomPrompt(toolState),
-    'quiz': () => buildQuizPrompt(toolState),
-    'scorecard': () => buildScorecardPrompt(toolState),
-    'roi': () => buildROIPrompt(toolState),
-    'tools': () => buildToolsPrompt(),
-    'pricing': () => buildPricingPrompt(),
-    'automation': () => buildAutomationPrompt(),
-    'contact': () => buildContactPrompt(),
-    'roadmap': () => buildRoadmapPrompt(toolState),
-  };
+  /* -------------------------------------------------------
+     Build enriched system prompt (Hermes v2)
+  -------------------------------------------------------- */
+  const systemPrompt = (() => {
+    switch (topic) {
+      case 'retirement-gap':
+        return buildGapPrompt(toolState);
+      case 'freedom':
+        return buildFreedomPrompt(toolState);
+      case 'quiz':
+        return buildQuizPrompt(toolState);
+      case 'scorecard':
+        return buildScorecardPrompt(toolState);
+      case 'roi':
+        return buildROIPrompt(toolState);
+      case 'tools':
+        return buildToolsPrompt();
+      case 'pricing':
+        return buildPricingPrompt();
+      case 'automation':
+        return buildAutomationPrompt();
+      case 'contact':
+        return buildContactPrompt();
+      case 'roadmap':
+        return buildRoadmapPrompt(toolState);
+      default:
+        return null;
+    }
+  })();
 
-  // Reactive Hermes trigger: fire once when toolState.hasCalculated flips to true
+  /* -------------------------------------------------------
+     Reactive Hermes trigger (auto-open after calculation)
+  -------------------------------------------------------- */
   useEffect(() => {
-    // Only fire Hermes on calculator pages
     if (!isCalculatorRoute) return;
 
     if (!toolState?.hasCalculated) {
@@ -52,12 +70,11 @@ function MentorTopicWrapper({ topic, children }) {
     if (wasCalculated.current) return;
     wasCalculated.current = true;
 
-    // Determine which calculator fired
-    let topic = null;
+    let hermesTopic = null;
     let payload = {};
 
     if (toolState.gapAmount !== undefined) {
-      topic = 'retirement_gap';
+      hermesTopic = 'retirement-gap';
       payload = {
         gapAmount: toolState.gapAmount,
         monthlyNeededToClose: toolState.monthlyNeededToClose,
@@ -66,10 +83,11 @@ function MentorTopicWrapper({ topic, children }) {
         yearsToRetirement: toolState.yearsToRetirement,
         totalMonthlyIncome: toolState.totalMonthlyIncome,
       };
+      updateToolState({ stage: 'gap_calculated', lastAction: 'gap_calculated' });
     }
 
     if (toolState.monthlyGoal !== undefined) {
-      topic = 'freedom_number';
+      hermesTopic = 'freedom';
       payload = {
         monthlyGoal: toolState.monthlyGoal,
         totalMonthlyIncome: toolState.totalMonthlyIncome,
@@ -78,10 +96,11 @@ function MentorTopicWrapper({ topic, children }) {
         gap: toolState.gap,
         goalMet: toolState.goalMet,
       };
+      updateToolState({ stage: 'freedom_calculated', lastAction: 'freedom_calculated' });
     }
 
     if (toolState.roiClosedLeads !== undefined) {
-      topic = 'tenx_roi';
+      hermesTopic = 'roi';
       payload = {
         roiClosedLeads: toolState.roiClosedLeads,
         roiGrossRevenue: toolState.roiGrossRevenue,
@@ -90,30 +109,35 @@ function MentorTopicWrapper({ topic, children }) {
         roiPpcSpend: toolState.roiPpcSpend,
         roiSavings: toolState.roiSavings,
       };
+      updateToolState({ stage: 'roi_calculated', lastAction: 'roi_calculated' });
     }
 
     if (toolState.nicheScore !== undefined) {
-      topic = 'niche_scorecard';
+      hermesTopic = 'scorecard';
       payload = {
         score: toolState.nicheScore,
         category: toolState.nicheCategory,
         inputs: toolState.nicheInputs,
       };
+      updateToolState({ stage: 'scorecard_calculated', lastAction: 'scorecard_calculated' });
     }
 
-    if (topic) {
-      const message = buildHermesMessage(topic, payload);
-      sendToHermes(message, {
-        topic,
-        toolState: payload,
-        page: topic,
-      }).catch((err) => {
+    if (hermesTopic) {
+      sendToHermes("auto", {
+        topic: hermesTopic,
+        systemPrompt,
+        context: {
+          ...toolState,
+          ...payload,
+          page: hermesTopic,
+          stage: toolState.stage,
+          lastAction: toolState.lastAction
+        }
+      }).catch(err => {
         console.error('Reactive Hermes trigger failed:', err);
       });
     }
   }, [toolState, isCalculatorRoute]);
-
-  const systemPrompt = promptBuilders[topic] ? promptBuilders[topic]() : null;
 
   return (
     <SiteLayout mentorTopic={topic} systemPrompt={systemPrompt} toolState={toolState}>
