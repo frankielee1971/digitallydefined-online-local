@@ -491,11 +491,19 @@
   color: #fff;
 }
 
+/* === Final CTA frame === */
+.gap-final-cta {
+  text-align: center;
+  border: 1px solid #000;
+  background: var(--color-ink) !important;
+}
+
 /* === SEO text === */
 .gap-seo {
   margin-top: 4rem;
   padding-top: 2.5rem;
   border-top: 1px solid var(--color-border);
+  text-align: center;
 }
 
 .gap-seo h2 {
