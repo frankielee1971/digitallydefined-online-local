@@ -123,6 +123,31 @@ export function onHermesTyping(cb) {
   typingCallback = cb;
 }
 
+/**
+ * Probe Hermes reachability via /api/hermes/status.
+ * The endpoint is served by the Vite middleware (dev/preview) and by the
+ * Vercel serverless function (production).
+ */
+export async function getHermesStatus() {
+  try {
+    const res = await fetch('/api/hermes/status', {
+      method: 'GET',
+      headers: { Accept: 'application/json' },
+      signal: AbortSignal.timeout(9000),
+    });
+    if (!res.ok) return { online: false, status: res.status, checkedAt: Date.now() };
+    const data = await res.json();
+    return {
+      online: Boolean(data?.online),
+      status: data?.status ?? res.status,
+      provider: data?.provider || null,
+      checkedAt: Date.now(),
+    };
+  } catch (err) {
+    return { online: false, error: err instanceof Error ? err.message : String(err), checkedAt: Date.now() };
+  }
+}
+
 export async function sendToHermes(message, context = {}) {
   if (typingCallback) typingCallback(true);
 

@@ -1,10 +1,10 @@
 .tenx-page {
-  --tx-orange: #F18B25;
-  --tx-blue: #47B7D4;
+  --tx-orange: #FF7A00;
+  --tx-blue: #1E4AFF;
   --tx-green: #111111;
   --tx-text: #111111;
   --tx-muted: #5F5F5F;
-  --tx-bg: #FFFCF9;
+  --tx-bg: #F7F4EF;
   background: var(--tx-bg);
   color: var(--tx-text);
   font-family: var(--font-family);

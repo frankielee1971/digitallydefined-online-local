@@ -3,10 +3,10 @@ import EmailSignup from '../components/EmailSignup';
 import { fetchPersonalization } from '../lib/personalization';
 
 const pressures = [
-  ['01', 'The caregiving squeeze', 'You may be helping children launch, supporting aging parents, and trying to protect your own future at the same time.'],
-  ['02', 'The interrupted career', 'Years spent caregiving, underpaid, divorced, downsized, or rebuilding can show up later as smaller savings and benefits.'],
-  ['03', 'The time gap', 'The old advice assumes decades of uninterrupted compounding. Many Gen X women need an income strategy that can begin now.'],
-  ['04', 'The visibility tax', 'The internet keeps insisting that income requires constant posting, personal exposure, and becoming a full-time personality. It does not.'],
+  ['01', 'The caregiving squeeze', 'You may be helping children launch, supporting aging parents, and trying to protect your own future at the same time.', '/assets/brand/icon-audience.svg'],
+  ['02', 'The interrupted career', 'Years spent caregiving, underpaid, divorced, downsized, or rebuilding can show up later as smaller savings and benefits.', '/assets/brand/icon-document.svg'],
+  ['03', 'The time gap', 'The old advice assumes decades of uninterrupted compounding. Many Gen X women need an income strategy that can begin now.', '/assets/brand/icon-chart.svg'],
+  ['04', 'The visibility tax', 'The internet keeps insisting that income requires constant posting, personal exposure, and becoming a full-time personality. It does not.', '/assets/brand/icon-shield.svg'],
 ];
 
 const advantages = [
@@ -17,10 +17,10 @@ const advantages = [
 ];
 
 const assets = [
-  ['Search property', 'A useful niche website that attracts high-intent visitors and generates leads for a business.'],
-  ['Knowledge property', 'Templates, guides, databases, calculators, and resource libraries built around a specific problem.'],
-  ['Audience property', 'A faceless newsletter, directory, or content channel that compounds attention you control.'],
-  ['System property', 'Automated funnels and workflows that capture, nurture, route, and measure demand without constant manual work.'],
+  ['Search property', 'A useful niche website that attracts high-intent visitors and generates leads for a business.', '/assets/brand/icon-domain.svg'],
+  ['Knowledge property', 'Templates, guides, databases, calculators, and resource libraries built around a specific problem.', '/assets/brand/icon-document.svg'],
+  ['Audience property', 'A faceless newsletter, directory, or content channel that compounds attention you control.', '/assets/brand/icon-email.svg'],
+  ['System property', 'Automated funnels and workflows that capture, nurture, route, and measure demand without constant manual work.', '/assets/brand/icon-gear.svg'],
 ];
 
 // Onboarding path (merged from the removed Start Here page)
@@ -96,8 +96,9 @@ export default function Home() {
           <p>This is not a failure of discipline. It is the accumulated weight of unequal pay, unpaid care, career interruptions, rising costs, and retirement systems designed around a different life.</p>
         </div>
         <div className="story-grid story-grid--four">
-          {pressures.map(([number, title, copy]) => (
+          {pressures.map(([number, title, copy, icon]) => (
             <article className="story-card" key={number}>
+              <img className="story-card__icon" src={icon} alt="" />
               <span className="story-card__number">{number}</span>
               <h3>{title}</h3>
               <p>{copy}</p>
@@ -136,8 +137,9 @@ export default function Home() {
           <p>Instead of renting all your attention to social platforms, you build assets you can control: a domain, an email list, a searchable resource, a product library, a lead engine, or a documented automation.</p>
         </div>
         <div className="asset-grid">
-          {assets.map(([title, copy], index) => (
+          {assets.map(([title, copy, icon], index) => (
             <article className="asset-card" key={title}>
+              <img className="asset-card__icon" src={icon} alt="" />
               <span>PROPERTY {String(index + 1).padStart(2, '0')}</span>
               <h3>{title}</h3>
               <p>{copy}</p>

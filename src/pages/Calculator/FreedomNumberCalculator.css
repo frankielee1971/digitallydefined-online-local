@@ -1,4 +1,4 @@
-.freedom-page{--fo:#F18B25;--fb:#47B7D4;--fr:#111111;--fs:#5F5F5F;background:#FFFCF9;color:#111111;font-family:var(--font-family)}
+.freedom-page{--fo:#FF7A00;--fb:#1E4AFF;--fr:#111111;--fs:#5F5F5F;background:#F7F4EF;color:#000000;font-family:var(--font-family)}
 .freedom-hero{background:#fff;border-bottom:1px solid #000;padding:3.5rem 1.25rem;text-align:center}
 .freedom-hero__inner{max-width:720px;margin:auto}.freedom-kicker{display:inline-block;padding:.3rem .7rem;border:1px solid #000;background:var(--fb);font-size:.63rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase}
 .freedom-hero h1{max-width:620px;margin:1rem auto;font-size:clamp(2rem,5vw,3.4rem);font-weight:900;letter-spacing:-.045em;line-height:1.02;text-transform:uppercase}
