@@ -2568,3 +2568,129 @@ input[type='range']::-moz-range-thumb {
 }
 
 
+/* ============================================================
+   AI Mentor chat box (Scorecard page only)
+   White card, 1px black frame, squared edges, subtle shadow-sm.
+   ============================================================ */
+.ai-mentor-box {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 0;
+  box-shadow: var(--shadow-elevation-sm);
+  padding: 1.5rem;
+  margin-bottom: var(--space-lg);
+}
+
+.ai-mentor-box__header {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  margin-bottom: 1.1rem;
+}
+
+.ai-mentor-box__avatar {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--color-border);
+  border-radius: 0;
+  background: var(--color-surface);
+}
+
+.ai-mentor-box__avatar svg {
+  display: block;
+}
+
+.ai-mentor-box__heading {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.ai-mentor-box__title-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.ai-mentor-box__title {
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  color: var(--color-text);
+}
+
+.ai-mentor-box__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 9999px;
+  background: #22C55E;
+  box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.15);
+}
+
+.ai-mentor-box__status {
+  font-family: var(--font-heading);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #15803D;
+}
+
+.ai-mentor-box__messages {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  max-height: 220px;
+  overflow-y: auto;
+  margin-bottom: 1rem;
+}
+
+.ai-mentor-box__message {
+  max-width: 85%;
+  padding: 0.6rem 0.85rem;
+  border: 1px solid var(--color-border);
+  border-radius: 0;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.ai-mentor-box__message--assistant {
+  align-self: flex-start;
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+
+.ai-mentor-box__message--user {
+  align-self: flex-end;
+  background: var(--color-blue);
+  border-color: var(--color-blue);
+  color: var(--color-surface);
+}
+
+.ai-mentor-box__typing {
+  font-size: 0.82rem;
+  font-style: italic;
+  color: var(--color-text-muted);
+}
+
+.ai-mentor-box__composer {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.ai-mentor-box__composer .form-input {
+  flex: 1;
+}
+
+.ai-mentor-box__send {
+  flex: 0 0 auto;
+  white-space: nowrap;
+}
+
+

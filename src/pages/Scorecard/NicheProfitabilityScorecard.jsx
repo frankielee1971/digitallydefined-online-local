@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { scoreNiche, tierCopy, CRITERIA } from './ScorecardLogic';
 import { callAgent } from '../../lib/buzz-agents';
 import { useToolState } from '../../context/ToolStateContext.jsx';
+import AiMentorChatBox from '../../components/AiMentorChatBox';
 
 // Helper guidance shown under each scoring field. Content only — does not affect scoring.
 const CRITERIA_HELP = {
@@ -215,6 +216,7 @@ export default function NicheProfitabilityScorecard() {
 
       <section className="section" id="niche-scorecard">
         <div className="container container--narrow">
+          <AiMentorChatBox />
           <form onSubmit={handleSubmit} className="card interactive-form-card">
             <div style={{ marginBottom: '1.25rem' }}>
               <label className="form-label">Niche Name (optional)</label>
