@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { callAgent } from '../../lib/buzz-agents';
 import { callSupabaseEdge } from '../../lib/supabase-edge';
 import { getRoadmap } from '../../lib/roadmaps';
 import { scoreQuiz } from '../Quiz/QuizLogic';
 import { fetchPersonalization } from '../../lib/personalization';
+import { PuterSaveButton } from '../../components/Puter/PuterAuth.jsx';
 
 const QUESTIONS = [
   ['q1', 'When you learn a new tool, what do you do first?', [
@@ -283,6 +284,14 @@ export default function DigitalSuperpowerQuiz() {
                 <a href="/tools/scorecard" className="btn btn--primary">Score My Niche →</a>
                 <a href="/freedom" className="btn btn--outline">Model My Freedom Number</a>
                 <button type="button" onClick={reset} className="btn btn--outline">Retake Quiz</button>
+                {roadmap && (
+                  <PuterSaveButton 
+                    filename={`roadmap-${contact.name.replace(/\s+/g, '-').toLowerCase()}-${resultKey}.md`}
+                    content={`# ${roadmap.title}\n\n## Overview\n${roadmap.overview}\n\n## Your Strengths\n${roadmap.strengths.map(s => `- ${s}`).join('\n')}\n\n## Recommended Niches\n${roadmap.recommendedNiches.map(n => `- ${n}`).join('\n')}\n\n## Action Steps\n${(personalized?.steps || roadmap.firstSteps).map((step, i) => `${i + 1}. ${step}`).join('\n')}\n\n${personalized?.nextAction ? `\n## Next Action\n${personalized.nextAction}\n` : ''}`}
+                    mimeType="text/markdown"
+                    onSaveComplete={(result) => console.log('Roadmap saved to Puter:', result)}
+                  />
+                )}
               </div>
             </div>
           </section>

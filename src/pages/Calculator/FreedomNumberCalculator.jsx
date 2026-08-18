@@ -2,8 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { useToolState } from '../../context/ToolStateContext.jsx';
 import {
   CheckSquare, Crown, Lightbulb, Mail,
-  ShieldAlert, TrendingDown, Video,
+  ShieldAlert, TrendingDown, Video, MessageCircle,
 } from 'lucide-react';
+import SmartTooltip from '../../components/ui/SmartTooltip.jsx';
+import NextStepRecommendation from '../../components/ui/NextStepRecommendation.jsx';
+import { useHermesIntervention } from '../../hooks/useHermesIntervention.js';
+import { PuterSaveButton } from '../../components/Puter/PuterAuth.jsx';
 import './FreedomNumberCalculator.css';
 
 const money = (value) => new Intl.NumberFormat('en-US', {
@@ -27,6 +31,27 @@ export default function FreedomNumberCalculator() {
     newsletters: { qty: 1, yield: 4500 },
     youtube: { qty: 0, yield: 3000 },
   });
+  const [showResults, setShowResults] = useState(false);
+  
+  // Hermes intervention hook
+  const { 
+    intervention, 
+    dismissIntervention, 
+    trackInput,
+    resetIntervention 
+  } = useHermesIntervention({ enabled: true });
+  
+  // Track input changes for frustration detection
+  useEffect(() => {
+    if (showResults) {
+      trackInput(JSON.stringify(assets), { context: 'freedom_calculator' });
+    }
+  }, [assets, showResults, trackInput]);
+  
+  // Reset intervention when remounting
+  useEffect(() => {
+    return () => resetIntervention();
+  }, [resetIntervention]);
 
   const updateAsset = (id, field, value) => {
     setAssets((current) => ({
@@ -224,12 +249,73 @@ export default function FreedomNumberCalculator() {
                   </table>
                 </div>
 
-                <a className="freedom-button freedom-button--black" href="/quiz">Take the Quiz →</a>
+                {/* Next Step Recommendation with Hermes integration */}
+                <NextStepRecommendation 
+                  toolType="freedom_number"
+                  results={{
+                    monthlyGoal: freedomGoal,
+                    totalMonthlyIncome,
+                    gap,
+                    goalMet,
+                    assetCount: Object.values(assets).reduce((n, a) => n + a.qty, 0),
+                  }}
+                  onAskHermes={(question) => {
+                    window.dispatchEvent(new CustomEvent('hermes-ask', { 
+                      detail: { question } 
+                    }));
+                  }}
+                />
+                
+                {/* Puter Save Button - Save calculation results to cloud drive */}
+                <PuterSaveButton 
+                  filename={`freedom-plan-${new Date().toISOString().split('T')[0]}.md`}
+                  content={`# Freedom Number Calculator Results\n\n## Your Goal\nMonthly Income Target: ${money(freedomGoal)}\nLiquidation Multiplier: ${multiplier}x\n\n## Current Asset Portfolio\n${Object.entries(assets).map(([key, asset]) => {
+  const assetInfo = ASSETS.find(a => a.id === key);
+  return `- **${assetInfo?.name || key}**: ${asset.qty} units × ${money(asset.yield)} = ${money(asset.qty * asset.yield)}/mo`;
+}).join('\n')}\n\n## Summary\nTotal Monthly Income: ${money(totalMonthlyIncome)}\nFreedom Gap: ${gap > 0 ? money(gap) : '✅ Goal Met!'}\nLiquidation Value: ${money(liquidationValue)}\n\n## 24-Month Projection\n- Traditional Savings: ${money(24000)}\n- Digital Assets: ${money(digital24m)}\n\n${goalMet ? '🎉 Congratulations! You have reached your freedom number.' : `💡 You need ${money(gap)} more monthly income to reach your goal.`}`}
+                  mimeType="text/markdown"
+                  onSaveComplete={(result) => console.log('Freedom plan saved to Puter:', result)}
+                />
+                
                 <p className="freedom-privacy">Your calculations stay in your browser and are not stored.</p>
               </article>
             </aside>
           </div>
         </section>
+        
+        {/* Hermes Intervention Modal */}
+        {intervention && (
+          <div className="hermes-intervention-overlay" onClick={dismissIntervention}>
+            <div className="hermes-intervention-modal-active" onClick={(e) => e.stopPropagation()}>
+              <button 
+                className="hermes-intervention-modal-active__close"
+                onClick={dismissIntervention}
+                aria-label="Close"
+              >
+                ×
+              </button>
+              <div className="hermes-intervention-modal-active__header">
+                <MessageCircle size={24} className="hermes-intervention-modal-active__icon" />
+                <h3>Hermes has a suggestion</h3>
+              </div>
+              <p className="hermes-intervention-modal-active__message">{intervention.message}</p>
+              <div className="hermes-intervention-modal-active__actions">
+                <button className="btn btn--outline" onClick={dismissIntervention}>Continue exploring</button>
+                <button 
+                  className="btn btn--primary"
+                  onClick={() => {
+                    window.dispatchEvent(new CustomEvent('hermes-open-chat', { 
+                      detail: { initialMessage: intervention.message } 
+                    }));
+                    dismissIntervention();
+                  }}
+                >
+                  Chat with Hermes →
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </main>
     </>
   );
