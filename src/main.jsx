@@ -10,6 +10,12 @@ import './styles/tailwind.css';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/react';
 
+// Initialize Puter.js for cloud OS features
+import puter from './puter-adapter.js';
+
+// Global Puter availability check
+window.puter = puter;
+
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <ToolStateProvider>
