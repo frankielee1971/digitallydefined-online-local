@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import EmailSignup from '../components/EmailSignup';
 import { fetchPersonalization } from '../lib/personalization';
+import { callSupabaseEdge } from '../lib/supabase-edge';
 
 const pressures = [
   ['01', 'The caregiving squeeze', 'You may be helping children launch, supporting aging parents, and trying to protect your own future at the same time.', '/assets/brand/icon-audience.svg'],
@@ -33,33 +34,80 @@ const path = [
 ];
 
 export default function Home() {
+  const [optEmail, setOptEmail] = useState('');
+  const [optStatus, setOptStatus] = useState(null);
+
+  async function handleOptIn(e) {
+    e.preventDefault();
+    setOptStatus('submitting');
+    try {
+      await callSupabaseEdge('subscribe', {
+        name: '',
+        email: optEmail,
+        source: 'homepage-hero',
+        tags: ['website-signup'],
+      });
+      setOptEmail('');
+      setOptStatus('success');
+    } catch (err) {
+      console.error('Subscription error:', err);
+      setOptStatus('error');
+    }
+  }
+
   return (
     <>
-      <section className="story-hero">
-        <div className="story-hero__grid">
-          <div className="reveal">
-            <span className="label label--blue">Sovereign wealth for Gen X women</span>
-            <h1>Build a retirement asset that <span className="marker">does not need your face.</span></h1>
-            <p className="story-hero__lead">
-              DigitallyDefined helps Gen X women turn lived experience into faceless digital real estate using practical AI and automated systems, so retirement does not depend on one paycheck, one platform, or being visible every day.
-            </p>
-            <div className="action-row">
-              <a href="#build-path" className="btn btn--primary btn--large">Start Your Build Path →</a>
-            </div>
-            <p className="microcopy">No camera. No invented urgency. No promise of overnight income.</p>
-          </div>
+      {/* 1. HERO — primary email sign-up area */}
+      <section className="optin-hero">
+        <div className="optin-hero__inner">
+          <h1>Build Faceless Digital Assets.</h1>
+          <p className="optin-hero__sub">Start your path to freedom-based digital ownership.</p>
 
-          <aside className="manifesto-card reveal reveal--delay">
-            <span className="manifesto-card__index">THE NEW PLAN / 01</span>
-            <p className="manifesto-card__quote">"We are not trying to become influencers. We are building useful property on the internet."</p>
-            <div className="manifesto-card__ledger">
-              <span>Own the asset</span>
-              <span>Automate the repetition</span>
-              <span>Document the system</span>
-              <span>Pass it forward</span>
-            </div>
-          </aside>
+          {optStatus === 'success' ? (
+            <p className="optin-hero__success">You're in. Watch your inbox for your first step.</p>
+          ) : (
+            <form className="optin-hero__form" onSubmit={handleOptIn}>
+              <input
+                type="email"
+                required
+                placeholder="your@email.com"
+                className="optin-hero__input"
+                value={optEmail}
+                onChange={(e) => setOptEmail(e.target.value)}
+                aria-label="Email address"
+              />
+              <button
+                type="submit"
+                className="btn btn--primary optin-hero__cta"
+                disabled={optStatus === 'submitting'}
+              >
+                {optStatus === 'submitting' ? 'Starting…' : 'Start Here →'}
+              </button>
+            </form>
+          )}
+          {optStatus === 'error' && (
+            <p className="optin-hero__error">Something went wrong. Please try again.</p>
+          )}
+          <p className="microcopy">No camera. No invented urgency. No promise of overnight income.</p>
         </div>
+      </section>
+
+      {/* 2. TOOLS — CTAs directly below the hero, feeling like a continuation */}
+      <section className="tools-cta" aria-label="Free planning tools">
+        <div className="tools-cta__row">
+          <a className="tools-cta__btn" href="/freedom"><span className="tools-cta__icon" aria-hidden="true">📈</span>Freedom Number Calculator</a>
+          <a className="tools-cta__btn" href="/tools"><span className="tools-cta__icon" aria-hidden="true">⚙️</span>Asset Builder</a>
+          <a className="tools-cta__btn" href="/roi"><span className="tools-cta__icon" aria-hidden="true">💡</span>ProfitTree</a>
+          <a className="tools-cta__btn" href="/quiz"><span className="tools-cta__icon" aria-hidden="true">🔢</span>Quiz</a>
+        </div>
+      </section>
+
+      {/* 3. PHILOSOPHY STRIP — separated from the cards section below */}
+      <section className="philosophy-strip" aria-label="DigitallyDefined principles">
+        <span>FACELESS BY DESIGN</span><i aria-hidden="true">•</i>
+        <span>AI AS LEVERAGE</span><i aria-hidden="true">•</i>
+        <span>SYSTEMS OVER HUSTLE</span><i aria-hidden="true">•</i>
+        <span>ASSETS OVER ALGORITHMS</span>
       </section>
 
       {/* Onboarding path — homepage is now the single onboarding entry point */}
