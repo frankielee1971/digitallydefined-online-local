@@ -5,21 +5,24 @@
 
 :root {
   /* Brand Colors - DigitallyDefined Guidelines */
-  --color-bg: #F7F4EF;        /* Bone background */
+  --color-bg: #FFFCF9;        /* Cream background (Soft Brutalism) */
   --color-surface: #FFFFFF;   /* White cards */
-  --color-text: #000000;      /* Ink text */
+  --color-text: #111111;      /* Near-black text */
   --color-text-muted: #5F5F5F;
-  --color-accent: #FF7A00;    /* Orange */
+  --color-accent: #f18b25;    /* Orange */
   --color-border: #000000;
-  --color-blue: #1E4AFF;      /* Blue */
+  --color-blue: #47b7d4
+  ;      /* Blue */
   --color-red: #8B1A0A;       /* Dark red */
-  --color-ink: #000000;
-  --dd-orange: #FF7A00;
-  --dd-blue: #1E4AFF;
+  --color-ink: #111111;
+  --dd-orange: #f18b25
+;
+  --dd-blue: #47b7d4
+  ;
   --dd-red: #8B1A0A;
-  --black: #000000;
+  --black: #111111;
   --white: #ffffff;
-  --bone: #F7F4EF;
+  --bone: #ffffc9;
   --color-lemon: #ffffc9;  /* Conversion hero / philosophy strip background */
   
   /* Spacing */
@@ -49,12 +52,20 @@
   --border-width: 1px;
   --border-radius: 0px; /* Brutalism = no rounding */
   
-  /* Shadows — soft-brutalist elevation scale (shadow-sm / shadow-md ONLY) */
+  /* Shadows — soft-brutalist elevation scale (hard 1px/2px, NO blur/spread) */
   --shadow-hard: none;
   --shadow-hard-sm: none;
   --shadow-hard-lg: none;
-  --shadow-elevation-sm: 0 1px 2px rgba(0, 0, 0, 0.08);
-  --shadow-elevation-md: 0 4px 12px rgba(0, 0, 0, 0.10);
+  --shadow-elevation-sm: 1px 1px 0px rgba(0, 0, 0, 0.08);
+  --shadow-elevation-md: 2px 2px 0px rgba(0, 0, 0, 0.12);
+  --shadow-brutal-sm: 1px 1px 0px rgba(0, 0, 0, 0.08);
+  --shadow-brutal-md: 2px 2px 0px rgba(0, 0, 0, 0.12);
+  --shadow-brutal-lg: 3px 3px 0px rgba(0, 0, 0, 0.15);
+
+  /* Content + icon/illustration language */
+  --content-width: 1100px;
+  --icon-style: flat-line-geometric;
+  --illustration-style: flat-abstract;
   
   /* Transitions */
   --transition-fast: 0.15s ease;
@@ -3410,4 +3421,119 @@ input[type='range']::-moz-range-thumb {
     opacity: 1;
     transform: translateY(-50%) scale(1);
   }
+}
+/* ============================================================
+   DD Design System — unified Soft Brutalism utilities
+   Applies the canonical token set to layout + primitives.
+   ============================================================ */
+
+/* Container: 1100px brutalist grid */
+.dd-container {
+  max-width: var(--content-width, 1100px);
+  margin: 0 auto;
+  padding: 0 var(--space-md, 24px);
+}
+.dd-container--narrow {
+  max-width: 700px;
+}
+
+/* Brutalist dividers — 1px hard rules only */
+.dd-rule {
+  border-top: 1px solid var(--color-border, #111);
+}
+.dd-rule--soft {
+  border-top: 1px solid rgba(17, 17, 17, 0.08);
+}
+.dd-rule--vertical {
+  border-left: 1px solid var(--color-border, #111);
+}
+
+/* Flat geometric icon tile — 1.5px line weight, no fill/emoji */
+.dd-icon {
+  display: inline-grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border: var(--border-width, 1px) solid var(--color-border, #111);
+  border-radius: 0;
+  background: var(--color-surface, #fff);
+  color: var(--color-text, #111);
+}
+
+/* Label / eyebrow */
+.dd-label {
+  font-family: var(--font-heading);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-text, #111);
+}
+
+/* Card — 1px #111 border, 0 radius, brutalist hard shadow */
+.dd-card {
+  border: var(--border-width, 1px) solid var(--color-border, #111);
+  border-radius: 0;
+  background: var(--color-surface, #fff);
+  box-shadow: var(--shadow-brutal-sm, 1px 1px 0px rgba(0, 0, 0, 0.08));
+}
+
+/* Section — cream rhythm with optional muted/black tones */
+.dd-section {
+  padding: clamp(2.5rem, 6vw, var(--space-xl, 60px)) 0;
+}
+.dd-section--white {
+  background: var(--color-surface, #fff);
+}
+.dd-section--panel {
+  background: var(--color-panel, #fffaf5);
+}
+.dd-section--dark {
+  background: var(--color-ink, #111);
+  color: #fff;
+}
+.dd-section--dark h1,
+.dd-section--dark h2,
+.dd-section--dark h3 {
+  color: #fff;
+}
+
+/* CTA buttons — sharp, 0 radius, no shadow, no gradients */
+.dd-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  min-height: 44px;
+  padding: 14px 20px;
+  border: var(--border-width, 1px) solid var(--color-border, #111);
+  border-radius: 0;
+  font-family: var(--font-body, 'DM Sans', system-ui, sans-serif);
+  font-size: 0.85rem;
+  font-weight: 700;
+  box-shadow: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.15s ease;
+}
+.dd-btn--primary {
+  background: var(--color-accent, #f18b25);
+  color: var(--color-text, #111);
+}
+.dd-btn--secondary {
+  background: var(--color-blue, #47b7d4);
+  color: var(--color-text, #111);
+}
+.dd-btn--outline {
+  background: var(--color-bg, #fffcf9);
+  color: var(--color-text, #111);
+}
+
+/* Flat illustration — abstract brutalist block (NO human forms) */
+.dd-illustration {
+  display: grid;
+  place-items: center;
+  border: var(--border-width, 1px) solid var(--color-border, #111);
+  border-radius: 0;
+  background: var(--color-panel, #fffaf5);
 }

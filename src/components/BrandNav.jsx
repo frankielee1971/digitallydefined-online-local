@@ -18,7 +18,7 @@ export default function BrandNav() {
 
   return (
     <header className="brand-nav">
-      <div className="brand-nav__inner">
+      <div className="brand-nav__inner dd-container">
         <Link to="/" className="brand-logo" aria-label="DigitallyDefined home">
           <span className="brand-logo__name">Digitally<span>Defined</span></span>
           <small>Digital Reinvention for Gen X Women</small>

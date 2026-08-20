@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import EmailSignup from '../components/EmailSignup';
 import { fetchPersonalization } from '../lib/personalization';
 import { callSupabaseEdge } from '../lib/supabase-edge';
+import DDHero from '../components/ui/DDHero';
 
 const pressures = [
   ['01', 'The caregiving squeeze', 'You may be helping children launch, supporting aging parents, and trying to protect your own future at the same time.', '/assets/brand/icon-audience.svg'],
@@ -57,13 +58,18 @@ export default function Home() {
 
   return (
     <>
-      {/* 1. HERO — primary email sign-up area */}
-      <section className="optin-hero">
-        <div className="optin-hero__inner">
-          <h1>Build Faceless Digital Assets.</h1>
-          <p className="optin-hero__sub">Start your path to freedom-based digital ownership.</p>
-
-          {optStatus === 'success' ? (
+      {/* 1. HERO — DDG hero: primary capture + tool row above the fold */}
+      <DDHero
+        label="Start here / not everywhere"
+        labelTone="orange"
+        title="Build Faceless Digital Assets."
+        tagline="Start your path to freedom-based digital ownership. No camera. No invented urgency. No promise of overnight income."
+        ctas={[
+          { label: 'Find Your Superpower First →', href: '/quiz?start=true', variant: 'primary' },
+          { label: 'Calculate My Retirement Gap →', href: '/gap', variant: 'outline' },
+        ]}
+        extra={
+          optStatus === 'success' ? (
             <p className="optin-hero__success">You're in. Watch your inbox for your first step.</p>
           ) : (
             <form className="optin-hero__form" onSubmit={handleOptIn}>
@@ -76,29 +82,24 @@ export default function Home() {
                 onChange={(e) => setOptEmail(e.target.value)}
                 aria-label="Email address"
               />
-              <button
-                type="submit"
-                className="btn btn--primary optin-hero__cta"
-                disabled={optStatus === 'submitting'}
-              >
+              <button type="submit" className="btn btn--primary optin-hero__cta" disabled={optStatus === 'submitting'}>
                 {optStatus === 'submitting' ? 'Starting…' : 'Start Here →'}
               </button>
             </form>
-          )}
-          {optStatus === 'error' && (
-            <p className="optin-hero__error">Something went wrong. Please try again.</p>
-          )}
-          <p className="microcopy">No camera. No invented urgency. No promise of overnight income.</p>
-        </div>
-      </section>
+          )
+        }
+      />
+      {optStatus === 'error' && (
+        <p className="optin-hero__error">Something went wrong. Please try again.</p>
+      )}
 
-      {/* 2. TOOLS — CTAs directly below the hero, feeling like a continuation */}
+      {/* 2. TOOLS — flat geometric CTA row directly under the hero */}
       <section className="tools-cta" aria-label="Free planning tools">
         <div className="tools-cta__row">
-          <a className="tools-cta__btn" href="/freedom"><span className="tools-cta__icon" aria-hidden="true">📈</span>Freedom Number Calculator</a>
-          <a className="tools-cta__btn" href="/tools"><span className="tools-cta__icon" aria-hidden="true">⚙️</span>Asset Builder</a>
-          <a className="tools-cta__btn" href="/roi"><span className="tools-cta__icon" aria-hidden="true">💡</span>ProfitTree</a>
-          <a className="tools-cta__btn" href="/quiz"><span className="tools-cta__icon" aria-hidden="true">🔢</span>Quiz</a>
+          <a className="tools-cta__btn dd-btn dd-btn--outline" href="/freedom">Freedom Number Calculator</a>
+          <a className="tools-cta__btn dd-btn dd-btn--outline" href="/tools">Asset Builder</a>
+          <a className="tools-cta__btn dd-btn dd-btn--outline" href="/roi">10X ROI</a>
+          <a className="tools-cta__btn dd-btn dd-btn--outline" href="/quiz">Digital Superpower Quiz</a>
         </div>
       </section>
 

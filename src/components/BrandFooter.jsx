@@ -4,7 +4,7 @@ import SocialIcons from './SocialIcons';
 export default function BrandFooter() {
   return (
     <footer className="brand-footer">
-      <div className="brand-footer__inner">
+      <div className="brand-footer__inner dd-container">
         <div className="brand-logo brand-logo--footer">
           <span className="brand-logo__name">Digitally<span>Defined</span></span>
           <small>Digital Reinvention for Gen X Women</small>
