@@ -1,5 +1,6 @@
 import React from 'react';
-import { ArrowRight, Lightbulb, MessageCircle } from 'lucide-react';
+import { ArrowRight, Lightbulb } from 'lucide-react';
+import { IconMessageCircle } from '../../lib/icons.jsx';
 
 /**
  * SmartTooltip
@@ -50,7 +51,7 @@ export default function SmartTooltip({
                   setIsVisible(false);
                 }}
               >
-                <MessageCircle size={12} />
+                <IconMessageCircle size="xs" />
                 Ask Hermes about this
               </button>
             )}
