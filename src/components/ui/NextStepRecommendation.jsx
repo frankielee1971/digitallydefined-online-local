@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ArrowRight, TrendingUp, Target, Users } from 'lucide-react';
+import { IconMessageCircle } from '../../lib/icons.jsx';
 
 /**
  * NextStepRecommendation
@@ -297,7 +298,7 @@ export default function NextStepRecommendation({
               }
             }}
           >
-            <MessageCircle size={18} />
+            <IconMessageCircle size="md" />
             {recommendation.secondaryAction.label}
           </button>
         )}

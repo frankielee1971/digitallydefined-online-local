@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useToolState } from '../../context/ToolStateContext.jsx';
 import {
   CheckSquare, Crown, Lightbulb, Mail,
-  ShieldAlert, TrendingDown, Video, MessageCircle,
+  ShieldAlert, TrendingDown, Video,
 } from 'lucide-react';
+import { IconMessageCircle } from '../../lib/icons.jsx';
 import SmartTooltip from '../../components/ui/SmartTooltip.jsx';
 import NextStepRecommendation from '../../components/ui/NextStepRecommendation.jsx';
 import { useHermesIntervention } from '../../hooks/useHermesIntervention.js';
@@ -295,7 +296,7 @@ export default function FreedomNumberCalculator() {
                 ×
               </button>
               <div className="hermes-intervention-modal-active__header">
-                <MessageCircle size={24} className="hermes-intervention-modal-active__icon" />
+                <IconMessageCircle size="lg" className="hermes-intervention-modal-active__icon" />
                 <h3>Hermes has a suggestion</h3>
               </div>
               <p className="hermes-intervention-modal-active__message">{intervention.message}</p>

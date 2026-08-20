@@ -11,8 +11,8 @@ const VARIANTS = {
  * DDCTA — the only conversion button on the website.
  * Sharp, 0 radius, 1px border, no gradient, no shadow.
  */
-export default function DDCTA({ label, href, onClick, variant = 'primary', as: Tag, wide = false, className = '', style, disabled, icon, target, ...rest }) {
-  const Tag2 = as || (href ? 'a' : onClick ? 'button' : 'button');
+export default function DDCTA({ label, href, onClick, variant = 'primary', wide = false, className = '', style, disabled, icon, target, ...rest }) {
+  const Tag = href ? 'a' : 'button';
   const common = {
     ...VARIANTS[variant] || brutalButtonPrimary,
     width: wide ? '100%' : undefined,
@@ -25,7 +25,7 @@ export default function DDCTA({ label, href, onClick, variant = 'primary', as: T
       {label}
     </>
   );
-  if (Tag2 === 'a') {
+  if (Tag === 'a') {
     return (
       <a href={href} className={`dd-btn ${className}`} style={common} target={target} {...rest}>
         {inner}
