@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { callSupabaseEdge } from '../lib/supabase-edge';
+import { trackFormSubmit, trackEvent } from '../lib/tracking';
 
 export default function Contact() {
   const [form, setForm] = useState({ name: '', email: '', message: '' });
@@ -8,6 +9,7 @@ export default function Contact() {
   async function handleSubmit(e) {
     e.preventDefault();
     setStatus('sending');
+    trackEvent('form_start', { form_name: 'contact' });
     try {
       await callSupabaseEdge('contact', {
         name: form.name,
@@ -15,6 +17,12 @@ export default function Contact() {
         message: form.message,
         source: 'contact-page',
       });
+      trackFormSubmit({
+        formName: 'contact',
+        email: form.email,
+        funnel_step: 'contact-message',
+      });
+      trackEvent('lead', { email: form.email, form_name: 'contact' });
       setStatus('success');
       setForm({ name: '', email: '', message: '' });
     } catch (err) {

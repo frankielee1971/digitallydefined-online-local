@@ -1,4 +1,11 @@
 import React from 'react';
+import { trackProductInterest } from '../lib/tracking';
+
+const PRODUCT_INTERESTS = [
+  'Digital Superpower Quiz',
+  'Niche Profitability Scorecard',
+  'Calculators & Modeling',
+];
 
 export default function Products() {
   return (
@@ -27,17 +34,17 @@ export default function Products() {
             <div className="card" style={{ padding: '1.5rem' }}>
               <div className="card__heading" style={{ fontSize: '1rem', marginBottom: '0.75rem' }}>Digital Superpower Quiz</div>
               <p className="card__text" style={{ fontSize: '0.9rem' }}>Find the faceless asset model that fits how you already think.</p>
-              <a href="/quiz" className="btn btn--secondary" style={{ width: 'fit-content', fontSize: '0.75rem', padding: '0.5rem 1rem' }}>Take the Quiz →</a>
+              <a href="/quiz" onClick={() => trackProductInterest(PRODUCT_INTERESTS[0], { source: '/products' })} className="btn btn--secondary" style={{ width: 'fit-content', fontSize: '0.75rem', padding: '0.5rem 1rem' }}>Take the Quiz →</a>
             </div>
             <div className="card" style={{ padding: '1.5rem' }}>
               <div className="card__heading" style={{ fontSize: '1rem', marginBottom: '0.75rem' }}>Niche Profitability Scorecard</div>
               <p className="card__text" style={{ fontSize: '0.9rem' }}>Test an idea against 6 weighted criteria before you invest.</p>
-              <a href="/tools/scorecard" className="btn btn--secondary" style={{ width: 'fit-content', fontSize: '0.75rem', padding: '0.5rem 1rem' }}>Score a Niche →</a>
+              <a href="/tools/scorecard" onClick={() => trackProductInterest(PRODUCT_INTERESTS[1], { source: '/products' })} className="btn btn--secondary" style={{ width: 'fit-content', fontSize: '0.75rem', padding: '0.5rem 1rem' }}>Score a Niche →</a>
             </div>
             <div className="card" style={{ padding: '1.5rem' }}>
               <div className="card__heading" style={{ fontSize: '1rem', marginBottom: '0.75rem' }}>Calculators & Modeling</div>
               <p className="card__text" style={{ fontSize: '0.9rem' }}>Model your retirement gap, freedom number, and 10X ROI.</p>
-              <a href="/tools/calculator" className="btn btn--secondary" style={{ width: 'fit-content', fontSize: '0.75rem', padding: '0.5rem 1rem' }}>Model My Numbers →</a>
+              <a href="/tools/calculator" onClick={() => trackProductInterest(PRODUCT_INTERESTS[2], { source: '/products' })} className="btn btn--secondary" style={{ width: 'fit-content', fontSize: '0.75rem', padding: '0.5rem 1rem' }}>Model My Numbers →</a>
             </div>
           </div>
           <a href="/contact" className="btn btn--primary">Get Notified When Paid Systems Launch →</a>
