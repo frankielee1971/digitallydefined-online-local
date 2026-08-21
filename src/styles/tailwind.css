@@ -1,0 +1,4 @@
+/* Tailwind utilities only (preflight disabled to preserve the soft-brutalism
+   design system in global.css). Provides shadow-sm/md/lg elevation and
+   brand utilities: bg-bone, text-ink, border-ink, text-orange, bg-blue ... */
+@tailwind utilities;

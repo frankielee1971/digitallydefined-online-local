@@ -1,0 +1,68 @@
+import React, { useState } from 'react';
+import { Menu, X } from 'lucide-react';
+import { Link } from 'react-router-dom';
+
+const navLinks = [
+  { href: '/', label: 'Home' },
+  { href: '/quiz', label: 'Quiz' },
+  { href: '/tools', label: 'Tools' },
+  { href: '/about', label: 'Our Mission' },
+];
+
+const navCtas = [{ href: '/gap', label: 'Calculate My Gap →' }];
+
+const externalLinks = [];
+
+export default function BrandNav() {
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  return (
+    <header className="brand-nav">
+      <div className="brand-nav__inner dd-container">
+        <Link to="/" className="brand-logo" aria-label="DigitallyDefined home">
+          <span className="brand-logo__name">Digitally<span>Defined</span></span>
+          <small>Digital Reinvention for Gen X Women</small>
+        </Link>
+
+        <nav className="desktop-nav brand-nav__links" aria-label="Primary navigation">
+          {navLinks.map((link) => (
+            <Link key={link.href} to={link.href}>{link.label}</Link>
+          ))}
+        </nav>
+
+        {navCtas.map((link) => (
+          <Link key={link.href} to={link.href} className="nav-cta">
+            {link.label}
+          </Link>
+        ))}
+
+        {externalLinks.map((link) => (
+          <a key={link.href} href={link.href} className="nav-cta" target="_blank" rel="noreferrer">
+            {link.label}
+          </a>
+        ))}
+
+        <button
+          type="button"
+          className="mobile-menu-btn brand-nav__menu"
+          onClick={() => setMenuOpen((open) => !open)}
+          aria-expanded={menuOpen}
+          aria-controls="mobile-navigation"
+          aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+        >
+          {menuOpen ? <X size={20} /> : <Menu size={20} />}
+        </button>
+      </div>
+
+      {menuOpen && (
+        <nav id="mobile-navigation" className="brand-nav__mobile" aria-label="Mobile navigation">
+          {navLinks.map((link) => (
+            <Link key={link.href} to={link.href} onClick={() => setMenuOpen(false)}>
+              {link.label}
+            </Link>
+          ))}
+        </nav>
+      )}
+    </header>
+  );
+}
