@@ -59,36 +59,37 @@ export default function Home() {
   return (
     <>
       <FadeInSection>
-        <DDHero
-          label="Start here / not everywhere"
-          labelTone="orange"
-          title="Build Faceless Digital Assets."
-          tagline="Start your path to freedom-based digital ownership. No camera. No invented urgency. No promise of overnight income."
-          ctas={[
-            { label: 'Find Your Superpower First →', href: '/quiz?start=true', variant: 'primary' },
-            { label: 'Calculate My Retirement Gap →', href: '/gap', variant: 'outline' },
-          ]}
-          extra={
-            optStatus === 'success' ? (
-              <p className="optin-hero__success">You're in. Watch your inbox for your first step.</p>
+        <section style={{ background: '#FFFCF9', borderBottom: '1px solid #111', padding: 'clamp(2.5rem,6vw,4rem) 0' }}>
+          <div style={{ maxWidth: 720, margin: '0 auto', padding: '0 24px', textAlign: 'center' }}>
+            <span style={{ fontFamily: "'Inter', system-ui, sans-serif", fontWeight: 800, fontSize: '0.72rem', letterSpacing: '0.12em', textTransform: 'uppercase', color: '#F18B25', marginBottom: '0.75rem', display: 'inline-block' }}>Start here / not everywhere</span>
+            <h1 style={{ fontFamily: "'Inter', system-ui, sans-serif", fontWeight: 800, letterSpacing: '-0.03em', fontSize: 'clamp(2.25rem,5vw,3.4rem)', lineHeight: 1.1, margin: '0 0 1rem', color: '#111111' }}>Build Faceless Digital Assets.</h1>
+            <p style={{ fontSize: '1.15rem', lineHeight: 1.6, color: '#5F5F5F', maxWidth: 640, margin: '0 auto 1.5rem' }}>Start your path to freedom-based digital ownership. No camera. No invented urgency. No promise of overnight income.</p>
+            
+            {optStatus === 'success' ? (
+              <p style={{ color: '#16A34A', fontWeight: 700, marginBottom: '1rem' }}>You're in. Watch your inbox for your first step.</p>
             ) : (
-              <form className="optin-hero__form" onSubmit={handleOptIn}>
+              <form onSubmit={handleOptIn} style={{ maxWidth: 480, margin: '0 auto 1.25rem', display: 'flex', gap: '0.5rem', flexWrap: 'wrap', justifyContent: 'center' }}>
                 <input
                   type="email"
                   required
                   placeholder="your@email.com"
-                  className="optin-hero__input"
+                  style={{ flex: '1 1 220px', padding: '0.75rem 1rem', border: '1px solid #111', background: '#FFFFFF', fontSize: '1rem', outline: 'none' }}
                   value={optEmail}
                   onChange={(e) => setOptEmail(e.target.value)}
                   aria-label="Email address"
                 />
-                <button type="submit" className="btn btn--primary optin-hero__cta" disabled={optStatus === 'submitting'}>
+                <button type="submit" className="btn btn--primary dd-button dd-button--primary" disabled={optStatus === 'submitting'}>
                   {optStatus === 'submitting' ? 'Starting…' : 'Start Here →'}
                 </button>
               </form>
-            )
-          }
-        />
+            )}
+
+            <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', justifyContent: 'center' }}>
+              <a href="/quiz?start=true" className="btn btn--primary dd-button dd-button--primary">Find Your Superpower First →</a>
+              <a href="/gap" className="btn btn--outline dd-button dd-button--outline">Calculate My Retirement Gap →</a>
+            </div>
+          </div>
+        </section>
       </FadeInSection>
 
       {optStatus === 'error' && (

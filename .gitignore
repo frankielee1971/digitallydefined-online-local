@@ -75,3 +75,5 @@ htmlcov/
 # Vite requires public/ to be tracked so assets deploy correctly.
 # Remove any previous "public/" ignore rules.
 # ---------------------------------------------------------
+.vercel
+.env*
