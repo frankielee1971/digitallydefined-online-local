@@ -73,7 +73,7 @@ export default function NicheDiscovery() {
           <p className="hero__tagline" style={{ fontSize: '1.1rem', maxWidth: '500px', margin: '0 auto' }}>
             AI-powered niche analysis for Gen X women building faceless digital real estate.
           </p>
-          <div className="action-row"><a href="#niche-discovery" className="btn btn--primary">Discover My Niche â†’</a></div>
+          <div className="action-row"><a href="#niche-discovery" className="btn btn--primary">Discover My Niche →</a></div>
         </div>
       </section>
 
@@ -90,7 +90,7 @@ export default function NicheDiscovery() {
               style={{ marginBottom: '1rem' }}
             />
             <button type="submit" disabled={loading || !query.trim()} className="btn btn--primary">
-              {loading ? 'Analyzing...' : 'Discover Niche â†’'}
+              {loading ? 'Analyzing...' : 'Discover Niche →'}
             </button>
           </form>
 
@@ -163,7 +163,7 @@ export default function NicheDiscovery() {
               )}
 
               <div style={{ marginTop: '2rem', display: 'flex', gap: '1rem' }}>
-                <a href="/gap" className="btn btn--primary">Calculate My Gap â†’</a>
+                <a href="/gap" className="btn btn--primary">Calculate My Gap →</a>
                 <button onClick={() => setResult(null)} className="btn btn--outline">Analyze Another</button>
               </div>
             </div>

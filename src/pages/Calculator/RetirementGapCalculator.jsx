@@ -1,9 +1,9 @@
-﻿import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useToolState } from '../../context/ToolStateContext.jsx';
 import './RetirementGapCalculator.css';
 
 // === Retirement Gap Calculator ===
-// Gen X Retirement Gap Solver â€” faceless digital real estate path
+// Gen X Retirement Gap Solver — faceless digital real estate path
 
 const fmt = (n) => {
   if (n >= 1000000) return `$${(n / 1000000).toFixed(1)}M`;
@@ -24,7 +24,7 @@ const fvSeries = (monthly, annualRate, years) => {
 
 const ASSET_TYPES = [
   { id: 'templates', name: 'Template Hubs & Printables', icon: 'ðŸ“‹', minYield: 50, maxYield: 2000, defaultYield: 500, color: 'var(--color-accent)' },
-  { id: 'newsletters', name: 'Paid Newsletters', icon: 'âœ‰ï¸', minYield: 500, maxYield: 5000, defaultYield: 1500, color: 'var(--color-blue)' },
+  { id: 'newsletters', name: 'Paid Newsletters', icon: '✉️', minYield: 500, maxYield: 5000, defaultYield: 1500, color: 'var(--color-blue)' },
   { id: 'youtube', name: 'YouTube Automation', icon: 'ðŸŽ¬', minYield: 300, maxYield: 8000, defaultYield: 1000, color: 'var(--color-text-muted)' },
   { id: 'rankandrent', name: 'Rank & Rent Sites', icon: 'ðŸ ', minYield: 500, maxYield: 5000, defaultYield: 1500, color: 'var(--color-text)' },
   { id: 'digitalproducts', name: 'Digital Products', icon: 'ðŸ“¦', minYield: 100, maxYield: 3000, defaultYield: 500, color: 'var(--color-accent)' },
@@ -95,7 +95,7 @@ export default function RetirementGapCalculator() {
 
   const [multiplier, setMultiplier] = useState(35);
 
-  // Live result â€” recomputed on every render from current inputs
+  // Live result — recomputed on every render from current inputs
   const result = computeResult(formData, assets, multiplier);
 
   const markInteracted = () => { interactedRef.current = true; };
@@ -145,15 +145,15 @@ return (
           <p className="section__eyebrow">Retirement Gap Calculator</p>
           <h1>How Big Is Your Retirement Gap?</h1>
           <p className="hero__tagline">
-            Gen X women retire with 35% less than men. Calculate your gap and see how faceless digital assets close it â€” in years, not decades.
+            Gen X women retire with 35% less than men. Calculate your gap and see how faceless digital assets close it — in years, not decades.
           </p>
-          <div className="action-row"><a href="#gap-calculator" className="btn btn--primary">Calculate My Gap â†’</a></div>
+          <div className="action-row"><a href="#gap-calculator" className="btn btn--primary">Calculate My Gap →</a></div>
         </div>
       </section>
 
       {/* Calculator */}
       <section className="gap-workspace" id="gap-calculator" ref={calculatorRef}>
-        {/* Intro card â€” centered, thin black frame */}
+        {/* Intro card — centered, thin black frame */}
         <div className="card">
           <span className="section__eyebrow">Start Here</span>
           <h2 className="gap-intro-card__title">Your Retirement Gap Isn&rsquo;t a Judgment &mdash; It&rsquo;s a Starting Point.</h2>
@@ -179,7 +179,7 @@ return (
 
         {/* Two-column grid: inputs (left) + live results (right) */}
         <div className="gap-grid">
-          {/* Left â€” Calculator Inputs */}
+          {/* Left — Calculator Inputs */}
           <div className="gap-inputs-card">
             <article className="card">
               <header className="calc-header">
@@ -291,7 +291,7 @@ return (
             </article>
           </div>
 
-          {/* Right â€” Results panel (sticky + scroll) */}
+          {/* Right — Results panel (sticky + scroll) */}
           <aside className="gap-results-panel">
             <article className="card gap-results-card">
               <header className="calc-header">
@@ -305,7 +305,7 @@ return (
                 <h3 className="gap-result-title">Your Retirement Gap</h3>
                 <div className="gap-result-value">
                   <div className={`gap-value ${result.isOnTrack ? 'ontrack' : 'gap'}`}>
-                    {result.isOnTrack ? 'âœ“ ON TRACK' : fmt(result.gap)}
+                    {result.isOnTrack ? '✓ ON TRACK' : fmt(result.gap)}
                   </div>
                   <div className="gap-label">
                     {result.isOnTrack ? 'You have enough to retire!' : `Shortfall by age ${formData.retireAge}`}
@@ -359,25 +359,25 @@ return (
               <div className="gap-result-block gap-result-block--plain">
                 <h3 className="gap-result-title">What&rsquo;s Your Next Step?</h3>
                 <div className="gap-cta-stack">
-                  <a href="/quiz" className="btn btn--primary">Take the Digital Superpower Quiz â†’</a>
-                  <a href="/scorecard" className="btn btn--outline">Score a Niche Idea â†’</a>
-                  <a href="/tools" className="btn btn--outline">Explore the Free Tools â†’</a>
+                  <a href="/quiz" className="btn btn--primary">Take the Digital Superpower Quiz →</a>
+                  <a href="/scorecard" className="btn btn--outline">Score a Niche Idea →</a>
+                  <a href="/tools" className="btn btn--outline">Explore the Free Tools →</a>
                 </div>
               </div>
               <p className="gap-privacy">Your calculations stay in your browser. No data is stored or shared.</p>
             </article>
           </aside>
         </div>
-{/* SEO text â€” below the calculator grid */}
+{/* SEO text — below the calculator grid */}
         <section className="gap-seo">
           <h2>Why the Retirement Gap Matters for Gen X Women</h2>
           <p>
             Most Gen X women discover a gap between what they want in retirement and what traditional savings will actually provide.
-            This calculator turns that fear into a number you can work with â€” a starting point for building predictable income through faceless digital real estate.
+            This calculator turns that fear into a number you can work with — a starting point for building predictable income through faceless digital real estate.
           </p>
           <p>
             Digital assets can be automated, scaled, and built around your strengths. The results above model how even a modest portfolio of digital products, newsletters, and automation can close a shortfall in years, not decades.
-            This page is not about judgment. It&rsquo;s about clarity â€” and clarity is power.
+            This page is not about judgment. It&rsquo;s about clarity — and clarity is power.
           </p>
         </section>
       </section>
@@ -386,8 +386,8 @@ return (
       <section className="section section--dark gap-final-cta">
         <div className="container container--narrow">
           <h2>Your Gap Is Real. Your Solution Is Too.</h2>
-          <p>The retirement gap affects every Gen X woman. But digital assets are the great equalizer â€” faceless, automated, and built on your expertise.</p>
-          <a href="/gap" className="btn btn--primary">Start the Build Path â†’</a>
+          <p>The retirement gap affects every Gen X woman. But digital assets are the great equalizer — faceless, automated, and built on your expertise.</p>
+          <a href="/gap" className="btn btn--primary">Start the Build Path →</a>
         </div>
       </section>
     </main>

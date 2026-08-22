@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import { callSupabaseEdge } from '../lib/supabase-edge';
 import { trackFormSubmit, trackEvent } from '../lib/tracking';
 
@@ -37,7 +37,7 @@ export default function Contact() {
           <p className="section__eyebrow">Contact</p>
           <h1 style={{ marginBottom: '1rem' }}>Let's Build Something That Works.</h1>
           <p className="hero__tagline">Questions about the platform? Partnerships? Or just need help getting started? Drop us a line.</p>
-          <div className="action-row"><a href="#contact-form" className="btn btn--primary">Send a Message â†’</a></div>
+          <div className="action-row"><a href="#contact-form" className="btn btn--primary">Send a Message →</a></div>
         </div>
       </section>
 
@@ -58,10 +58,10 @@ export default function Contact() {
                 <textarea className="form-input form-textarea" required placeholder="Tell us what you're building." value={form.message} onChange={e => setForm({...form, message: e.target.value})}></textarea>
               </div>
               <button type="submit" className="btn btn--primary" style={{ width: '100%' }} disabled={status === 'sending'}>
-                {status === 'sending' ? 'Sending...' : 'Send Message â†’'}
+                {status === 'sending' ? 'Sending...' : 'Send Message →'}
               </button>
-              {status === 'success' && <p style={{ color: 'var(--dd-orange)', fontWeight: 700, marginTop: '1.5rem', padding: '1rem', background: 'var(--bone)', border: '1px solid var(--dd-orange)', textAlign: 'center' }}>âœ… Message sent. We'll be in touch.</p>}
-              {status === 'error' && <p style={{ color: 'var(--dd-red)', fontWeight: 700, marginTop: '1.5rem', padding: '1rem', background: 'var(--bone)', border: '1px solid var(--dd-red)', textAlign: 'center' }}>âŒ Something went wrong. Try again or email hello@digitallydefined.online</p>}
+              {status === 'success' && <p style={{ color: 'var(--dd-orange)', fontWeight: 700, marginTop: '1.5rem', padding: '1rem', background: 'var(--bone)', border: '1px solid var(--dd-orange)', textAlign: 'center' }}>✅ Message sent. We'll be in touch.</p>}
+              {status === 'error' && <p style={{ color: 'var(--dd-red)', fontWeight: 700, marginTop: '1.5rem', padding: '1rem', background: 'var(--bone)', border: '1px solid var(--dd-red)', textAlign: 'center' }}>❌ Something went wrong. Try again or email hello@digitallydefined.online</p>}
             </form>
           </div>
         </div>
@@ -76,17 +76,17 @@ export default function Contact() {
             <div className="card" style={{ textAlign: 'center', padding: '1.5rem' }}>
               <div className="card__heading">1. Take the Quiz</div>
               <p className="card__text" style={{ fontSize: '0.9rem' }}>Discover your digital superpower and get a personalized roadmap.</p>
-              <a href="/quiz" className="btn btn--secondary" style={{ width: 'fit-content', fontSize: '0.75rem', padding: '0.5rem 1rem' }}>Start Now â†’</a>
+              <a href="/quiz" className="btn btn--secondary" style={{ width: 'fit-content', fontSize: '0.75rem', padding: '0.5rem 1rem' }}>Start Now →</a>
             </div>
             <div className="card" style={{ textAlign: 'center', padding: '1.5rem' }}>
               <div className="card__heading">2. Score a Niche Idea</div>
               <p className="card__text" style={{ fontSize: '0.9rem' }}>Rate your niche against 6 criteria and get an instant profitability assessment.</p>
-              <a href="/tools/scorecard" className="btn btn--secondary" style={{ width: 'fit-content', fontSize: '0.75rem', padding: '0.5rem 1rem' }}>Score My Niche â†’</a>
+              <a href="/tools/scorecard" className="btn btn--secondary" style={{ width: 'fit-content', fontSize: '0.75rem', padding: '0.5rem 1rem' }}>Score My Niche →</a>
             </div>
             <div className="card" style={{ textAlign: 'center', padding: '1.5rem' }}>
               <div className="card__heading">3. Use the Free Tools</div>
               <p className="card__text" style={{ fontSize: '0.9rem' }}>Calculate your gap, validate a niche, and model the first asset before you invest.</p>
-              <a href="/tools" className="btn btn--secondary" style={{ width: 'fit-content', fontSize: '0.75rem', padding: '0.5rem 1rem' }}>Explore Tools â†’</a>
+              <a href="/tools" className="btn btn--secondary" style={{ width: 'fit-content', fontSize: '0.75rem', padding: '0.5rem 1rem' }}>Explore Tools →</a>
             </div>
           </div>
         </div>

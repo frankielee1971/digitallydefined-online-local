@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import { RESULT_TYPES } from './ResultTypes';
 
 export default function QuizResults() {
