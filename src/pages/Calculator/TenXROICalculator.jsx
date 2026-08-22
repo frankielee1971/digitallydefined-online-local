@@ -92,15 +92,15 @@ export default function TenXROICalculator() {
   return (
     <>
       <main className="tenx-page">
-        <section className="tenx-hero">
-          <div className="tenx-hero__inner">
-            <span className="tenx-kicker">Digital Real Estate Yield Engine</span>
+        <section className="page-hero">
+          <div className="container container--narrow">
+            <span className="section__eyebrow">Digital Real Estate Yield Engine</span>
             <h1>10X ROI Calculator</h1>
             <p>
               Model tenant revenue, a sustainable lease price, and the cost advantage
               your digital property creates.
             </p>
-            <a className="tenx-button tenx-button--primary" href="#roi-calculator" onClick={(e) => {
+            <a className="btn btn--primary" href="#roi-calculator" onClick={(e) => {
               e.preventDefault();
               document.getElementById('roi-calculator')?.scrollIntoView({ behavior: 'smooth' });
             }}>Calculate My ROI →</a>
@@ -162,13 +162,13 @@ export default function TenXROICalculator() {
                   <p>Based on {result.closedLeads} closed calls at {fmtUSD(inputs.avgJobValue)} per job.</p>
                 </div>
 
-                <div className="tenx-metrics-grid">
-                  <div className="tenx-metric">
+                <div className="calc-metrics">
+                  <div className="calc-metric">
                     <CircleDollarSign size={18} />
                     <span>Equity Cap (10%)</span>
                     <strong>{fmtUSD(result.equityCap)}<small>/mo</small></strong>
                   </div>
-                  <div className="tenx-metric">
+                  <div className="calc-metric">
                     <ShieldCheck size={18} />
                     <span>Lease Price (40X ROI)</span>
                     <strong>{fmtUSD(result.monthlyRent)}<small>/mo</small></strong>
@@ -252,7 +252,7 @@ export default function TenXROICalculator() {
               href="https://francescaonline.gumroad.com/l/digital-business-os"
               target="_blank"
               rel="noopener noreferrer"
-              className="tenx-button tenx-button--primary"
+              className="btn btn--primary"
             >
               Start the Build Path →
             </a>

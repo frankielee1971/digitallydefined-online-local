@@ -1750,9 +1750,7 @@ body {
 /* Buttons - sharp, no shadow, no hover transform */
 .nav-cta,
 .brand-nav__mobile-cta,
-.btn,
-.tenx-button,
-.freedom-button {
+.btn {
   min-height: 44px;
   padding: .75rem 1.25rem;
   border: 1px solid var(--color-border) !important;
@@ -1771,9 +1769,7 @@ body {
 
 .nav-cta:hover,
 .brand-nav__mobile-cta:hover,
-.btn:hover,
-.tenx-button:hover,
-.freedom-button:hover {
+.btn:hover {
   background: var(--color-text) !important;
   color: var(--color-surface) !important;
   transform: none;
@@ -1802,8 +1798,6 @@ body {
 .page-hero,
 .story-hero,
 .hero,
-.tenx-hero,
-.freedom-hero,
 .story-section,
 .section,
 .legacy-section,
@@ -1824,9 +1818,7 @@ body {
 }
 
 /* Labels - sharp, no pill shape */
-.label,
-.tenx-kicker,
-.freedom-kicker {
+.label {
   border: 1px solid var(--color-border) !important;
   border-radius: 0 !important;
   background: var(--color-surface) !important;
@@ -1849,8 +1841,6 @@ body {
 .tool-card,
 .roadmap-panel,
 .quiz-signup,
-.calculator-card,
-.freedom-card,
 .signup-card,
 .manifesto-card,
 .quiz-entry > div:first-child,
@@ -1867,9 +1857,7 @@ body {
 .story-card,
 .path-step,
 .tool-card,
-.roadmap-panel,
-.calculator-card,
-.freedom-card { padding: var(--space-lg); }
+.roadmap-panel { padding: var(--space-lg); }
 
 /* Card elevation — subtle shadows (shadow-sm / shadow-md) on CARDS ONLY */
 .card,
@@ -1877,8 +1865,6 @@ body {
 .asset-card,
 .manifesto-card,
 .tool-card,
-.calculator-card,
-.freedom-card,
 .signup-card,
 .mission-belief-card {
   box-shadow: var(--shadow-elevation-sm);
@@ -1996,8 +1982,6 @@ input[type='range']::-moz-range-thumb {
   .page-hero,
   .story-hero,
   .hero,
-  .tenx-hero,
-  .freedom-hero,
   .story-section,
   .section,
   .legacy-section,
@@ -2012,8 +1996,6 @@ input[type='range']::-moz-range-thumb {
   .page-hero,
   .story-hero,
   .hero,
-  .tenx-hero,
-  .freedom-hero,
   .story-section,
   .section,
   .legacy-section,
@@ -2026,9 +2008,7 @@ input[type='range']::-moz-range-thumb {
   .story-card,
   .path-step,
   .tool-card,
-  .roadmap-panel,
-  .calculator-card,
-  .freedom-card { padding: 1.25rem; }
+  .roadmap-panel { padding: 1.25rem; }
 }
 
 /* MentorWidget - Hermes AI Mentor */

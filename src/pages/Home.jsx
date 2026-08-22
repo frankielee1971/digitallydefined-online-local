@@ -96,10 +96,10 @@ export default function Home() {
       {/* 2. TOOLS — flat geometric CTA row directly under the hero */}
       <section className="tools-cta" aria-label="Free planning tools">
         <div className="tools-cta__row">
-          <a className="tools-cta__btn dd-btn dd-btn--outline" href="/freedom">Freedom Number Calculator</a>
-          <a className="tools-cta__btn dd-btn dd-btn--outline" href="/tools">Asset Builder</a>
-          <a className="tools-cta__btn dd-btn dd-btn--outline" href="/roi">10X ROI</a>
-          <a className="tools-cta__btn dd-btn dd-btn--outline" href="/quiz">Digital Superpower Quiz</a>
+          <a className="tools-cta__btn btn btn--outline" href="/freedom">Freedom Number Calculator</a>
+          <a className="tools-cta__btn btn btn--outline" href="/tools">Asset Builder</a>
+          <a className="tools-cta__btn btn btn--outline" href="/roi">10X ROI</a>
+          <a className="tools-cta__btn btn btn--outline" href="/quiz">Digital Superpower Quiz</a>
         </div>
       </section>
 

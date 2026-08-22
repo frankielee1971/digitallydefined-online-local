@@ -89,16 +89,16 @@ export default function FreedomNumberCalculator() {
   return (
     <>
       <main className="freedom-page">
-        <section className="freedom-hero">
-          <div className="freedom-hero__inner">
-            <span className="freedom-kicker">Close The Retirement Gap</span>
+        <section className="page-hero">
+          <div className="container container--narrow">
+            <span className="section__eyebrow">Close The Retirement Gap</span>
             <h1>Calculate Your <span>Freedom Number</span></h1>
             <p>
               Discover how faceless digital real estate can help Gen X women build
               predictable income, close the retirement gap, and create assets their
               families can inherit.
             </p>
-            <a className="freedom-button freedom-button--orange" href="#calculator-section" onClick={(e) => {
+            <a className="btn btn--primary" href="#calculator-section" onClick={(e) => {
               e.preventDefault();
               document.getElementById('calculator-section')?.scrollIntoView({ behavior: 'smooth' });
             }}>Calculate My Freedom Number →</a>
@@ -108,9 +108,9 @@ export default function FreedomNumberCalculator() {
         <section className="freedom-workspace" id="calculator-section">
           <div className="freedom-grid">
             <div className="freedom-stack">
-              <article className="freedom-card">
-                <header className="freedom-card__heading">
-                  <span className="freedom-step freedom-step--orange">01</span>
+              <article className="card">
+                <header className="calc-header">
+                  <span className="calc-step calc-step--orange">01</span>
                   <div>
                     <h2>Your Freedom Target</h2>
                     <p>What monthly cash flow would replace your salary and create breathing room?</p>
@@ -125,9 +125,9 @@ export default function FreedomNumberCalculator() {
                 </div>
               </article>
 
-              <article className="freedom-card">
-                <header className="freedom-card__heading">
-                  <span className="freedom-step freedom-step--blue">02</span>
+              <article className="card">
+                <header className="calc-header">
+                  <span className="calc-step calc-step--blue">02</span>
                   <div>
                     <h2>Your Digital Real Estate Mix</h2>
                     <p>Adjust the number of faceless assets and their expected monthly yield.</p>
@@ -180,9 +180,9 @@ export default function FreedomNumberCalculator() {
                 </div>
               </article>
 
-              <article className="freedom-card">
-                <header className="freedom-card__heading">
-                  <span className="freedom-step freedom-step--black">03</span>
+              <article className="card">
+                <header className="calc-header">
+                  <span className="calc-step calc-step--black">03</span>
                   <div>
                     <h2>The Capital Gains Multiplier</h2>
                     <p>Profitable digital assets can be valued at a multiple of monthly net profit.</p>
@@ -210,9 +210,9 @@ export default function FreedomNumberCalculator() {
             </div>
 
             <aside className="freedom-comparison">
-              <article className="freedom-card">
-                <header className="freedom-card__heading freedom-card__heading--bordered">
-                  <span className="freedom-step freedom-step--blue">04</span>
+              <article className="card">
+                <header className="calc-header calc-header--bordered">
+                  <span className="calc-step calc-step--blue">04</span>
                   <div>
                     <h2>The ROI Contrast</h2>
                     <p>A 24-month comparison of traditional saving and digital asset ownership.</p>

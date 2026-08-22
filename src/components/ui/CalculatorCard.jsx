@@ -1,7 +1,7 @@
 import React from 'react';
 
 export function CalculatorCard({ children, className = '' }) {
-  return <article className={`calculator-card ${className}`.trim()}>{children}</article>;
+  return <article className={`card ${className}`.trim()}>{children}</article>;
 }
 
 export function LabeledSlider({
