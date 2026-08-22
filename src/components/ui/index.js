@@ -13,3 +13,5 @@ export { default as DDInsightBox } from './DDInsightBox';
 export { default as DDNextStepRow } from './DDNextStepRow';
 export { default as DDWorkspaceSaveButton } from './DDWorkspaceSaveButton';
 export { default as DDMentorWidget } from './DDMentorWidget';
+export { default as DDBlueBanner } from './DDBlueBanner';
+export { default as DDToolCtaRow } from './DDToolCtaRow';

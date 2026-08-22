@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 
 export default function Pricing() {
   const [billing, setBilling] = useState('monthly');
@@ -16,7 +16,7 @@ export default function Pricing() {
           <p className="section__eyebrow">Pricing</p>
           <h1 style={{ marginBottom: '1rem' }}>Leverage Over Burnout. Pick Your System.</h1>
           <p className="hero__tagline">No hidden fees. No upsells. Just pricing that reflects actual value.</p>
-          <div className="action-row"><a href="#plans" className="btn btn--primary">See the Plans →</a></div>
+          <div className="action-row"><a href="#plans" className="btn btn--primary">See the Plans â†’</a></div>
         </div>
       </section>
       <section className="section" id="plans" style={{ paddingBottom: '3rem' }}>
@@ -37,11 +37,11 @@ export default function Pricing() {
                 <div style={{ marginBottom: '1.5rem' }}>
                   <div className="card__heading" style={{ fontSize: '1.1rem', marginBottom: '0.75rem' }}>{plan.name}</div>
                   <div className="card__result" style={{ fontSize: '2.5rem', marginBottom: '0.75rem' }}>{plan.price}</div>
-                  <p className="card__text" style={{ color: '#2D3748', fontSize: '0.95rem' }}>{plan.desc}</p>
+                  <p className="card__text" style={{ color: 'var(--color-text-muted)', fontSize: '0.95rem' }}>{plan.desc}</p>
                 </div>
                 <ul style={{ listStyle: 'none', flex: 1, marginBottom: '1.5rem' }}>
                   {plan.features.map(f => (
-                    <li key={f} style={{ padding: '0.5rem 0', fontSize: '0.95rem', lineHeight: 1.6, borderBottom: '1px solid rgba(0,0,0,0.08)' }}>✓ {f}</li>
+                    <li key={f} style={{ padding: '0.5rem 0', fontSize: '0.95rem', lineHeight: 1.6, borderBottom: '1px solid rgba(0,0,0,0.08)' }}>âœ“ {f}</li>
                   ))}
                 </ul>
                 <a href={plan.ctaHref} className={`btn ${plan.ctaClass}`} style={{ width: '100%' }}>{plan.cta}</a>

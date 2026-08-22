@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import App from './App.jsx';
 import { ToolStateProvider } from './context/ToolStateContext.jsx';
+import { initTracking, trackPageView } from './lib/tracking.js';
 import './styles/global.css';
 import './styles/tailwind.css';
 
@@ -15,6 +16,16 @@ import puter from './puter-adapter.js';
 
 // Global Puter availability check
 window.puter = puter;
+
+// DigitallyDefined analytics pipeline (Supabase-backed)
+initTracking();
+// SPA page views on route change
+window.addEventListener('popstate', () => trackPageView());
+const originalPushState = window.history.pushState.bind(window.history);
+window.history.pushState = (...args) => {
+  originalPushState(...args);
+  trackPageView();
+};
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>

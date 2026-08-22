@@ -1,0 +1,65 @@
+{
+  "colors": {
+    "bone": "#FFFCF9",
+    "cream": "#F4EFE8",
+    "black": "#000000",
+    "darkGrey": "#2D3748",
+    "orange": "#F18B25",
+    "aqua": "#47B7D4"
+  },
+
+  "typography": {
+    "h1": { "font": "Inter", "size": 48, "weight": 700 },
+    "h2": { "font": "Inter", "size": 32, "weight": 700 },
+    "h3": { "font": "Inter", "size": 24, "weight": 500 },
+    "bodyLarge": { "font": "DM Sans", "size": 18, "weight": 400 },
+    "body": { "font": "DM Sans", "size": 16, "weight": 400 },
+    "bodySmall": { "font": "DM Sans", "size": 14, "weight": 400 }
+  },
+
+  "spacing": {
+    "s8": 8,
+    "s16": 16,
+    "s24": 24,
+    "s32": 32,
+    "s48": 48
+  },
+
+  "icons": {
+    "target": "icon-target.svg",
+    "money": "icon-money.svg",
+    "chart": "icon-chart.svg",
+    "calculator": "icon-calculator.svg",
+    "dashboard": "icon-dashboard.svg",
+    "tools": "icon-tools.svg",
+    "settings": "icon-settings.svg",
+    "lightning": "icon-lightning.svg",
+    "brain": "icon-brain.svg",
+    "check": "icon-check.svg",
+    "info": "icon-info.svg",
+    "warning": "icon-warning.svg"
+  },
+
+  "components": {
+    "card": {
+      "background": "bone",
+      "border": "1px solid black",
+      "padding": "24px",
+      "radius": "0px"
+    },
+    "button": {
+      "padding": "8px 16px",
+      "radius": "0px",
+      "textColor": "black",
+      "backgrounds": ["orange", "aqua"]
+    },
+    "section": {
+      "background": "cream",
+      "padding": "48px"
+    },
+    "calculatorSlider": {
+      "trackColor": "black",
+      "handleColor": "orange"
+    }
+  }
+}

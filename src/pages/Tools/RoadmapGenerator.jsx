@@ -249,18 +249,18 @@ export default function DigitalSuperpowerQuiz() {
             {loading && <div className="quiz-status">Personalizing your faceless digital real estate roadmap...</div>}
             {error && <div className="quiz-status quiz-status--notice">{error}</div>}
             <div className="roadmap-grid">
-              <article className="roadmap-panel">
+              <article className="card">
                 <span className="quiz-step-label">WHY THIS FITS YOU</span>
                 <h2>Your built-in advantages</h2>
                 {roadmap.strengths.map((item) => <p key={item}>✓ {item}</p>)}
               </article>
-              <article className="roadmap-panel roadmap-panel--blue">
+              <article className="card card--blue">
                 <span className="quiz-step-label">PROPERTY TYPES TO EXPLORE</span>
                 <h2>Where your experience can become an asset</h2>
                 {roadmap.recommendedNiches.map((item) => <p key={item}>{item}</p>)}
               </article>
             </div>
-            <div className="roadmap-plan">
+            <div className="card roadmap-plan">
               <span className="label label--orange">Your personalized build sequence</span>
 {personalization && personalization.roadmapAdjustments && personalization.roadmapAdjustments.length > 0 && (
   <div className="roadmap-adjustments">
@@ -278,7 +278,7 @@ export default function DigitalSuperpowerQuiz() {
               ))}
               {personalized?.nextAction && <div className="truth-bar"><strong>Your next action</strong><span>{personalized.nextAction}</span></div>}
             </div>
-            <div className="roadmap-next">
+            <div className="card roadmap-next">
               <div><span className="label label--blue">STEP 03 / VALIDATE</span><h2>Do not build the whole thing yet.</h2><p>Take one of the suggested directions into the scorecard. Test demand, competition, monetization, durability, ease, and privacy fit first.</p></div>
               <div className="action-row">
                 <a href="/tools/scorecard" className="btn btn--primary">Score My Niche →</a>

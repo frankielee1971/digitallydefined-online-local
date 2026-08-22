@@ -61,7 +61,7 @@ export default function Tools() {
         <span className="label label--blue">Free Planning Tools</span>
         <h1>Make the next decision with clearer numbers.</h1>
         <p>Use practical calculators and scorecards to find your starting point, validate an idea, and model an asset before you invest.</p>
-        <div className="action-row"><a href="#tool-library" className="btn btn--primary">See the Tools →</a></div>
+        <div className="action-row"><a href="#tool-library" className="btn btn--primary">See the Tools â†’</a></div>
       </section>
 
       <section className="story-section story-section--white" id="tool-library">
@@ -87,14 +87,14 @@ export default function Tools() {
                   </div>
                 )}
               </div>
-              <a href={href} className="btn btn--primary">{cta} →</a>
+              <a href={href} className="btn btn--primary">{cta} â†’</a>
             </article>
           ))}
         </div>
 
         <div className="tools-footer">
 {personalization && (
-  <section className="story-section" style={{ marginTop: '2rem', borderTop: '1px solid #e2e8f0', paddingTop: '1.5rem' }}>
+  <section className="story-section" style={{ marginTop: 'var(--space-lg)', borderTop: '1px solid var(--color-border)', paddingTop: '1.5rem' }}>
     <h3 className="section__eyebrow">Recommended for you</h3>
     <p>{personalization.nicheSuggestion}
       {personalization.assetSuggestions?.length > 0 ?
@@ -103,7 +103,7 @@ export default function Tools() {
     <p>{personalization.homepageRecommendations?.[0]}</p>
   </section>
 )}
-          <p>Not sure which tool to use? <a href="/quiz?start=true">Take the quiz first</a> — it tells you exactly where to start based on how you think.</p>
+          <p>Not sure which tool to use? <a href="/quiz?start=true">Take the quiz first</a> â€” it tells you exactly where to start based on how you think.</p>
         </div>
       </section>
     </>

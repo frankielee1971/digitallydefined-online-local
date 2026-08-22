@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import EmailSignup from '../components/EmailSignup';
 import { fetchPersonalization } from '../lib/personalization';
 import { callSupabaseEdge } from '../lib/supabase-edge';
-import DDHero from '../components/ui/DDHero';
+import './Home.css';
 
 const pressures = [
   ['01', 'The caregiving squeeze', 'You may be helping children launch, supporting aging parents, and trying to protect your own future at the same time.', '/assets/brand/icon-audience.svg'],
@@ -58,18 +58,20 @@ export default function Home() {
 
   return (
     <>
-      {/* 1. HERO — DDG hero: primary capture + tool row above the fold */}
-      <DDHero
-        label="Start here / not everywhere"
-        labelTone="orange"
-        title="Build Faceless Digital Assets."
-        tagline="Start your path to freedom-based digital ownership. No camera. No invented urgency. No promise of overnight income."
-        ctas={[
-          { label: 'Find Your Superpower First →', href: '/quiz?start=true', variant: 'primary' },
-          { label: 'Calculate My Retirement Gap →', href: '/gap', variant: 'outline' },
-        ]}
-        extra={
-          optStatus === 'success' ? (
+      {/* 1. HERO — cohesive hook: label + heading + tagline + CTAs above the fold */}
+      <section className="page-hero home-hero">
+        <div className="container container--narrow">
+          <span className="section__eyebrow">Start here / not everywhere</span>
+          <h1>Build Faceless Digital Assets.</h1>
+          <p className="hero__tagline">
+            Start your path to freedom-based digital ownership. No camera. No invented
+            urgency. No promise of overnight income.
+          </p>
+          <div className="action-row home-hero__ctas">
+            <a href="/quiz?start=true" className="btn btn--primary">Find Your Superpower First →</a>
+            <a href="/gap" className="btn btn--outline">Calculate My Retirement Gap →</a>
+          </div>
+          {optStatus === 'success' ? (
             <p className="optin-hero__success">You're in. Watch your inbox for your first step.</p>
           ) : (
             <form className="optin-hero__form" onSubmit={handleOptIn}>
@@ -86,20 +88,20 @@ export default function Home() {
                 {optStatus === 'submitting' ? 'Starting…' : 'Start Here →'}
               </button>
             </form>
-          )
-        }
-      />
-      {optStatus === 'error' && (
-        <p className="optin-hero__error">Something went wrong. Please try again.</p>
-      )}
+          )}
+          {optStatus === 'error' && (
+            <p className="optin-hero__error">Something went wrong. Please try again.</p>
+          )}
+        </div>
+      </section>
 
       {/* 2. TOOLS — flat geometric CTA row directly under the hero */}
       <section className="tools-cta" aria-label="Free planning tools">
         <div className="tools-cta__row">
-          <a className="tools-cta__btn dd-btn dd-btn--outline" href="/freedom">Freedom Number Calculator</a>
-          <a className="tools-cta__btn dd-btn dd-btn--outline" href="/tools">Asset Builder</a>
-          <a className="tools-cta__btn dd-btn dd-btn--outline" href="/roi">10X ROI</a>
-          <a className="tools-cta__btn dd-btn dd-btn--outline" href="/quiz">Digital Superpower Quiz</a>
+          <a className="tools-cta__btn btn btn--outline" href="/freedom">Freedom Number Calculator</a>
+          <a className="tools-cta__btn btn btn--outline" href="/tools">Asset Builder</a>
+          <a className="tools-cta__btn btn btn--outline" href="/roi">10X ROI</a>
+          <a className="tools-cta__btn btn btn--outline" href="/quiz">Digital Superpower Quiz</a>
         </div>
       </section>
 
@@ -148,7 +150,6 @@ export default function Home() {
           {pressures.map(([number, title, copy, icon]) => (
             <article className="story-card" key={number}>
               <img className="story-card__icon" src={icon} alt="" />
-              <span className="story-card__number">{number}</span>
               <h3>{title}</h3>
               <p>{copy}</p>
             </article>

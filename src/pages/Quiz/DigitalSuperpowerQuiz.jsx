@@ -5,6 +5,7 @@ import { callSupabaseEdge } from '../../lib/supabase-edge';
 import { getRoadmap } from '../../lib/roadmaps';
 import { scoreQuiz } from './QuizLogic';
 import { useToolState } from '../../context/ToolStateContext.jsx';
+import { trackQuizStart, trackQuizComplete } from '../../lib/tracking';
 
 const QUESTIONS = [
   ['q1', 'When you learn a new tool, what do you do first?', [
@@ -110,6 +111,7 @@ export default function DigitalSuperpowerQuiz() {
   const beginQuiz = (event) => {
     event.preventDefault();
     if (!contact.name.trim() || !contact.email.trim()) return;
+    trackQuizStart({ source: '/quiz', email: contact.email.trim() });
     setStage('quiz');
   };
 
@@ -125,6 +127,7 @@ export default function DigitalSuperpowerQuiz() {
 
   const finishQuiz = async (finalAnswers) => {
     const key = scoreQuiz(finalAnswers);
+    trackQuizComplete({ email: contact.email.trim(), superpower: key });
 
     let intelligenceSuccess = false;
     let intelligenceError = null;

@@ -1,6 +1,7 @@
 // Email signup that routes through Supabase Edge Function
 import React, { useState } from 'react';
 import { callSupabaseEdge } from '../lib/supabase-edge';
+import { trackFormSubmit, trackEvent } from '../lib/tracking';
 
 export default function EmailSignup({ source = 'homepage' }) {
   const [name, setName] = useState('');
@@ -10,6 +11,7 @@ export default function EmailSignup({ source = 'homepage' }) {
   async function handleSubmit(e) {
     e.preventDefault();
     setStatus('submitting');
+    trackEvent('form_start', { form_name: 'email-signup', source });
 
     try {
       await callSupabaseEdge('subscribe', {
@@ -19,6 +21,12 @@ export default function EmailSignup({ source = 'homepage' }) {
         tags: ['website-signup'],
       });
 
+      trackFormSubmit({
+        formName: 'email-signup',
+        email,
+        funnel_step: 'newsletter-subscribe',
+      });
+      trackEvent('lead', { email, form_name: 'email-signup', source });
       setStatus('success');
       setName('');
       setEmail('');

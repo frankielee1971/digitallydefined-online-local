@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { RESULT_TYPES } from './ResultTypes';
 
 export default function QuizResults() {
@@ -13,14 +13,14 @@ export default function QuizResults() {
           </p>
         </div>
       </section>
-      <section className="section" style={{ background: '#fff' }}>
+      <section className="section" style={{ background: 'var(--color-surface)' }}>
         <div className="container grid-3">
           {Object.values(RESULT_TYPES).map(rt => (
             <div className="card" key={rt.key} style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
               <div className="card__heading">{rt.title}</div>
-              <div style={{ fontFamily: "'Inter', sans-serif", fontWeight: 700, fontSize: '0.78rem', letterSpacing: '0.1em', textTransform: 'uppercase', color: '#D4A056', marginBottom: '0.75rem' }}>{rt.tagline}</div>
+              <div style={{ fontFamily: "'Inter', sans-serif", fontWeight: 700, fontSize: '0.78rem', letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--color-accent)', marginBottom: '0.75rem' }}>{rt.tagline}</div>
               <p className="card__text">{rt.description}</p>
-              <div style={{ fontSize: '0.82rem', color: '#5A5A5A', marginTop: 'auto' }}>
+              <div style={{ fontSize: '0.82rem', color: 'var(--color-text-muted)', marginTop: 'auto' }}>
                 <strong>First step:</strong> {rt.recommendedFirstStep}<br />
                 <strong>Best fit:</strong> {rt.toolPreference}
               </div>
