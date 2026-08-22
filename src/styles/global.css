@@ -727,20 +727,20 @@ p {
   gap: clamp(2rem, 7vw, 6rem);
   align-items: start;
 }
-.quiz-entry h2, .roadmap-panel h2, .roadmap-plan h2, .roadmap-next h2 {
+.quiz-entry h2, .roadmap-plan h2, .roadmap-next h2 {
   margin: 1rem 0;
   font-size: clamp(1.8rem, 4vw, 3.1rem);
 }
-.quiz-benefits { border-top: 1px solid #000; }
-.quiz-benefits p { padding: 1rem 0; border-bottom: 1px solid #000; color: #222; }
+.quiz-benefits { border-top: 1px solid var(--color-border); }
+.quiz-benefits p { padding: 1rem 0; border-bottom: 1px solid var(--color-border); color: var(--color-text); }
 .quiz-benefits strong { display: inline-block; width: 2.5rem; color: var(--color-accent); }
-.quiz-signup { padding: 2rem; border: 1px solid #000; background: var(--color-bg); display: grid; gap: .85rem; }
-.quiz-signup small { color: #666; line-height: 1.5; }
+.quiz-signup { padding: 2rem; border: 1px solid var(--color-border); background: var(--color-bg); display: grid; gap: .85rem; }
+.quiz-signup small { color: var(--color-text-muted); line-height: 1.5; }
 .quiz-step-label { font-size: .65rem; font-weight: 900; letter-spacing: .12em; }
 .quiz-shell { min-height: 78vh; padding: clamp(3rem, 7vw, 6rem) 1.5rem; background: var(--color-bg); }
 .quiz-progress-copy, .quiz-progress, .quiz-question { max-width: 760px; margin-left: auto; margin-right: auto; }
 .quiz-progress-copy { display: flex; justify-content: space-between; font-size: .7rem; font-weight: 900; letter-spacing: .08em; }
-.quiz-progress { height: 8px; margin-top: .8rem; border: 1px solid #000; background: #fff; }
+.quiz-progress { height: 8px; margin-top: .8rem; border: 1px solid var(--color-border); background: var(--color-surface); }
 .quiz-progress span { display: block; height: 100%; background: var(--color-blue); transition: width .25s ease; }
 .quiz-question { margin-top: 3rem; }
 .quiz-question h1 { margin: 1rem 0 2rem; font-size: clamp(2rem, 5vw, 4rem); }
@@ -750,26 +750,24 @@ p {
   align-items: center;
   gap: 1rem;
   padding: 1rem;
-  border: 1px solid #000;
-  background: #fff;
-  color: #000;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-text);
   font: inherit;
   font-weight: 700;
   text-align: left;
   cursor: pointer;
 }
 .quiz-options button:hover { background: var(--color-accent); }
-.quiz-options button span { display: grid; width: 2rem; height: 2rem; place-items: center; border: 1px solid #000; background: var(--color-blue); font-weight: 900; }
-.quiz-status { max-width: 1050px; margin: 0 auto 1rem; padding: 1rem; border: 1px solid #000; background: #000; color: #fff; font-weight: 800; }
-.quiz-status--notice { background: #fff; color: #000; border-color: var(--color-accent); }
+.quiz-options button span { display: grid; width: 2rem; height: 2rem; place-items: center; border: 1px solid var(--color-border); background: var(--color-blue); font-weight: 900; }
+.quiz-status { max-width: 1050px; margin: 0 auto 1rem; padding: 1rem; border: 1px solid var(--color-border); background: var(--color-ink); color: var(--color-surface); font-weight: 800; }
+.quiz-status--notice { background: var(--color-surface); color: var(--color-text); border-color: var(--color-accent); }
 .roadmap-grid { max-width: 1050px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-.roadmap-panel { padding: 2rem; border: 1px solid #000; background: #fff; }
-.roadmap-panel--blue { background: var(--color-blue); }
-.roadmap-panel p { padding: .75rem 0; border-bottom: 1px solid #000; color: #222; }
+.card--blue { background: var(--color-blue); }
 .roadmap-plan, .roadmap-next { max-width: 1050px; margin: 4rem auto 0; }
-.roadmap-step { display: grid; grid-template-columns: 4rem 1fr; padding: 1.2rem 0; border-bottom: 1px solid #000; }
+.roadmap-step { display: grid; grid-template-columns: 4rem 1fr; padding: 1.2rem 0; border-bottom: 1px solid var(--color-border); }
 .roadmap-step span { color: var(--color-accent); font-weight: 900; }
-.roadmap-step p { color: #222; font-size: 1.05rem; }
+.roadmap-step p { color: var(--color-text); font-size: 1.05rem; }
 
 input[type=range] {
   -webkit-appearance: none;
@@ -1042,7 +1040,7 @@ body {
 .btn--primary,
 .btn--dark,
 .btn--accent {
-  border: 1px solid #111 !important;
+  border: 1px solid var(--color-border) !important;
   background: var(--color-accent) !important;
   color: #111 !important;
   box-shadow: none !important;
@@ -1053,15 +1051,15 @@ body {
 .btn--dark:hover,
 .btn--accent:hover {
   border-color: #111 !important;
-  background: #fff !important;
+  background: var(--color-surface) !important;
   color: #111 !important;
 }
 
 .btn--outline,
 .btn--light,
 .btn--ghost {
-  border: 1px solid #111 !important;
-  background: #fff !important;
+  border: 1px solid var(--color-border) !important;
+  background: var(--color-surface) !important;
   color: #111 !important;
 }
 
@@ -1124,7 +1122,7 @@ body {
 
 .label {
   border: 1px solid #111;
-  background: #fff !important;
+  background: var(--color-surface) !important;
 }
 
 .label--blue {
@@ -1191,14 +1189,11 @@ body {
 .story-card--blue,
 .story-card--orange,
 .manifesto-card,
-.roadmap-panel,
-.roadmap-panel--blue,
 .quiz-signup,
 .system-diagram,
-.asset-card,
-.card {
-  border: 1px solid #111 !important;
-  background: #fff !important;
+.asset-card {
+  border: 1px solid var(--color-border) !important;
+  background: var(--color-surface) !important;
 }
 
 .story-card {
@@ -1211,7 +1206,7 @@ body {
 .system-node--blue,
 .system-node--black {
   border: 1px solid #111;
-  background: #fff !important;
+  background: var(--color-surface) !important;
   color: #171717 !important;
 }
 
@@ -1236,7 +1231,7 @@ body {
 .truth-bar,
 .tenx-total {
   border: 1px solid #111;
-  background: #fff !important;
+  background: var(--color-surface) !important;
   color: #171717 !important;
 }
 
@@ -1427,7 +1422,7 @@ body {
 }
 
 .btn--secondary {
-  border: 1px solid #111 !important;
+  border: 1px solid var(--color-border) !important;
   background: var(--color-accent) !important;
   color: #111 !important;
 }
@@ -1839,7 +1834,6 @@ body {
 .path-step,
 .expectation-strip > div,
 .tool-card,
-.roadmap-panel,
 .quiz-signup,
 .signup-card,
 .manifesto-card,
@@ -1856,8 +1850,7 @@ body {
 .card,
 .story-card,
 .path-step,
-.tool-card,
-.roadmap-panel { padding: var(--space-lg); }
+.tool-card { padding: var(--space-lg); }
 
 /* Card elevation — subtle shadows (shadow-sm / shadow-md) on CARDS ONLY */
 .card,
@@ -2007,8 +2000,7 @@ input[type='range']::-moz-range-thumb {
   .card,
   .story-card,
   .path-step,
-  .tool-card,
-  .roadmap-panel { padding: 1.25rem; }
+  .tool-card { padding: 1.25rem; }
 }
 
 /* MentorWidget - Hermes AI Mentor */

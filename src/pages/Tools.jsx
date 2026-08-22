@@ -1,4 +1,4 @@
-﻿import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { fetchPersonalization } from '../lib/personalization';
 
 
@@ -94,7 +94,7 @@ export default function Tools() {
 
         <div className="tools-footer">
 {personalization && (
-  <section className="story-section" style={{ marginTop: '2rem', borderTop: '1px solid var(--color-border)', paddingTop: '1.5rem' }}>
+  <section className="story-section" style={{ marginTop: 'var(--space-lg)', borderTop: '1px solid var(--color-border)', paddingTop: '1.5rem' }}>
     <h3 className="section__eyebrow">Recommended for you</h3>
     <p>{personalization.nicheSuggestion}
       {personalization.assetSuggestions?.length > 0 ?
