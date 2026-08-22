@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import { callSupabaseEdge } from '../lib/supabase-edge';
 import { trackFormSubmit, trackEvent } from '../lib/tracking';
 
@@ -60,8 +60,8 @@ export default function Contact() {
               <button type="submit" className="btn btn--primary" style={{ width: '100%' }} disabled={status === 'sending'}>
                 {status === 'sending' ? 'Sending...' : 'Send Message →'}
               </button>
-              {status === 'success' && <p style={{ color: 'var(--dd-orange)', fontWeight: 700, marginTop: '1.5rem', padding: '1rem', background: 'var(--bone)', border: '1px solid var(--dd-orange)', textAlign: 'center' }}>âœ… Message sent. We'll be in touch.</p>}
-              {status === 'error' && <p style={{ color: 'var(--dd-red)', fontWeight: 700, marginTop: '1.5rem', padding: '1rem', background: 'var(--bone)', border: '1px solid var(--dd-red)', textAlign: 'center' }}>âŒ Something went wrong. Try again or email hello@digitallydefined.online</p>}
+              {status === 'success' && <p style={{ color: 'var(--dd-orange)', fontWeight: 700, marginTop: '1.5rem', padding: '1rem', background: 'var(--bone)', border: '1px solid var(--dd-orange)', textAlign: 'center' }}>✅ Message sent. We'll be in touch.</p>}
+              {status === 'error' && <p style={{ color: 'var(--dd-red)', fontWeight: 700, marginTop: '1.5rem', padding: '1rem', background: 'var(--bone)', border: '1px solid var(--dd-red)', textAlign: 'center' }}>❌ Something went wrong. Try again or email hello@digitallydefined.online</p>}
             </form>
           </div>
         </div>

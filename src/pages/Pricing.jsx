@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 
 export default function Pricing() {
   const [billing, setBilling] = useState('monthly');
@@ -41,7 +41,7 @@ export default function Pricing() {
                 </div>
                 <ul style={{ listStyle: 'none', flex: 1, marginBottom: '1.5rem' }}>
                   {plan.features.map(f => (
-                    <li key={f} style={{ padding: '0.5rem 0', fontSize: '0.95rem', lineHeight: 1.6, borderBottom: '1px solid rgba(0,0,0,0.08)' }}>âœ“ {f}</li>
+                    <li key={f} style={{ padding: '0.5rem 0', fontSize: '0.95rem', lineHeight: 1.6, borderBottom: '1px solid rgba(0,0,0,0.08)' }}>✓ {f}</li>
                   ))}
                 </ul>
                 <a href={plan.ctaHref} className={`btn ${plan.ctaClass}`} style={{ width: '100%' }}>{plan.cta}</a>

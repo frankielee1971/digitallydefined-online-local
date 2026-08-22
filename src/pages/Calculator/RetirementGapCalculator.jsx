@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useToolState } from '../../context/ToolStateContext.jsx';
 import './RetirementGapCalculator.css';
 
@@ -24,7 +24,7 @@ const fvSeries = (monthly, annualRate, years) => {
 
 const ASSET_TYPES = [
   { id: 'templates', name: 'Template Hubs & Printables', icon: 'ðŸ“‹', minYield: 50, maxYield: 2000, defaultYield: 500, color: 'var(--color-accent)' },
-  { id: 'newsletters', name: 'Paid Newsletters', icon: 'âœ‰ï¸', minYield: 500, maxYield: 5000, defaultYield: 1500, color: 'var(--color-blue)' },
+  { id: 'newsletters', name: 'Paid Newsletters', icon: '✉️', minYield: 500, maxYield: 5000, defaultYield: 1500, color: 'var(--color-blue)' },
   { id: 'youtube', name: 'YouTube Automation', icon: 'ðŸŽ¬', minYield: 300, maxYield: 8000, defaultYield: 1000, color: 'var(--color-text-muted)' },
   { id: 'rankandrent', name: 'Rank & Rent Sites', icon: 'ðŸ ', minYield: 500, maxYield: 5000, defaultYield: 1500, color: 'var(--color-text)' },
   { id: 'digitalproducts', name: 'Digital Products', icon: 'ðŸ“¦', minYield: 100, maxYield: 3000, defaultYield: 500, color: 'var(--color-accent)' },
@@ -305,7 +305,7 @@ return (
                 <h3 className="gap-result-title">Your Retirement Gap</h3>
                 <div className="gap-result-value">
                   <div className={`gap-value ${result.isOnTrack ? 'ontrack' : 'gap'}`}>
-                    {result.isOnTrack ? 'âœ“ ON TRACK' : fmt(result.gap)}
+                    {result.isOnTrack ? '✓ ON TRACK' : fmt(result.gap)}
                   </div>
                   <div className="gap-label">
                     {result.isOnTrack ? 'You have enough to retire!' : `Shortfall by age ${formData.retireAge}`}

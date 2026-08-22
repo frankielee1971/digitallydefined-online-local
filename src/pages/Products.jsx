@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import { trackProductInterest } from '../lib/tracking';
 
 const PRODUCT_INTERESTS = [
