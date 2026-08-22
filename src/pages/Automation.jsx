@@ -14,7 +14,7 @@ export default function Automation() {
         <div style={{ maxWidth: 720, margin: '0 auto', textAlign: 'center' }}>
           <p className="section__eyebrow">Automation</p>
           <h1 style={{ marginBottom: '1rem' }}>Systems That Work While You Sleep.</h1>
-          <p className="hero__tagline">Configure once. Run forever. No more tool management â€” just configured systems doing the work.</p>
+          <p className="hero__tagline">Configure once. Run forever. No more tool management — just configured systems doing the work.</p>
         </div>
       </section>
       <section className="section" style={{ background: 'var(--color-bg)' }}>
@@ -22,7 +22,7 @@ export default function Automation() {
           <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
             <p className="section__eyebrow">Automation</p>
             <h2 style={{ maxWidth: 700, margin: '0 auto 1rem' }}>Your Faceless Empire. Four Steps.</h2>
-            <p className="section__subtitle" style={{ fontSize: '1.15rem' }}>Configure once. Run forever. No more tool management â€” just configured systems doing the work.</p>
+            <p className="section__subtitle" style={{ fontSize: '1.15rem' }}>Configure once. Run forever. No more tool management — just configured systems doing the work.</p>
           </div>
           <div style={{ display: 'grid', gap: '1.5rem' }}>
             {steps.map(s => (

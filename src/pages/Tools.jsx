@@ -61,7 +61,7 @@ export default function Tools() {
         <span className="label label--blue">Free Planning Tools</span>
         <h1>Make the next decision with clearer numbers.</h1>
         <p>Use practical calculators and scorecards to find your starting point, validate an idea, and model an asset before you invest.</p>
-        <div className="action-row"><a href="#tool-library" className="btn btn--primary">See the Tools â†’</a></div>
+        <div className="action-row"><a href="#tool-library" className="btn btn--primary">See the Tools →</a></div>
       </section>
 
       <section className="story-section story-section--white" id="tool-library">
@@ -87,7 +87,7 @@ export default function Tools() {
                   </div>
                 )}
               </div>
-              <a href={href} className="btn btn--primary">{cta} â†’</a>
+              <a href={href} className="btn btn--primary">{cta} →</a>
             </article>
           ))}
         </div>
@@ -103,7 +103,7 @@ export default function Tools() {
     <p>{personalization.homepageRecommendations?.[0]}</p>
   </section>
 )}
-          <p>Not sure which tool to use? <a href="/quiz?start=true">Take the quiz first</a> â€” it tells you exactly where to start based on how you think.</p>
+          <p>Not sure which tool to use? <a href="/quiz?start=true">Take the quiz first</a> — it tells you exactly where to start based on how you think.</p>
         </div>
       </section>
     </>

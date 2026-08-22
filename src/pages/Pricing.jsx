@@ -16,7 +16,7 @@ export default function Pricing() {
           <p className="section__eyebrow">Pricing</p>
           <h1 style={{ marginBottom: '1rem' }}>Leverage Over Burnout. Pick Your System.</h1>
           <p className="hero__tagline">No hidden fees. No upsells. Just pricing that reflects actual value.</p>
-          <div className="action-row"><a href="#plans" className="btn btn--primary">See the Plans â†’</a></div>
+          <div className="action-row"><a href="#plans" className="btn btn--primary">See the Plans →</a></div>
         </div>
       </section>
       <section className="section" id="plans" style={{ paddingBottom: '3rem' }}>
