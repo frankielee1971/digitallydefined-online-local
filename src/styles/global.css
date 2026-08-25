@@ -3631,22 +3631,22 @@ input[type='range']::-moz-range-thumb {
 .page-hero .container > * + * {
   margin-top: 16px;                 /* headline → sub → CTA rhythm */
 }
+/* Eyebrows are text-only — no decorative lines, dashes, or prefixes */
 .section__eyebrow,
 .label {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
+  display: inline-block;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 700;
 }
 .section__eyebrow {
-  color: var(--brand-red) !important;
+  color: var(--brand-orange);
 }
-.section__eyebrow::before,
-.label--blue::before,
-.label--orange::before {
-  content: '';
-  width: 28px;
-  height: 2px;
-  background: var(--brand-aqua);    /* aqua underline accent */
+.label--blue {
+  color: var(--brand-aqua);
+}
+.label--orange {
+  color: var(--brand-orange);
 }
 .story-hero h1,
 .page-hero h1 {
