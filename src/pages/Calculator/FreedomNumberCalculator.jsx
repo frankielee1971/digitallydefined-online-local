@@ -92,7 +92,7 @@ export default function FreedomNumberCalculator() {
         <section className="page-hero">
           <div className="container container--narrow">
             <span className="section__eyebrow">Close The Retirement Gap</span>
-            <h1>Calculate Your <span>Freedom Number</span></h1>
+            <h1>Calculate Your <span className="hero-accent">Freedom Number</span></h1>
             <p>
               Discover how faceless digital real estate can help Gen X women build
               predictable income, close the retirement gap, and create assets their

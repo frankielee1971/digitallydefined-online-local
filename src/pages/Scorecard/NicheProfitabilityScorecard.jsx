@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { ShieldCheck, FlaskConical, AlertTriangle } from 'lucide-react';
 import { scoreNiche, tierCopy, CRITERIA } from './ScorecardLogic';
 import { callAgent } from '../../lib/buzz-agents';
 import { useToolState } from '../../context/ToolStateContext.jsx';
@@ -245,38 +246,45 @@ export default function NicheProfitabilityScorecard() {
         </div>
       </section>
 
-      <section className="section">
+      <section className="section scorecard-scenarios-section">
         <div className="container container--narrow">
           <p className="section__eyebrow">See It in Action</p>
-          <h2 style={{ fontSize: '1.8rem', marginBottom: '0.5rem' }}>Example Niche Scoring Scenarios</h2>
+          <h2 className="scorecard-scenarios__heading">Example Niche Scoring Scenarios</h2>
           <p style={{ lineHeight: 1.7, color: 'var(--color-text-muted)', marginBottom: '1.5rem' }}>
             Not sure what an honest score feels like? Here are three made-up examples showing how different ideas land.
           </p>
-          <div style={{ display: 'grid', gap: '1.25rem', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))' }}>
-            <div className="card" style={{ background: 'var(--color-surface)', padding: '1.25rem' }}>
-              <h3 style={{ fontSize: '1.05rem', marginBottom: '0.5rem' }}>Strong: Emergency Plumbing in Phoenix</h3>
-              <ul style={{ color: 'var(--color-text-muted)', lineHeight: 1.8, paddingLeft: '1.25rem', margin: '0 0 0.75rem' }}>
+          <div className="scorecard-scenarios">
+            <article className="scenario-card">
+              <span className="icon-chip" aria-hidden="true"><ShieldCheck size={22} strokeWidth={1.5} /></span>
+              <h3>Strong: Emergency Plumbing in Phoenix</h3>
+              <ul>
                 <li>Demand 9 · Competition 7 · Monetization 8</li>
                 <li>Sustainability 8 · Ease 6 · Privacy 7</li>
               </ul>
               <p style={{ color: 'var(--color-text-muted)', lineHeight: 1.7, margin: 0 }}>People search daily, revenue paths are clear, and it can run discreetly behind the scenes. A high score and an easy yes.</p>
-            </div>
-            <div className="card" style={{ background: 'var(--color-surface)', padding: '1.25rem' }}>
-              <h3 style={{ fontSize: '1.05rem', marginBottom: '0.5rem' }}>Worth Testing: Local Food Tours</h3>
-              <ul style={{ color: 'var(--color-text-muted)', lineHeight: 1.8, paddingLeft: '1.25rem', margin: '0 0 0.75rem' }}>
+            </article>
+            <article className="scenario-card scenario-card--test">
+              <span className="icon-chip" aria-hidden="true"><FlaskConical size={22} strokeWidth={1.5} /></span>
+              <h3>Worth Testing: Local Food Tours</h3>
+              <ul>
                 <li>Demand 6 · Competition 5 · Monetization 7</li>
                 <li>Sustainability 6 · Ease 8 · Privacy 9</li>
               </ul>
               <p style={{ color: 'var(--color-text-muted)', lineHeight: 1.7, margin: 0 }}>Nice demand and easy to run, but local competition is a question mark. Worth a small test before going all in.</p>
-            </div>
-            <div className="card" style={{ background: 'var(--color-surface)', padding: '1.25rem' }}>
-              <h3 style={{ fontSize: '1.05rem', marginBottom: '0.5rem' }}>Needs Research: AI Chatbots for Everyone</h3>
-              <ul style={{ color: 'var(--color-text-muted)', lineHeight: 1.8, paddingLeft: '1.25rem', margin: '0 0 0.75rem' }}>
+            </article>
+            <article className="scenario-card scenario-card--risk">
+              <span className="icon-chip" aria-hidden="true"><AlertTriangle size={22} strokeWidth={1.5} /></span>
+              <h3>Needs Research: AI Chatbots for Everyone</h3>
+              <ul>
                 <li>Demand 8 · Competition 3 · Monetization 4</li>
                 <li>Sustainability 5 · Ease 3 · Privacy 8</li>
               </ul>
               <p style={{ color: 'var(--color-text-muted)', lineHeight: 1.7, margin: 0 }}>Plenty of hype, but heavy competition and a muddy money path bring the score down. It needs a much sharper focus.</p>
-            </div>
+            </article>
+          </div>
+          <div className="scenarios-cta-row">
+            <a href="/quiz?start=true" className="btn btn--primary">Find Your Superpower →</a>
+            <a href="/tools" className="btn btn--aqua">Browse the Free Tools →</a>
           </div>
         </div>
       </section>

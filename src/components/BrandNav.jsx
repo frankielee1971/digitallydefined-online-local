@@ -30,32 +30,24 @@ export default function BrandNav() {
           ))}
         </nav>
 
-        {navCtas.map((link) => (
-          <Link key={link.href} to={link.href} className="nav-cta">
-            {link.label}
-          </Link>
-        ))}
+        <div className="brand-nav__end">
+          {navCtas.map((link) => (
+            <Link key={link.href} to={link.href} className="nav-cta">
+              {link.label}
+            </Link>
+          ))}
 
-        {externalLinks.map((link) => (
-          <a key={link.href} href={link.href} className="nav-cta" target="_blank" rel="noreferrer">
-            {link.label}
-          </a>
-        ))}
-
-        <div className="nav-privacy" aria-label="Privacy notice">
-          Your inputs stay on this device. No sign-up. No tracking.
+          <button
+            type="button"
+            className="mobile-menu-btn brand-nav__menu"
+            onClick={() => setMenuOpen((open) => !open)}
+            aria-expanded={menuOpen}
+            aria-controls="mobile-navigation"
+            aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+          >
+            {menuOpen ? <X size={20} /> : <Menu size={20} />}
+          </button>
         </div>
-
-        <button
-          type="button"
-          className="mobile-menu-btn brand-nav__menu"
-          onClick={() => setMenuOpen((open) => !open)}
-          aria-expanded={menuOpen}
-          aria-controls="mobile-navigation"
-          aria-label={menuOpen ? 'Close menu' : 'Open menu'}
-        >
-          {menuOpen ? <X size={20} /> : <Menu size={20} />}
-        </button>
       </div>
 
       {menuOpen && (

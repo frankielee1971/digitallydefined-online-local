@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
+import { Sparkles, Landmark, Coins, SearchCheck } from 'lucide-react';
 import { fetchPersonalization } from '../lib/personalization';
 
 
 const tools = [
   {
     step: '01',
+    icon: Sparkles,
     title: 'Digital Superpower Quiz',
     description: 'Answer seven questions to discover how you naturally create value. Your result determines which asset type fits your personality and schedule.',
     href: '/quiz?start=true',
@@ -13,6 +15,7 @@ const tools = [
   },
   {
     step: '02',
+    icon: Landmark,
     title: 'Retirement Gap Calculator',
     description: 'Enter your current savings and retirement goals. See exactly how much income you need from digital assets to close your gap.',
     href: '/gap',
@@ -20,6 +23,7 @@ const tools = [
   },
   {
     step: '03',
+    icon: Coins,
     title: 'Freedom Number Calculator',
     description: 'Set your monthly target. Model how many assets at what yield covers your gap. See the path from anxiety to plan.',
     href: '/freedom',
@@ -27,6 +31,7 @@ const tools = [
   },
   {
     step: '04',
+    icon: SearchCheck,
     title: 'Niche & ROI Tools',
     description: 'Score a niche idea for viability, then model the revenue potential with the 10X ROI Calculator for rank-and-rent properties.',
     href: '/tools/scorecard',
@@ -72,9 +77,10 @@ export default function Tools() {
         </div>
 
         <div className="tools-grid">
-          {tools.map(({ step, title, description, href, cta, note, subLinks }) => (
+          {tools.map(({ step, icon: Icon, title, description, href, cta, note, subLinks }) => (
             <article className="path-step" key={step}>
               <span className="path-step__number">{step}</span>
+              <span className="icon-chip" aria-hidden="true"><Icon size={22} strokeWidth={1.5} /></span>
               <div>
                 <h2>{title}</h2>
                 <p>{description}</p>

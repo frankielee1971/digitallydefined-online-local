@@ -143,11 +143,12 @@ return (
       <section className="page-hero">
         <div className="container container--narrow">
           <p className="section__eyebrow">Retirement Gap Calculator</p>
-          <h1>How Big Is Your Retirement Gap?</h1>
+          <h1>How Big Is Your <span className="hero-accent hero-accent--red">Retirement Gap?</span></h1>
           <p className="hero__tagline">
             Gen X women retire with 35% less than men. Calculate your gap and see how faceless digital assets close it — in years, not decades.
           </p>
           <div className="action-row"><a href="#gap-calculator" className="btn btn--primary">Calculate My Gap →</a></div>
+          <p className="privacy-line">Your inputs stay on this device · No sign-up · No tracking</p>
         </div>
       </section>
 

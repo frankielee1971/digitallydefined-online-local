@@ -58,19 +58,20 @@ export default function Home() {
 
   return (
     <>
-      {/* 1. HERO — cohesive hook: label + heading + tagline + CTAs above the fold */}
+      {/* 1. HERO — premium serif headline, aqua accent, brand rhythm */}
       <section className="page-hero home-hero">
         <div className="container container--narrow">
           <span className="section__eyebrow">Start here / not everywhere</span>
-          <h1>Build Faceless Digital Assets.</h1>
+          <h1>Build Faceless <span className="hero-accent">Digital Assets.</span></h1>
           <p className="hero__tagline">
             Start your path to freedom-based digital ownership. No camera. No invented
             urgency. No promise of overnight income.
           </p>
           <div className="action-row home-hero__ctas">
             <a href="/quiz?start=true" className="btn btn--primary">Find Your Superpower First →</a>
-            <a href="/gap" className="btn btn--outline">Calculate My Retirement Gap →</a>
+            <a href="/gap" className="btn btn--aqua">Calculate My Retirement Gap →</a>
           </div>
+          <p className="privacy-line">Your inputs stay on this device · No sign-up · No tracking</p>
           {optStatus === 'success' ? (
             <p className="optin-hero__success">You're in. Watch your inbox for your first step.</p>
           ) : (

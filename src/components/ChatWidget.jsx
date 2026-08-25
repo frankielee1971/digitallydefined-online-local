@@ -40,7 +40,7 @@ const sendMessage = async () => {
   setError(null);
 
   try {
-    const data = await callSupabaseEdge('hermes', {
+    const data = await callSupabaseEdge('public.chat', {
       message: userMsg.content,
       userId: 'website-user'
     });
