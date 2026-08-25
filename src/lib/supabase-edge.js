@@ -9,9 +9,13 @@ export const getSupabaseEdgeUrl = () => {
 
 export const getSupabaseEdgeHeaders = (extra = {}) => {
   const anonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+  const apiKey = import.meta.env.VITE_DASHBOARD_API_KEY;
+  if (!apiKey && import.meta.env.DEV) {
+    console.warn('[Hermes] VITE_DASHBOARD_API_KEY is not set. Dashboard API calls will fail.');
+  }
   const headers = {
     'Content-Type': 'application/json',
-    'x-api-key': import.meta.env.VITE_DASHBOARD_API_KEY || 'DigitallyDefined-OS-2026',
+    ...(apiKey ? { 'x-api-key': apiKey } : {}),
     ...extra,
   };
   if (anonKey) {

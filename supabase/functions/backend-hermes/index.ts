@@ -15,7 +15,10 @@
 import { serve } from 'https://deno.land/std@0.168.0/http/server.ts';
 
 // === Configuration - Environment Variables ===
-const API_KEY = Deno.env.get('DASHBOARD_API_KEY') || 'DigitallyDefined-OS-2026';
+const API_KEY = Deno.env.get('DASHBOARD_API_KEY') || '';
+if (!API_KEY) {
+  console.error('[backend-hermes] DASHBOARD_API_KEY secret is not set. Authenticated actions will return 401.');
+}
 const SUPABASE_URL = Deno.env.get('SUPABASE_URL') || 'https://dijjlppdljpcgyoakdnq.supabase.co';
 const SUPABASE_ANON_KEY = Deno.env.get('SUPABASE_ANON_KEY') || '';
 const SUPABASE_SERVICE_ROLE_KEY = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') || '';
@@ -68,7 +71,9 @@ const AGENTOPS_API_KEY = Deno.env.get('AGENTOPS_API_KEY') || '';
 const allowedOrigins = [
   'https://dashboard.digitallydefined.online',
   'https://digitallydefined.online',
+  'https://www.digitallydefined.online',
   'http://localhost:3000',
+  'http://localhost:3001',
   'http://localhost:5173',
 ];
 
@@ -215,7 +220,10 @@ async function getDashboardData(): Promise<any> {
   return data;
 }
 
-// === AI Chat Handler ===
+// ============================================================
+// AI Chat Handler — OmniRoute ONLY (single-gateway consolidation)
+// Required secret: OMNIROUTE_API_KEY. Optional: OMNIROUTE_BASE_URL, OMNIROUTE_MODEL.
+// ============================================================
 async function handleAIChat(body: any): Promise<any> {
   const message = body.message || body.content || body.text || '';
   const conversation = body.conversation || body.messages || [];
@@ -224,71 +232,48 @@ async function handleAIChat(body: any): Promise<any> {
     return { error: 'Missing message field', reply: '' };
   }
 
-  // Try multiple AI providers in order of preference
-  const models = [
-    { key: 'openai/gpt-4o-mini', name: 'GPT-4o Mini', keyEnv: 'OPENROUTER_API_KEY' },
-    { key: 'anthropic/claude-3-haiku', name: 'Claude 3 Haiku', keyEnv: 'ANTHROPIC_API_KEY' },
-    { key: 'mistral/mistral-small', name: 'Mistral Small', keyEnv: 'MISTRAL_API_KEY' },
-    { key: 'groq/llama3-8b', name: 'Llama 3', keyEnv: 'GROQ_API_KEY' },
-  ];
-
-  for (const model of models) {
-    const apiKey = Deno.env.get(model.keyEnv);
-    if (!apiKey) continue;
-
-    try {
-      let apiUrl = '';
-      let headers: Record<string, string> = { 'Content-Type': 'application/json' };
-
-      if (model.keyEnv === 'OPENROUTER_API_KEY') {
-        apiUrl = 'https://openrouter.ai/api/v1/chat/completions';
-        headers['Authorization'] = `Bearer ${apiKey}`;
-        headers['HTTP-Referer'] = 'https://dashboard.digitallydefined.online';
-        headers['X-Title'] = 'DigitallyDefined Dashboard';
-      } else if (model.keyEnv === 'ANTHROPIC_API_KEY') {
-        apiUrl = 'https://api.anthropic.com/v1/messages';
-        headers['x-api-key'] = apiKey;
-        headers['anthropic-version'] = '2023-06-01';
-      } else if (model.keyEnv === 'MISTRAL_API_KEY') {
-        apiUrl = 'https://api.mistral.ai/v1/chat/completions';
-        headers['Authorization'] = `Bearer ${apiKey}`;
-      } else if (model.keyEnv === 'GROQ_API_KEY') {
-        apiUrl = 'https://api.groq.com/openai/v1/chat/completions';
-        headers['Authorization'] = `Bearer ${apiKey}`;
-      }
-
-      const res = await fetch(apiUrl, {
-        method: 'POST',
-        headers,
-        body: JSON.stringify({
-          model: model.key,
-          messages: conversation.length > 0 ? conversation : [{ role: 'user', content: message }],
-          max_tokens: 1000,
-          temperature: 0.7,
-        }),
-      });
-
-      const data = await res.json();
-      
-      if (model.keyEnv === 'ANTHROPIC_API_KEY') {
-        return { reply: data.content?.[0]?.text || 'No response', model: model.name };
-      }
-      
-      return {
-        reply: data.choices?.[0]?.message?.content || 'No response',
-        model: model.name,
-      };
-    } catch (err) {
-      console.warn(`[EdgeFunc] ${model.name} failed:`, err);
-      continue;
-    }
+  const apiKey = Deno.env.get('OMNIROUTE_API_KEY');
+  if (!apiKey) {
+    return {
+      reply: `Hermes received: "${message}". OMNIROUTE_API_KEY is not configured for chat responses.`,
+      agent: 'hermes',
+    };
   }
 
-  // Fallback response
-  return {
-    reply: `Hermes received: "${message}". Configure AI provider keys for chat responses.`,
-    agent: 'hermes',
-  };
+  const baseUrl = (Deno.env.get('OMNIROUTE_BASE_URL') || 'https://api.omniroute.ai/v1').replace(/\/+$/, '');
+  const model = Deno.env.get('OMNIROUTE_MODEL') || 'auto';
+
+  try {
+    const res = await fetch(`${baseUrl}/chat/completions`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${apiKey}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        ...(model !== 'auto' ? { model } : {}),
+        messages: conversation.length > 0 ? conversation : [{ role: 'user', content: message }],
+        max_tokens: 1000,
+        temperature: 0.7,
+      }),
+    });
+
+    if (!res.ok) throw new Error(`OmniRoute HTTP ${res.status}: ${await res.text()}`);
+
+    const data = await res.json();
+    return {
+      reply: data.choices?.[0]?.message?.content || 'No response',
+      model: data.model || model,
+      provider: 'omniroute',
+    };
+  } catch (err) {
+    console.warn('[EdgeFunc] OmniRoute chat failed:', err);
+    return {
+      reply: `Hermes received: "${message}". AI gateway is temporarily unavailable.`,
+      agent: 'hermes',
+      error: err instanceof Error ? err.message : String(err),
+    };
+  }
 }
 
 // === Main Handler ===
@@ -402,7 +387,7 @@ serve(async (req: Request): Promise<Response> => {
         });
         return sendResponse(200, await res.json(), origin);
       } catch (err) {
-        return sendError(500, `Sheets sync failed: ${err.message}`, origin);
+        return sendError(500, `Sheets sync failed: ${err instanceof Error ? err.message : String(err)}`, origin);
       }
     }
 
@@ -436,7 +421,7 @@ serve(async (req: Request): Promise<Response> => {
       });
       return sendResponse(200, await res.json(), origin);
     } catch (err) {
-      return sendError(500, `Vault sync failed: ${err.message}`, origin);
+      return sendError(500, `Vault sync failed: ${err instanceof Error ? err.message : String(err)}`, origin);
     }
   }
 

@@ -45,66 +45,28 @@ const parseJsonReply = (reply: string) => {
   return JSON.parse(cleaned);
 };
 
-const normalizeOpenRouterModel = (model: string) =>
-  model.replace(/^openrouter\//, "") || "openai/gpt-4o-mini";
-
-const normalizeGroqModel = (model: string) =>
-  model.replace(/^groq\//, "") || "llama-3.3-70b-versatile";
-
+// ============================================================
+// AI PROVIDER: OmniRoute ONLY (single-gateway consolidation)
+// Required Supabase secrets:
+//   OMNIROUTE_API_KEY  (required)
+//   OMNIROUTE_BASE_URL (optional, default https://api.omniroute.ai/v1)
+//   OMNIROUTE_MODEL    (optional, default "auto")
+// ============================================================
 const getCandidates = (): Candidate[] => {
-  const openRouterKey = Deno.env.get("OPENROUTER_API_KEY") || "";
-  const groqKey = Deno.env.get("GROQ_API_KEY") || "";
-  const naraKey = Deno.env.get("NARAROUTER_API_KEY") || "";
-  const preferred = Deno.env.get("AI_MODEL") || Deno.env.get("OMNIROUTE_MODEL") || "";
-  const candidates: Candidate[] = [];
-
-  // Add Nararouter if available (primary for free tier)
-  if (naraKey && !candidates.some((c) => c.provider === "nara")) {
-    candidates.push({
-      provider: "nara",
-      model: "nararouter/agnes-2.5-flash",
-      key: naraKey,
-      url: "https://api.nararouter.com/v1/chat/completions",
-    });
+  const omnirouteKey = Deno.env.get("OMNIROUTE_API_KEY") || "";
+  if (!omnirouteKey) {
+    console.error("[hermes] OMNIROUTE_API_KEY is not set. AI actions will fail.");
+    return [];
   }
-
-  if (preferred && preferred !== "free") {
-    if (preferred.startsWith("groq/") && groqKey) {
-      candidates.push({
-        provider: "groq",
-        model: normalizeGroqModel(preferred),
-        key: groqKey,
-        url: "https://api.groq.com/openai/v1/chat/completions",
-      });
-    } else if (openRouterKey) {
-      candidates.push({
-        provider: "openrouter",
-        model: normalizeOpenRouterModel(preferred),
-        key: openRouterKey,
-        url: "https://openrouter.ai/api/v1/chat/completions",
-      });
-    }
-  }
-
-  if (groqKey && !candidates.some((item) => item.provider === "groq")) {
-    candidates.push({
-      provider: "groq",
-      model: Deno.env.get("GROQ_MODEL_ID") || "llama-3.3-70b-versatile",
-      key: groqKey,
-      url: "https://api.groq.com/openai/v1/chat/completions",
-    });
-  }
-
-  if (openRouterKey && !candidates.some((item) => item.provider === "openrouter")) {
-    candidates.push({
-      provider: "openrouter",
-      model: Deno.env.get("OPENROUTER_MODEL_ID") || "openai/gpt-4o-mini",
-      key: openRouterKey,
-      url: "https://openrouter.ai/api/v1/chat/completions",
-    });
-  }
-
-  return candidates;
+  const baseUrl = (Deno.env.get("OMNIROUTE_BASE_URL") || "https://api.omniroute.ai/v1").replace(/\/+$/, "");
+  return [
+    {
+      provider: "omniroute",
+      model: Deno.env.get("OMNIROUTE_MODEL") || "auto",
+      key: omnirouteKey,
+      url: `${baseUrl}/chat/completions`,
+    },
+  ];
 };
 
 async function runAI(systemPrompt: string, userPrompt: string, jsonMode = false) {
@@ -119,9 +81,6 @@ async function runAI(systemPrompt: string, userPrompt: string, jsonMode = false)
         headers: {
           "Authorization": `Bearer ${candidate.key}`,
           "Content-Type": "application/json",
-          ...(candidate.provider === "openrouter"
-            ? { "HTTP-Referer": "https://digitallydefined.online", "X-Title": "DigitallyDefined" }
-            : {}),
         },
         body: JSON.stringify({
           model: candidate.model,
@@ -131,9 +90,7 @@ async function runAI(systemPrompt: string, userPrompt: string, jsonMode = false)
           ],
           temperature: jsonMode ? 0.35 : 0.7,
           max_tokens: jsonMode ? 1400 : 4000,
-          ...(jsonMode && candidate.provider === "openrouter"
-            ? { response_format: { type: "json_object" } }
-            : {}),
+          ...(jsonMode ? { response_format: { type: "json_object" } } : {}),
         }),
         signal: AbortSignal.timeout(90000),
       });
@@ -599,7 +556,9 @@ Return ONLY valid JSON with these keys (include only relevant ones):
           superpowerDescription: quizResult.data.superpowerDescription || "",
           recommendations: quizResult.data.recommendedPathways || [],
           confidenceScore: quizResult.data.confidenceScore || 0.85,
-          roadmap: roadmapResult.success ? roadmapResult.data : null,
+          roadmap: (roadmapResult as { success?: boolean; data?: unknown }).success
+            ? roadmapResult.data
+            : null,
           rawQuizResult: quizResult.data
         }
       }, 200, origin);

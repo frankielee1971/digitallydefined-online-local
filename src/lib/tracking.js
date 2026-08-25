@@ -76,13 +76,12 @@ export function flush(useBeacon = false) {
       navigator.sendBeacon(ENDPOINT, new Blob([body], { type: 'application/json' }));
       return;
     }
+    const apiKey = import.meta.env.VITE_DASHBOARD_API_KEY;
     fetch(ENDPOINT, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'x-api-key':
-          (typeof import.meta !== 'undefined' && import.meta.env?.VITE_DASHBOARD_API_KEY) ||
-          'DigitallyDefined-OS-2026',
+        ...(apiKey ? { 'x-api-key': apiKey } : {}),
       },
       body,
       keepalive: true,

@@ -103,9 +103,14 @@ export function getHermesHeaders(extra = {}) {
     console.warn('[Hermes] VITE_SUPABASE_ANON_KEY is not set. AI features will fail.');
   }
 
+  const apiKey = import.meta.env.VITE_DASHBOARD_API_KEY;
+  if (!apiKey && import.meta.env.DEV) {
+    console.warn('[Hermes] VITE_DASHBOARD_API_KEY is not set. AI features will fail.');
+  }
+
   const headers = {
     'Content-Type': 'application/json',
-    'x-api-key': import.meta.env.VITE_DASHBOARD_API_KEY || 'DigitallyDefined-OS-2026',
+    ...(apiKey ? { 'x-api-key': apiKey } : {}),
     ...extra,
   };
 
