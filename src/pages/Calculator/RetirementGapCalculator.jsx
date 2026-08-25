@@ -23,11 +23,11 @@ const fvSeries = (monthly, annualRate, years) => {
 };
 
 const ASSET_TYPES = [
-  { id: 'templates', name: 'Template Hubs & Printables', icon: 'ðŸ“‹', minYield: 50, maxYield: 2000, defaultYield: 500, color: 'var(--color-accent)' },
+  { id: 'templates', name: 'Template Hubs & Printables', icon: '📋', minYield: 50, maxYield: 2000, defaultYield: 500, color: 'var(--color-accent)' },
   { id: 'newsletters', name: 'Paid Newsletters', icon: '✉️', minYield: 500, maxYield: 5000, defaultYield: 1500, color: 'var(--color-blue)' },
-  { id: 'youtube', name: 'YouTube Automation', icon: 'ðŸŽ¬', minYield: 300, maxYield: 8000, defaultYield: 1000, color: 'var(--color-text-muted)' },
-  { id: 'rankandrent', name: 'Rank & Rent Sites', icon: 'ðŸ ', minYield: 500, maxYield: 5000, defaultYield: 1500, color: 'var(--color-text)' },
-  { id: 'digitalproducts', name: 'Digital Products', icon: 'ðŸ“¦', minYield: 100, maxYield: 3000, defaultYield: 500, color: 'var(--color-accent)' },
+  { id: 'youtube', name: 'YouTube Automation', icon: '🎬', minYield: 300, maxYield: 8000, defaultYield: 1000, color: 'var(--color-text-muted)' },
+  { id: 'rankandrent', name: 'Rank & Rent Sites', icon: '🏠', minYield: 500, maxYield: 5000, defaultYield: 1500, color: 'var(--color-text)' },
+  { id: 'digitalproducts', name: 'Digital Products', icon: '📦', minYield: 100, maxYield: 3000, defaultYield: 500, color: 'var(--color-accent)' },
 ];
 
 // Derive the complete result set from the current inputs (live updates)
@@ -142,7 +142,7 @@ return (
       {/* Hero */}
       <section className="page-hero">
         <div className="container container--narrow">
-          <p className="section__eyebrow">Retirement Gap Calculator</p>
+          <p className="section__eyebrow hero-eyebrow-chip">Retirement Gap Calculator</p>
           <h1>How Big Is Your <span className="hero-accent hero-accent--red">Retirement Gap?</span></h1>
           <p className="hero__tagline">
             Gen X women retire with 35% less than men. Calculate your gap and see how faceless digital assets close it — in years, not decades.
@@ -228,8 +228,10 @@ return (
                 <input type="number" value={formData.desiredIncome} onChange={e => handleChange('desiredIncome', e.target.value)} className="form-input" />
               </div>
 
-              <h3 className="gap-section-title">Digital Asset Portfolio</h3>
-              <div className="gap-assets">
+              {/* Digital Asset Portfolio — blue block in a thin black frame */}
+              <div className="gap-assets-block">
+                <h3 className="gap-section-title">Digital Asset Portfolio</h3>
+                <div className="gap-assets">
                 {ASSET_TYPES.map(asset => (
                   <div key={asset.id} className="gap-asset">
                     <div className="gap-asset__top">
@@ -257,14 +259,15 @@ return (
                   </div>
                 ))}
               </div>
-<div className="gap-total">
-                <div>
-                  <span>Total Monthly Income</span>
-                  <strong>{fmt(result.totalMonthlyIncome)}</strong>
-                </div>
-                <div>
-                  <span>Exit Value</span>
-                  <strong>{fmt(result.liquidationValue)}</strong>
+                <div className="gap-total">
+                  <div>
+                    <span>Total Monthly Income</span>
+                    <strong>{fmt(result.totalMonthlyIncome)}</strong>
+                  </div>
+                  <div>
+                    <span>Exit Value</span>
+                    <strong>{fmt(result.liquidationValue)}</strong>
+                  </div>
                 </div>
               </div>
 
@@ -357,7 +360,7 @@ return (
                 )}
               </div>
 
-              <div className="gap-result-block gap-result-block--plain">
+              <div className="gap-result-block gap-result-block--plain gap-next-step">
                 <h3 className="gap-result-title">What&rsquo;s Your Next Step?</h3>
                 <div className="gap-cta-stack">
                   <a href="/quiz" className="btn btn--primary">Take the Digital Superpower Quiz →</a>
