@@ -997,11 +997,30 @@ body {
   text-transform: uppercase;
 }
 
-.brand-nav__mobile .brand-nav__mobile-cta {
+|.brand-nav__mobile .brand-nav__mobile-cta {
   background: var(--color-accent);
 }
 
-.brand-footer {
+.nav-privacy {
+  display: none;
+  width: 100%;
+  font-size: .6rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: #9CA3AF;
+  text-align: center;
+  margin-top: .5rem;
+  padding: 0 1rem;
+}
+
+@media (min-width: 768px) {
+  .nav-privacy {
+    display: block;
+  }
+}
+
+|.brand-footer {
   margin-top: auto;
   padding: 3.5rem 1.25rem 2rem;
   border-top: 1px solid #111;
