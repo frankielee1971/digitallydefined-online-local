@@ -112,3 +112,5 @@ public
 .yarn/install-state.gz
 .pnp.*
 ```
+
+.env.local
