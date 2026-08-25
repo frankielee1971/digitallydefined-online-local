@@ -42,6 +42,10 @@ export default function BrandNav() {
           </a>
         ))}
 
+        <div className="nav-privacy" aria-label="Privacy notice">
+          Your inputs stay on this device. No sign-up. No tracking.
+        </div>
+
         <button
           type="button"
           className="mobile-menu-btn brand-nav__menu"

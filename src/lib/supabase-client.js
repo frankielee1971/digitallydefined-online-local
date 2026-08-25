@@ -43,7 +43,7 @@ export async function callAgnes(messages) {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'x-api-key': import.meta.env.VITE_DASHBOARD_API_KEY || 'DigitallyDefined-OS-2026',
+      'x-api-key': import.meta.env.VITE_DASHBOARD_API_KEY || '',
     },
     body: JSON.stringify({ provider: 'agnes', messages, model: 'agnes' }),
   });

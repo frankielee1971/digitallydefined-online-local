@@ -13,7 +13,10 @@ function hermesStatusPlugin() {
       process.env.VITE_SUPABASE_URL || 'https://dijjlppdljpcgyoakdnq.supabase.co';
     const endpoint =
       process.env.VITE_HERMES_ENDPOINT || `${supabaseUrl}/functions/v1/hermes`;
-    const apiKey = process.env.VITE_DASHBOARD_API_KEY || 'DigitallyDefined-OS-2026';
+    const apiKey = process.env.VITE_DASHBOARD_API_KEY || '';
+    if (!apiKey) {
+      console.warn('[hermes-status-middleware] VITE_DASHBOARD_API_KEY is not set.');
+    }
 
     const controller = new AbortController();
     const timer = setTimeout(() => controller.abort(), 8000);
